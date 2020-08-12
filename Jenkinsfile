@@ -1,5 +1,7 @@
 pipeline{
-  agent any
+    agent {
+        docker { image 'node:14-alpine' }
+    }
   
   stages{
     
@@ -11,6 +13,7 @@ pipeline{
     
     stage('Docker Build'){
       steps {
+        sh 'node --version'
         sh (script: 'docker images -a')
       }
     }
