@@ -9,12 +9,11 @@ pipeline{
       }
     }
     
-    stage('Verify Checkout Branch'){
+    stage('Docker Build'){
       steps {
         sh (script: 'docker images -a')
       }
     }
-    
     
   }
 
