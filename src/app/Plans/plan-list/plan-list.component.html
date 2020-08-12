@@ -1,0 +1,14 @@
+<div>
+    <h1> Travel Plans</h1>
+    <hr/>
+    <div class="row">
+        <div *ngFor="let travel of travels" class="col-md-5">
+            <app-plan-list-input (click)="handleButtonClicked(travel.name)"
+            [travel]="travel"></app-plan-list-input>
+        </div>
+    </div>
+    
+    <!-- <app-plan-list-input #try [travel]="travel1"></app-plan-list-input> -->
+    <!-- (buttonClick)="handleButtonClicked($event)" -->
+    <!-- <button class="btn btn-primary" (click)="try.log()">Click</button> -->
+</div>

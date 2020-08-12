@@ -1,0 +1,15 @@
+.form-row-name{
+    column-width: 400px;
+}
+.form-group{
+column-width: 570px;
+-ms-grid-row-align: start;
+}
+.form-group-s-d
+{
+    column-width: 400px;
+}
+.form-group-dates
+{
+    column-width: 400px;
+}
