@@ -1,13 +1,7 @@
 pipeline{
-    agent {
-        docker { image 'node:14-alpine' }
-    }
+    agent any
   
   stages{
-     stage('Initialize'){
-        def dockerHome = tool 'myDocker'
-        env.PATH = "${dockerHome}/bin:${env.PATH}"
-    }
       
     stage('Verify Checkout Branch'){
       steps {
@@ -17,7 +11,6 @@ pipeline{
     
     stage('Docker Build'){
       steps {
-        sh 'node --version'
         sh (script: 'docker images -a')
       }
     }
