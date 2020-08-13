@@ -9,7 +9,6 @@ pipeline{
     
     stage('Docker Build'){
       steps {
-        sh 'node --version'
         sh (script: 'docker images -a')
       }
     }
