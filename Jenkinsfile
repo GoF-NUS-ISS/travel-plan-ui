@@ -3,8 +3,9 @@ pipeline{
   
   stages{
      stage('Checkout SCM'){
-    
-        echo 'Branch Name: $GIT_BRANCH'
+    	steps{
+           echo 'Branch Name: $GIT_BRANCH'
+	}	
     }
     
     stage('Docker Build'){
