@@ -8,12 +8,16 @@ pipeline{
 	}	
     }
     
-    stage('Docker Build'){
+    stage('Build Docker Image'){
       steps {
         sh (script: 'docker images -a')
 	sh (script: 'docker build -t 333743/travel-plan-api:v1 .')
 	sh (script: 'docker images -a')
-	sh (script: 'docker run -p 80:4200 333743/travel-plan-api:v1')
+      }
+    }
+    stage('Run App'){
+      steps {
+	sh (script: 'docker run -p 4200:4200 333743/travel-plan-api:v1')
       }
     }
     
