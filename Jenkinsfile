@@ -1,18 +1,10 @@
 pipeline{
-    agent {
-        docker { image 'node:14-alpine' }
-    }
+    agent { Dockerfile true }
   
   stages{
-     stage('Initialize'){
-        def dockerHome = tool 'myDocker'
-        env.PATH = "${dockerHome}/bin:${env.PATH}"
-    }
-      
-    stage('Verify Checkout Branch'){
-      steps {
-        echo 'Branch name: $GIT_CHECKOUT'
-      }
+     stage('Checkout SCM'){
+    
+        echo 'Branch Name: $GIT_BRANCH'
     }
     
     stage('Docker Build'){
