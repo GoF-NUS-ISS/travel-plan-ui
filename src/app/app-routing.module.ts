@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { FormCreationComponent } from './Create-Plan/form-creation/form-creation.component';
-import { PlanListComponent } from './plans/plan-list/plan-list.component';
+//import { PlanListComponent } from './plans/plan-list/plan-list.component';
 
 const routes: Routes = [
-    {path:'FormCreation', component: FormCreationComponent},
-    {path:'PublishedPlans', component: PlanListComponent}
+    {path:'FormCreation', component: FormCreationComponent}
+    //{path:'PublishedPlans', component: PlanListComponent}
 ];
 
 @NgModule({
@@ -13,4 +13,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
-export const routingComponents=[FormCreationComponent, PlanListComponent]
+export const routingComponents=[FormCreationComponent]//, PlanListComponent]
