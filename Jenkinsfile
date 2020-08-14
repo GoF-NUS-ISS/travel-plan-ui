@@ -8,12 +8,12 @@ pipeline{
 	}	
     }
     
-    stage('Build Docker Image'){
+    stage('Build UI Docker Image'){
       steps {
 	sh (script: 'docker build -t 333743/travel-plan-api:v1 .')
       }
     }
-    stage('Run App'){
+    stage('Run UI App'){
       steps {
 	sh (script: 'docker stop $(docker ps -a -q)')
 	sh (script: 'docker run -d -p 4200:4200 333743/travel-plan-api:v1')
@@ -28,10 +28,25 @@ pipeline{
     }
     stage('Execute UI Tests'){
       steps {
-	sh (script: 'mvn clean test -Prun-ui')
+	sh (script: 'yet to be written')
       }
     }
     
-  }
+    stage('Build API Docker Image'){
+      steps {
+	sh (script: 'yet to be written')
+      }
+    }
+
+    stage('Run API Tests'){
+      steps {
+	sh (script: 'yet to be written')
+      }
+    }
+    stage('Run Integration Tests'){
+      steps {
+	sh (script: 'yet to be written')
+      }
+    }
 
 }
