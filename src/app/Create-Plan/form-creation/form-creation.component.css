@@ -13,3 +13,6 @@ column-width: 570px;
 {
     column-width: 400px;
 }
+agm-map {
+    height: 300px;
+  }

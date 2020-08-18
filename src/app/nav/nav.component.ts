@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormCreationComponent } from '../Create-Plan/form-creation/form-creation.component';
 import { Router } from '@angular/router';
+import { AuthService } from '../user/auth.service'
 
 @Component({
   selector: 'app-nav',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class NavComponent implements OnInit {
 
-  constructor(private router: Router) { 
+  constructor(private router: Router, public auth: AuthService) { 
     
   }
 
