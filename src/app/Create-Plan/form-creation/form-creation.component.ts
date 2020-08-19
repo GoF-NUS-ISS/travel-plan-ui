@@ -10,15 +10,16 @@ import { AgmCoreModule } from '@agm/core';
 })
 export class FormCreationComponent implements OnInit {
   isDirty:boolean=true
-  lat=51.678418
-  lng=7.809007
+  latitude=51.678418
+  longitude=7.809007
   constructor(private router: Router) { }
   cancel() {
     this.router.navigate(['Home'])
   }
   onChoseLocation(event)
   {
-    console.log(event);
+    this.latitude=event.coords.lat;
+    this.longitude=event.coords.lng;
   }
   ngOnInit(): void {
     //this.router.navigate(['/planform']); 

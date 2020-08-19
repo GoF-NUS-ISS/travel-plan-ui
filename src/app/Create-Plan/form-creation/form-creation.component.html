@@ -68,10 +68,9 @@
         </label>
       </div>
     </div> -->
-    <agm-map [latitude]="lat" [longitude]="lng" (mapclick)="onChoseLocation($event)">
-      <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+    <agm-map [latitude]="latitude" [longitude]="longitude" (mapclick)="onChoseLocation($event)">
+      <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
     </agm-map>
-    
     <div class="form-group">
       <label for="exampleFormControlFile1">Upload Supporting Document:</label>
       <input type="file" class="form-control-file" placeholder="Upload" style="color:antiquewhite">
