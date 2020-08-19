@@ -16,6 +16,9 @@ export class FormCreationComponent implements OnInit {
   cancel() {
     this.router.navigate(['Home'])
   }
+  publish() {
+    this.router.navigate(['PublishedPlans'])
+  }
   onChoseLocation(event)
   {
     this.latitude=event.coords.lat;
