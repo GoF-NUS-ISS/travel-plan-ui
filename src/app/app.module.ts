@@ -13,6 +13,8 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { UserModule } from './user/user.module';
 import { AuthService } from './user/auth.service';
 import {AgmCoreModule} from '@agm/core'
+import{ReactiveFormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
  
 
 @NgModule({
@@ -27,6 +29,8 @@ import {AgmCoreModule} from '@agm/core'
   ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
+    FormsModule,
     AppRoutingModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCwpq3QYb89Myl6ViV0nsGqmbMVUzHkERY'

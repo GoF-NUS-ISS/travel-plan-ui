@@ -1,11 +1,17 @@
-<form class="default">
+<form class="default" novalidate
+(ngSubmit)="save()"
+[formGroup]="travelForm">
   <div class="form-group">
     <label for="exampleFormControlInput1">Title</label>
-    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Set a title for your trip">
+    <input type="text" 
+    class="form-control" 
+    id="exampleFormControlInput1" 
+    placeholder="Set a title for your trip"
+    formControlName="title">
   </div>
   <div class="form-group">
     <label for="exampleFormControlTextarea1">Description of your Travel</label>
-    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Enter a description"></textarea>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" formControlName="description" placeholder="Enter a description"></textarea>
   </div>
     <!-- <h4>Traveller details:</h4> data-ng-click="cloneItem()"-->
     <div>
@@ -76,7 +82,7 @@
       <input type="file" class="form-control-file" placeholder="Upload" style="color:antiquewhite">
     </div>
   </div>
-    <button type="button" class="btn btn-primary">Save as Draft</button>
+    <button type="submit" class="btn btn-primary">Save as Draft</button>
     <button type="button" class="btn btn-primary" style="margin-left:20px;" (click)="publish()">Publish</button>
     <button type="button" class="btn btn-primary" style="margin-left:20px;"  (click)="cancel()">Cancel</button>
   </form>			
