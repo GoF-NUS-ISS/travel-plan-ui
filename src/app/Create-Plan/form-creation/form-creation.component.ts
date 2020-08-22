@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavComponent } from '../../nav/nav.component';
 import { Router } from '@angular/router';
 import { AgmCoreModule } from '@agm/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { Form } from './Form';
 
 @Component({
@@ -15,6 +15,7 @@ export class FormCreationComponent implements OnInit {
   latitude=51.678418
   longitude=7.809007
   travelForm: FormGroup;
+
   form = new Form();
   constructor(private router: Router, private fb: FormBuilder) { }
   cancel() {
@@ -35,8 +36,30 @@ export class FormCreationComponent implements OnInit {
   ngOnInit(): void {
     this.travelForm = this.fb.group({
       title: '',
-      description: ''
+      description: '',
+      sendCatalog: true,
+      travellerDetails: this.fb.array([this.buildDetail()])
     }); 
+  }
+  get travellerDetails(): FormArray {
+    return this.travelForm.get('travellerDetails') as FormArray;
+  }
+  addDetail(): void {
+    this.travellerDetails.push(this.buildDetail());
+  }
+  deleteDetail(index: number): void{
+    this.travellerDetails.removeAt(index);
+  }
+
+  buildDetail(): FormGroup {
+    return this.fb.group({
+      firstName: '',
+      lastName: '',
+      source: '',
+      destination: '',
+      startingOn: '',
+      returningOn: ''
+    });
   }
 
 }

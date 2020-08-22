@@ -16,3 +16,9 @@ column-width: 570px;
 agm-map {
     height: 300px;
   }
+  .container{
+    margin: 12px 12px 12px 12px;
+     border-style: groove;
+       /* border-width: medium; 
+        border-color: lime; */
+  }

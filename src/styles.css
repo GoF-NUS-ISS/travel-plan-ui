@@ -33,3 +33,18 @@ button {
 .toast-warning {
   background-color: #f89406;
 }
+div.card {
+  margin-top: 10px
+}
+div.card-header {
+  font-size: large;
+ }
+
+/* div.card-body
+ {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+ }
+  */

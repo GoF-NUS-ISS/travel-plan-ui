@@ -1,89 +1,141 @@
-<form class="default" novalidate
-(ngSubmit)="save()"
-[formGroup]="travelForm">
-  <div class="form-group">
-    <label for="exampleFormControlInput1">Title</label>
-    <input type="text" 
-    class="form-control" 
-    id="exampleFormControlInput1" 
-    placeholder="Set a title for your trip"
-    formControlName="title">
+<div class="card">
+  <div class="card-header">
+    Create a New Plan
   </div>
-  <div class="form-group">
-    <label for="exampleFormControlTextarea1">Description of your Travel</label>
-    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" formControlName="description" placeholder="Enter a description"></textarea>
-  </div>
-    <!-- <h4>Traveller details:</h4> data-ng-click="cloneItem()"-->
-    <div>
-      <button class="btn inline btn-success">
-      Add traveller
-      </button> 
-    </div>
-    <div class="container">
-      <label for="exampleFormControlTextarea1">Traveller Name</label>  
-      <div class="form-row-name">       
-        <div class="col">       
-          <input type="text" class="form-control" placeholder="First name">
-        </div>
-        <div class="col">
-          <input type="text" class="form-control" placeholder="Last name">
-        </div>
-      </div>
-      <br/>
-    <div class="form-group-s-d">
-      <div class="form-group">
-    <label for="exampleFormControlInput1">Source:</label>
-      <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Travelling From"><br/>
-      </div>
-      <div class="form-group">
-      <label for="exampleFormControlInput1">Destination:</label>
-      <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Travelling To">
-    </div>
-    </div>
-    <div class="form-group-dates">
-      <div class="form-group">
-    <label for="exampleFormControlInput1">Starting on:</label>
-      <input type="date" class="form-control" id="exampleFormControlInput1" placeholder="Travelling From"><br/>
-      </div>
-      <div class="form-group">
-      <label for="exampleFormControlInput1">Returning:</label>
-      <input type="date" class="form-control" id="exampleFormControlInput1" placeholder="Travelling To">
-    </div>
+  <br/>
+<div class="card-body">
+  <form class="default" novalidate
+  (ngSubmit)="save()"
+  [formGroup]="travelForm">
+    <div class="form-group">
+      <label for="exampleFormControlInput1">Title</label>
+      <input type="text" 
+      class="form-control" 
+      id="titleId" 
+      placeholder="Set a title for your trip"
+      formControlName="title">
     </div>
     <div class="form-group">
-      <label for="exampleFormControlSelect1">Mode of Transport</label>
-      <select class="form-control" id="exampleFormControlSelect1">
-        <option value="flight">Flight</option>
-        <option value="train">Train</option>
-        <option value="car">Car</option>
-        <option value="audi">Ferry</option>
-        <option value="audi">Others</option>
-      </select>
+      <label for="exampleFormControlTextarea1">Description of your Travel</label>
+      <textarea class="form-control" id="descriptionId" rows="3" formControlName="description" placeholder="Enter a description"></textarea>
     </div>
-    <!-- <div class="form-group">
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-        <label class="form-check-label" for="exampleRadios1">
-          Booked Tickets
-        </label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-        <label class="form-check-label" for="exampleRadios2">
-          Yet to proceed with bookings
-        </label>
+    <!-- <div class="form-group row mb-2">
+      <div class="col-md-8">
+        <div class="form-check"> -->
+          <label class="form-check-label">
+            <input class="form-check-input"
+                  id="sendCatalogId"
+                  type="checkbox"
+                  formControlName="sendCatalog">Add Traveller Details
+          </label>
+        <!-- </div>
       </div>
     </div> -->
-    <agm-map [latitude]="latitude" [longitude]="longitude" (mapclick)="onChoseLocation($event)">
-      <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
-    </agm-map>
-    <div class="form-group">
-      <label for="exampleFormControlFile1">Upload Supporting Document:</label>
-      <input type="file" class="form-control-file" placeholder="Upload" style="color:antiquewhite">
+    <div *ngIf="travelForm.get('sendCatalog').value">
+      <!-- <h4>Traveller details:</h4> data-ng-click="cloneItem()"-->
+
+    <div formArrayName="travellerDetails">
+      <div [formGroupName]="i"
+                *ngFor="let travellerDetail of travellerDetails.controls; let i=index">
+                <button class="btn btn-outline-primary"
+                type="button" style="float: right; margin-left:20px;"
+                (click)="deleteDetail(i)">
+                Delete Traveller Details
+                </button>
+        <div class="container">
+          <label for="exampleFormControlTextarea1" [attr.for]="i">Traveller Name</label>  
+          <div class="form-row-name">       
+            <div class="col">       
+            <input type="text" class="form-control" 
+            id="{{ 'firstNameId' + i }}" 
+            placeholder="First name"
+            formControlName="firstName">
+            </div>
+          <div class="col">
+            <input type="text" class="form-control" 
+            id="{{ 'lastNameId' + i }}" 
+            placeholder="Last name"
+            formControlName="lastName">
+            </div>
+          </div>
+          <br/>
+        <div class="form-group-s-d">
+          <div class="form-group">
+            <label for="exampleFormControlInput1" [attr.for]="i">Source:</label>
+              <input type="text" class="form-control" id="{{ 'sourceId' + i }}"
+              placeholder="Travelling From"
+              formControlName="source"><br/>
+          </div>
+          <div class="form-group">
+          <label for="exampleFormControlInput1" [attr.for]="i">Destination:</label>
+          <input type="text" class="form-control" id="{{ 'destinationId' + i }}" 
+          formControlName="destination"
+          placeholder="Travelling To">
+          </div>
+        </div>
+      <div class="form-group-dates">
+        <div class="form-group">
+      <label for="exampleFormControlInput1" [attr.for]="i">Starting on:</label>
+        <input type="date" class="form-control" id="{{ 'startingOnId' + i }}" 
+        formControlName="startingOn" 
+        placeholder="Travelling From"><br/>
+        </div>
+        <div class="form-group">
+        <label for="exampleFormControlInput1" [attr.for]="i">Returning:</label>
+        <input type="date" class="form-control" id="{{ 'returningOnId' + i }}" 
+        formControlName="returningOn" 
+        placeholder="Travelling To">
+      </div>
+      </div>
+    </div>
+    <div>
+  </div>
+</div>
+</div>
+  <div class="form-group row mb-2">
+    <div class="col-md-4">
+      <button class="btn btn-outline-primary"
+              type="button"
+              (click)="addDetail()">
+        Add Traveller Details
+      </button>
     </div>
   </div>
-    <button type="submit" class="btn btn-primary">Save as Draft</button>
-    <button type="button" class="btn btn-primary" style="margin-left:20px;" (click)="publish()">Publish</button>
-    <button type="button" class="btn btn-primary" style="margin-left:20px;"  (click)="cancel()">Cancel</button>
-  </form>			
-  
+      <div class="form-group">
+        <label for="exampleFormControlSelect1">Mode of Transport</label>
+        <select class="form-control" id="exampleFormControlSelect1">
+          <option value="flight">Flight</option>
+          <option value="train">Train</option>
+          <option value="car">Car</option>
+          <option value="audi">Ferry</option>
+          <option value="audi">Others</option>
+        </select>
+      </div>
+      <!-- <div class="form-group">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+          <label class="form-check-label" for="exampleRadios1">
+            Booked Tickets
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+          <label class="form-check-label" for="exampleRadios2">
+            Yet to proceed with bookings
+          </label>
+        </div>
+      </div> -->
+      <agm-map [latitude]="latitude" [longitude]="longitude" (mapclick)="onChoseLocation($event)">
+        <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+      </agm-map>
+      <div class="form-group">
+        <label for="exampleFormControlFile1">Upload Supporting Document:</label>
+        <input type="file" class="form-control-file" placeholder="Upload" style="color:antiquewhite">
+      </div>
+    </div>
+      <button type="submit" class="btn btn-primary">Save as Draft</button>
+      <button type="button" class="btn btn-primary" style="margin-left:20px;" (click)="publish()">Publish</button>
+      <button type="button" class="btn btn-primary" style="margin-left:20px;"  (click)="cancel()">Cancel</button>
+    </form>		
+  </div>	
+</div>
