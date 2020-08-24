@@ -55,10 +55,15 @@ export class FormCreationComponent implements OnInit {
     return this.fb.group({
       firstName: '',
       lastName: '',
+      start: '',
+      reach: '',
+      startingOn: '',
+      returningOn: '',
+      transport: '',
+      bookedTicket:'',
       source: '',
       destination: '',
-      startingOn: '',
-      returningOn: ''
+      yetToBook:''
     });
   }
 

@@ -5,6 +5,10 @@
 column-width: 570px;
 -ms-grid-row-align: start;
 }
+.form-group-s-r
+{
+    column-width: 400px;
+}
 .form-group-s-d
 {
     column-width: 400px;

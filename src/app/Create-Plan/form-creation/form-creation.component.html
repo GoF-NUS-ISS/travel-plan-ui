@@ -19,6 +19,20 @@
       <label for="exampleFormControlTextarea1">Description of your Travel</label>
       <textarea class="form-control" id="descriptionId" rows="3" formControlName="description" placeholder="Enter a description"></textarea>
     </div>
+    <div class="form-group-s-d">
+      <div class="form-group">
+        <label for="exampleFormControlInput1">Source:</label>
+          <input type="text" class="form-control" id="sourceId"
+          placeholder="Choose your source"><br/>
+          <!-- formControlName="source" -->
+      </div>
+      <div class="form-group">
+      <label for="exampleFormControlInput1">Destination:</label>
+      <input type="text" class="form-control" id="destinationId" 
+      placeholder="Choose your destination">
+      <!--formControlName="destination" -->
+      </div>
+    </div>
     <!-- <div class="form-group row mb-2">
       <div class="col-md-8">
         <div class="form-check"> -->
@@ -28,6 +42,7 @@
                   type="checkbox"
                   formControlName="sendCatalog">Add Traveller Details
           </label>
+          <br/>
         <!-- </div>
       </div>
     </div> -->
@@ -35,6 +50,7 @@
       <!-- <h4>Traveller details:</h4> data-ng-click="cloneItem()"-->
 
     <div formArrayName="travellerDetails">
+      <div class="container">
       <div [formGroupName]="i"
                 *ngFor="let travellerDetail of travellerDetails.controls; let i=index">
                 <button class="btn btn-outline-primary"
@@ -42,7 +58,8 @@
                 (click)="deleteDetail(i)">
                 Delete Traveller Details
                 </button>
-        <div class="container">
+                <br/>
+        <div class="inputs">
           <label for="exampleFormControlTextarea1" [attr.for]="i">Traveller Name</label>  
           <div class="form-row-name">       
             <div class="col">       
@@ -51,6 +68,7 @@
             placeholder="First name"
             formControlName="firstName">
             </div>
+            <br/>
           <div class="col">
             <input type="text" class="form-control" 
             id="{{ 'lastNameId' + i }}" 
@@ -59,18 +77,45 @@
             </div>
           </div>
           <br/>
-        <div class="form-group-s-d">
+        <div class="form-group-s-r">
           <div class="form-group">
-            <label for="exampleFormControlInput1" [attr.for]="i">Source:</label>
-              <input type="text" class="form-control" id="{{ 'sourceId' + i }}"
+            <label for="exampleFormControlInput1" [attr.for]="i">Starting From:</label>
+              <input type="text" class="form-control" id="{{ 'startId' + i }}"
               placeholder="Travelling From"
-              formControlName="source"><br/>
+              formControlName="start"><br/>
           </div>
           <div class="form-group">
-          <label for="exampleFormControlInput1" [attr.for]="i">Destination:</label>
-          <input type="text" class="form-control" id="{{ 'destinationId' + i }}" 
-          formControlName="destination"
+          <label for="exampleFormControlInput1" [attr.for]="i">Reaching To:</label>
+          <input type="text" class="form-control" id="{{ 'reachId' + i }}" 
+          formControlName="reach"
           placeholder="Travelling To">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlSelect1" [attr.for]="i">Mode of Transport</label>
+          <select class="form-control" id="{{'transportId'+i}}" formControlName="transport">
+            <option value="flight">Flight</option>
+            <option value="train">Train</option>
+            <option value="car">Car</option>
+            <option value="audi">Ferry</option>
+            <option value="audi">Others</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <div class="form-check">
+            <input class="form-check-input" type="radio"
+             id="{{'bookedTicketId'+i}}" value="bookedTicket" formControlName="bookedTicket">
+            <label class="form-check-label" for="exampleRadios1" [attr.for]="i">
+              Booked Tickets
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio"
+            id="{{'yetToBookId'+i}}" value="yetToBook" formControlName="yetToBook">
+            <label class="form-check-label" for="exampleRadios2" [attr.for]="i">
+              Yet to proceed with bookings
+            </label>
           </div>
         </div>
       <div class="form-group-dates">
@@ -92,6 +137,7 @@
   </div>
 </div>
 </div>
+</div>
   <div class="form-group row mb-2">
     <div class="col-md-4">
       <button class="btn btn-outline-primary"
@@ -102,37 +148,13 @@
     </div>
   </div>
       <div class="form-group">
-        <label for="exampleFormControlSelect1">Mode of Transport</label>
-        <select class="form-control" id="exampleFormControlSelect1">
-          <option value="flight">Flight</option>
-          <option value="train">Train</option>
-          <option value="car">Car</option>
-          <option value="audi">Ferry</option>
-          <option value="audi">Others</option>
-        </select>
-      </div>
-      <!-- <div class="form-group">
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-          <label class="form-check-label" for="exampleRadios1">
-            Booked Tickets
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-          <label class="form-check-label" for="exampleRadios2">
-            Yet to proceed with bookings
-          </label>
-        </div>
-      </div> -->
-      <agm-map [latitude]="latitude" [longitude]="longitude" (mapclick)="onChoseLocation($event)">
-        <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
-      </agm-map>
-      <div class="form-group">
         <label for="exampleFormControlFile1">Upload Supporting Document:</label>
         <input type="file" class="form-control-file" placeholder="Upload" style="color:antiquewhite">
       </div>
     </div>
+    <agm-map [latitude]="latitude" [longitude]="longitude" (mapclick)="onChoseLocation($event)">
+      <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+    </agm-map><br/>
       <button type="submit" class="btn btn-primary">Save as Draft</button>
       <button type="button" class="btn btn-primary" style="margin-left:20px;" (click)="publish()">Publish</button>
       <button type="button" class="btn btn-primary" style="margin-left:20px;"  (click)="cancel()">Cancel</button>
