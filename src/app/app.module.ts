@@ -15,6 +15,7 @@ import { AuthService } from './user/auth.service';
 import {AgmCoreModule} from '@agm/core'
 import{ReactiveFormsModule} from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import { ActivityLegComponent } from './Create-Plan/form-creation/activity-leg/activity-leg.component';
  
 
 @NgModule({
@@ -24,7 +25,8 @@ import { FormsModule } from '@angular/forms';
     PlanListInputComponent,
     NavComponent,
     routingComponents,
-    HomepageComponent
+    HomepageComponent,
+    ActivityLegComponent
     //FormCreationComponent,
   ],
   imports: [
