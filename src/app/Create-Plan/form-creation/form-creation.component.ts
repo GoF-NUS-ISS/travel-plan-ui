@@ -3,7 +3,8 @@ import { NavComponent } from '../../nav/nav.component';
 import { Router } from '@angular/router';
 import { AgmCoreModule } from '@agm/core';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
-import { Form } from './Form';
+import { Form } from './travel-leg/travelForm';
+import {Activity} from './activity-leg/activityForm';
 
 @Component({
   selector: 'app-form-creation',
@@ -14,10 +15,10 @@ export class FormCreationComponent implements OnInit {
   isDirty:boolean=true
   latitude=51.678418
   longitude=7.809007
-  travelForm: FormGroup;
+  overallForm: FormGroup;
 
-  form = new Form();
-  constructor(private router: Router, private fb: FormBuilder) { }
+  // form = new Form();
+  constructor(private router: Router, private ob: FormBuilder) { }
   cancel() {
     this.router.navigate(['Home'])
   }
@@ -25,8 +26,8 @@ export class FormCreationComponent implements OnInit {
     this.router.navigate(['PublishedPlans'])
   }
   save(){
-    console.log(this.travelForm);
-    console.log('Saved: ' + JSON.stringify(this.travelForm.value));
+    console.log(this.overallForm);
+    console.log('Saved: ' + JSON.stringify(this.overallForm.value));
   }
   onChoseLocation(event)
   {
@@ -34,25 +35,25 @@ export class FormCreationComponent implements OnInit {
     this.longitude=event.coords.lng;
   }
   ngOnInit(): void {
-    this.travelForm = this.fb.group({
+    this.overallForm = this.ob.group({
       title: '',
       description: '',
       sendCatalog: true,
-      travellerDetails: this.fb.array([this.buildDetail()])
+      formDetails: this.ob.array([this.buildDetail()])
     }); 
   }
-  get travellerDetails(): FormArray {
-    return this.travelForm.get('travellerDetails') as FormArray;
+  get formDetails(): FormArray {
+    return this.overallForm.get('formDetails') as FormArray;
   }
-  addDetail(): void {
-    this.travellerDetails.push(this.buildDetail());
+  addDay(): void {
+    this.formDetails.push(this.buildDetail());
   }
-  deleteDetail(index: number): void{
-    this.travellerDetails.removeAt(index);
+  deleteDay(index: number): void{
+    this.formDetails.removeAt(index);
   }
 
   buildDetail(): FormGroup {
-    return this.fb.group({
+    return this.ob.group({
       firstName: '',
       lastName: '',
       start: '',
@@ -63,7 +64,11 @@ export class FormCreationComponent implements OnInit {
       bookedTicket:'',
       source: '',
       destination: '',
-      yetToBook:''
+      yetToBook:'',
+      location: '',
+      description: '',
+      time: '',
+      cost:''
     });
   }
 

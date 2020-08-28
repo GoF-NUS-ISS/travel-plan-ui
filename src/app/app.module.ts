@@ -16,6 +16,7 @@ import {AgmCoreModule} from '@agm/core'
 import{ReactiveFormsModule} from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { ActivityLegComponent } from './Create-Plan/form-creation/activity-leg/activity-leg.component';
+import { TravelLegComponent } from './Create-Plan/form-creation/travel-leg/travel-leg.component';
  
 
 @NgModule({
@@ -26,7 +27,8 @@ import { ActivityLegComponent } from './Create-Plan/form-creation/activity-leg/a
     NavComponent,
     routingComponents,
     HomepageComponent,
-    ActivityLegComponent
+    ActivityLegComponent,
+    TravelLegComponent
     //FormCreationComponent,
   ],
   imports: [

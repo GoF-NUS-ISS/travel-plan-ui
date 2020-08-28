@@ -7,22 +7,29 @@ column-width: 570px;
 }
 .form-group-s-r
 {
-    column-width: 400px;
+    column-width: 200px;
 }
 .form-group-s-d
 {
-    column-width: 400px;
+    column-width: 200px;
 }
 .form-group-dates
 {
-    column-width: 400px;
+    column-width: 200px;
 }
 agm-map {
     height: 300px;
   }
-  .container{
+/* .card-body-travel{
     margin: 12px 12px 12px 12px;
      border-style: groove;
-       /* border-width: medium; 
-        border-color: lime; */
+       border-width: medium; 
+        border-color: white;
+  } */
+  .body-form-leg{
+    margin: 12px 12px 12px 12px;
+     border-style: groove;
+       border-width: medium; 
+        border-color:white;
+        /* padding: 20px 20px; */
   }
