@@ -40,10 +40,10 @@ export class TravelLegComponent implements OnInit {
       startingOn: '',
       returningOn: '',
       transport: '',
-      bookedTicket:'',
+      cost:null,
       source: '',
       destination: '',
-      yetToBook:''
+      othertransport:''
     });
   }
 

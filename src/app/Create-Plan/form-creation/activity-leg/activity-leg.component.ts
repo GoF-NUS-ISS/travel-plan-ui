@@ -38,7 +38,9 @@ activity=new Activity();
       location: '',
       description: '',
       time: '',
-      cost:''
+      cost:'',
+      starRating:null,
+      reviewdescription:''
     });
 }
 }

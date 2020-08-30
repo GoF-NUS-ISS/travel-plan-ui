@@ -13,12 +13,19 @@ export class Form {
       public transport = '',
       public bookedTicket = '',
       public yetToBook = '',
-      public source = '',
+      public cost = null,
       public destination = '',
       public street1?: string,
       public street2?: string,
       public city?: string,
-      public state = '',
+      public othertransport = '',
       public zip?: string) { }
   }
+  // start: string;
+  // reach: string;
+  // startingOn: Date;
+  // returningOn: Date;
+  // cost: number;
+  // transport: string;
+  // othertransport: string;
   

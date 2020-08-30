@@ -36,9 +36,9 @@ export class FormCreationComponent implements OnInit {
   }
   ngOnInit(): void {
     this.overallForm = this.ob.group({
-      title: '',
-      description: '',
-      sendCatalog: true,
+      // title: '',
+      // description: '',
+      // sendCatalog: true,
       formDetails: this.ob.array([this.buildDetail()])
     }); 
   }
@@ -54,21 +54,7 @@ export class FormCreationComponent implements OnInit {
 
   buildDetail(): FormGroup {
     return this.ob.group({
-      firstName: '',
-      lastName: '',
-      start: '',
-      reach: '',
-      startingOn: '',
-      returningOn: '',
-      transport: '',
-      bookedTicket:'',
-      source: '',
-      destination: '',
-      yetToBook:'',
-      location: '',
-      description: '',
-      time: '',
-      cost:''
+      date: ''
     });
   }
 

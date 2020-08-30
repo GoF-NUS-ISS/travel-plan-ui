@@ -6,5 +6,5 @@ export class Activity {
     time: string;
     cost: number;
     starRating: number;
-    imageUrl: string;
+    reviewdescription: string;
   }
