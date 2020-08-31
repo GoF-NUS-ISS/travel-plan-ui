@@ -1,10 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
-import { PlanListComponent } from './plans/plan-list/plan-list.component';
-import { PlanListInputComponent } from './plans/plan-list-input/plan-list-input.component';
+// import { PlanListComponent } from './plans/plan-list/plan-list.component';
+// import { PlanListInputComponent } from './plans/plan-list-input/plan-list-input.component';
 import { NavComponent } from './nav/nav.component';
-import {PlanService} from './plans/Service/plans.service';
+// import {PlanService} from './plans/Service/plans.service';
 import { ToastrService } from './common/toastr.service';
 import { FormCreationComponent } from './Create-Plan/form-creation/form-creation.component';
 import { Routes, RouterModule } from '@angular/router';
@@ -22,8 +22,8 @@ import { TravelLegComponent } from './Create-Plan/form-creation/travel-leg/trave
 @NgModule({
   declarations: [
     AppComponent,
-    PlanListComponent,
-    PlanListInputComponent,
+    // PlanListComponent,
+    // PlanListInputComponent,
     NavComponent,
     routingComponents,
     HomepageComponent,
@@ -44,7 +44,7 @@ import { TravelLegComponent } from './Create-Plan/form-creation/travel-leg/trave
   exports: [RouterModule],
   providers: 
   [
-    PlanService, 
+    // PlanService, 
     ToastrService, 
     AuthService,
     {
