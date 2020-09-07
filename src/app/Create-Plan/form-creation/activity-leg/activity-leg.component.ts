@@ -36,8 +36,9 @@ activity=new Activity();
   buildActivity(): FormGroup {
     return this.ab.group({
       location: '',
-      description: '',
-      time: '',
+      category: '',
+      timestart: '',
+      timeend:'',
       cost:'',
       starRating:null,
       reviewdescription:''

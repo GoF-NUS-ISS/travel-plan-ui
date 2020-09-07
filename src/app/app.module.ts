@@ -17,7 +17,9 @@ import{ReactiveFormsModule} from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { ActivityLegComponent } from './Create-Plan/form-creation/activity-leg/activity-leg.component';
 import { TravelLegComponent } from './Create-Plan/form-creation/travel-leg/travel-leg.component';
- 
+import {AppService} from './Create-Plan/form-creation/AppService'
+import {HttpClientModule} from '@angular/common/http'
+import {FormCreationService} from './Create-Plan/form-creation/form.service';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,7 @@ import { TravelLegComponent } from './Create-Plan/form-creation/travel-leg/trave
     ReactiveFormsModule,
     FormsModule,
     AppRoutingModule,
+    HttpClientModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCwpq3QYb89Myl6ViV0nsGqmbMVUzHkERY'
     })
@@ -47,6 +50,8 @@ import { TravelLegComponent } from './Create-Plan/form-creation/travel-leg/trave
     // PlanService, 
     ToastrService, 
     AuthService,
+    FormCreationService,
+    AppService,
     {
       provide: 'canDeactivateCreateEvent',
       useValue: checkDirtyState

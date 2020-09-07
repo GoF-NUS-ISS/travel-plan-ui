@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavComponent } from '../../nav/nav.component';
 import { Router } from '@angular/router';
 import { AgmCoreModule } from '@agm/core';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { Form } from './travel-leg/travelForm';
 import {Activity} from './activity-leg/activityForm';
+import { Observable } from 'rxjs';
+import {FormCreationService} from './form.service';
+import {overAll} from './overallForm';
 
 @Component({
   selector: 'app-form-creation',
@@ -16,18 +19,23 @@ export class FormCreationComponent implements OnInit {
   latitude=51.678418
   longitude=7.809007
   overallForm: FormGroup;
-
+  overall=new overAll;
+  // form: any = {};
+  form:overAll
   // form = new Form();
-  constructor(private router: Router, private ob: FormBuilder) { }
+  constructor(private router: Router, private ob: FormBuilder, 
+    private formCreationService: FormCreationService) { }
   cancel() {
     this.router.navigate(['Home'])
   }
   publish() {
-    this.router.navigate(['PublishedPlans'])
+    this.formCreationService.publish(this.form).subscribe(result=>this.gotoPlansList());
+  }
+  gotoPlansList(){
+    this.router.navigate(['Home'])
   }
   save(){
-    console.log(this.overallForm);
-    console.log('Saved: ' + JSON.stringify(this.overallForm.value));
+   
   }
   onChoseLocation(event)
   {
@@ -59,4 +67,3 @@ export class FormCreationComponent implements OnInit {
   }
 
 }
-
