@@ -1,6 +1,7 @@
 import { Component } from '@angular/core'
 import { AuthService } from './auth.service'
 import { Router } from '@angular/router'
+import {NgForm} from "@angular/forms";
 
 @Component({
   templateUrl: './login.component.html',
@@ -9,20 +10,22 @@ import { Router } from '@angular/router'
   `]
 })
 export class LoginComponent {
-  username
-  password
-  mouseoverLogin
+  emailVerificationMessage: boolean = false;
 
-  constructor(private authService:AuthService, private router:Router) {
+  constructor(private auth: AuthService,
+              private _router: Router) {
 
   }
 
-  login(formValues) {
-    this.authService.loginUser(formValues.userName, formValues.password)
-    this.router.navigate(['events'])
-  }
+  onSubmit(form: NgForm) {
 
-  cancel() {
-    this.router.navigate(['events'])
+    const email = form.value.email;
+    const password = form.value.password;
+    
+    this.auth.signIn(email, password).subscribe((data) => {
+      this._router.navigateByUrl('/');
+    }, (err)=> {
+      this.emailVerificationMessage = true;
+    });   
   }
 }

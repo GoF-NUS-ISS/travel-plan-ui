@@ -4,4 +4,6 @@ export class overAll {
     name: string;
     // tags?: string[];
     title: string;
+    date: Date;
+
   }

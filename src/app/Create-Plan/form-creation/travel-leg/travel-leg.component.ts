@@ -15,9 +15,6 @@ export class TravelLegComponent implements OnInit {
 
   ngOnInit(): void {
     this.travelForm = this.fb.group({
-      title: '',
-      description: '',
-      sendCatalog: true,
       travellerDetails: this.fb.array([this.buildDetail()])
     }); 
   }
