@@ -6,8 +6,8 @@ import Storage from '@aws-amplify/storage';
 import { Observable } from 'rxjs/Observable';
 
 const poolData= {
-  UserPoolId: 'us-east-1_31kgt7sfF',
-  ClientId: '6pocfe9h3un3s0rfbkggndgvp6'
+  UserPoolId: 'us-east-1_r26l8b00Y',
+  ClientId: '62bcklh3pkt8dm159853h7odqh'
 };
 
 const userPool = new CognitoUserPool(poolData);
@@ -17,7 +17,7 @@ export class AuthService {
   cognitoUser: any;
   constructor() { }
 
-  register(email, password) {
+  register(name, email, password) {
 
     const attributeList = [];
 

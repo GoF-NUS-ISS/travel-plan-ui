@@ -20,9 +20,10 @@ export class RegisterComponent {
               private _router: Router) { }
 
   register(form: NgForm) {
+    const name = form.value.name;
     const email = form.value.email;
     const password = form.value.password;
-    this.auth.register(email, password).subscribe(
+    this.auth.register(name, email, password).subscribe(
       (data) => {        
         this.confirmCode = true;
       },

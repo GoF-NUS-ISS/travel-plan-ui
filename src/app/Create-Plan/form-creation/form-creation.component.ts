@@ -66,7 +66,7 @@ export class FormCreationComponent implements OnInit, AfterViewInit {
   }
   publish() {
     console.log('Saved: ' + JSON.stringify(this.overallForm.value));
-    // this.formCreationService.publish(this.form).subscribe(result=>this.gotoPlansList());
+    this.formCreationService.publish(this.form).subscribe(result=>this.gotoPlansList());
   }
   gotoPlansList(){
     this.router.navigate(['Home'])
