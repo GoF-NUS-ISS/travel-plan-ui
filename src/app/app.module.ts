@@ -20,6 +20,7 @@ import { TravelLegComponent } from './Create-Plan/form-creation/travel-leg/trave
 import {AppService} from './Create-Plan/form-creation/AppService'
 import {HttpClientModule} from '@angular/common/http'
 import {FormCreationService} from './Create-Plan/form-creation/form.service';
+// import { AmplifyUIAngularModule } from '@aws-amplify/ui-angular';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import {FormCreationService} from './Create-Plan/form-creation/form.service';
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
+    // AmplifyUIAngularModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCwpq3QYb89Myl6ViV0nsGqmbMVUzHkERY'
     })

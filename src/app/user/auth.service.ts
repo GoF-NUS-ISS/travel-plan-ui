@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Observable';
 
 const poolData= {
   UserPoolId: 'us-east-1_r26l8b00Y',
-  ClientId: '62bcklh3pkt8dm159853h7odqh'
+  ClientId: 'q24v72k1nscsoarhp395jb3m5'
 };
 
 const userPool = new CognitoUserPool(poolData);
@@ -17,9 +17,29 @@ export class AuthService {
   cognitoUser: any;
   constructor() { }
 
-  register(name, email, password) {
+  // register(email, password) {
+
+  //   const attributeList = [];
+
+  //   return Observable.create(observer => {
+  //     userPool.signUp(email, password, attributeList, null, (err, result) => {
+  //       if (err) {
+  //         console.log("signUp error", err);
+  //         observer.error(err);
+  //       }
+
+  //       this.cognitoUser = result.user;
+  //       console.log("signUp success", result);
+  //       observer.next(result);
+  //       observer.complete();
+  //     });
+  //   });
+  register(email, password) {
 
     const attributeList = [];
+    attributes: {
+      email
+  };
 
     return Observable.create(observer => {
       userPool.signUp(email, password, attributeList, null, (err, result) => {
@@ -39,7 +59,8 @@ export class AuthService {
 
   confirmAuthCode(code) {
     const user = {
-      Username : this.cognitoUser.username,
+      Username : this.cognitoUser.name,
+      Email : this.cognitoUser.email,
       Pool : userPool
     };
     return Observable.create(observer => {
@@ -56,16 +77,18 @@ export class AuthService {
     });
   }
 
-  signIn(email, password) { 
+  signIn(name, password) { 
 
     const authenticationData = {
-      Username : email,
+      Username : name,
+      // Email : email,
       Password : password,
     };
     const authenticationDetails = new AuthenticationDetails(authenticationData);
 
     const userData = {
-      Username : email,
+      Username : name,
+      // Email : email,
       Pool : userPool
     };
     const cognitoUser = new CognitoUser(userData);
