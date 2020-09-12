@@ -2,7 +2,7 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { AgmCoreModule } from '@agm/core';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
-import { Form } from './travelForm';
+import { TravelForm } from './travelForm';
 
 @Component({
   selector: 'app-travel-leg',
@@ -10,6 +10,7 @@ import { Form } from './travelForm';
   styleUrls: ['./travel-leg.component.css']
 })
 export class TravelLegComponent implements OnInit {
+  @Output() private onFormGroupChange = new EventEmitter<any>();
   travelForm: FormGroup;
   constructor(private fb: FormBuilder) { }
 
@@ -17,6 +18,7 @@ export class TravelLegComponent implements OnInit {
     this.travelForm = this.fb.group({
       travellerDetails: this.fb.array([this.buildDetail()])
     }); 
+    // this.onFormGroupChange.emit(this.travelForm);
   }
   get travellerDetails(): FormArray {
     return this.travelForm.get('travellerDetails') as FormArray;
@@ -30,8 +32,6 @@ export class TravelLegComponent implements OnInit {
 
   buildDetail(): FormGroup {
     return this.fb.group({
-      firstName: '',
-      lastName: '',
       start: '',
       reach: '',
       startingOn: '',

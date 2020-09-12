@@ -3,7 +3,7 @@ import { NavComponent } from '../../nav/nav.component';
 import { Router } from '@angular/router';
 import { AgmCoreModule } from '@agm/core';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
-import { Form } from './travel-leg/travelForm';
+import { TravelForm } from './travel-leg/travelForm';
 import {Activity} from './activity-leg/activityForm';
 import { Observable } from 'rxjs';
 import {FormCreationService} from './form.service';
@@ -17,6 +17,11 @@ import { ActivityLegComponent } from './activity-leg/activity-leg.component';
   styleUrls: ['./form-creation.component.css']
 })
 export class FormCreationComponent implements OnInit, AfterViewInit {
+  formCheck :any  = '' 
+  public onFormGroupChangeEvent(_event) {
+    this.formCheck = _event;
+    console.error(_event, this.formCheck['controls'])
+  }
   isDirty:boolean=true
   latitude=51.678418
   longitude=7.809007
@@ -25,15 +30,14 @@ export class FormCreationComponent implements OnInit, AfterViewInit {
   // form: any = {};
   form:overAll
   // form = new Form();
-  // @ViewChild(TravelLegComponent) childComponent1: TravelLegComponent;
-  @ViewChildren(TravelLegComponent) childComponent1: QueryList<TravelLegComponent>;
+ 
   constructor(private router: Router, private ob: FormBuilder, 
     private formCreationService: FormCreationService) { }
   cancel() {
     this.router.navigate(['Home'])
   }
   ngAfterViewInit(){
-    console.log(this.childComponent1.toArray().length);  
+    // console.log(this.childComponent1.toArray().length);  
   }
   
   onChoseLocation(event)

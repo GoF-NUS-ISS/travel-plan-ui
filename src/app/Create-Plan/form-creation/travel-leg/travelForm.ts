@@ -1,23 +1,18 @@
-export class Form {
+export class TravelForm {
 
     constructor(
-      public title = '',
-      public description = '',
-      public sendCatalog = false,
-      public firstName = '',
-      public lastName = '',
-      public start = '',
-      public reach = '',
-      public startingOn = '',
-      public returningOn = '',
-      public transport = '',
-      public bookedTicket = '',
-      public yetToBook = '',
-      public cost = null,
+      public start?: string,
+      public reach?: string,
+      public startingOn?: string,
+      public returningOn?: string,
+      public transport?: string,
+      public bookedTicket?: string,
+      public yetToBook?: string,
+      public cost?: null,
       public destination = '',
-      public street1?: string,
-      public street2?: string,
-      public city?: string,
+      // public street1?: string,
+      // public street2?: string,
+      // public city?: string,
       public othertransport = '',
       public zip?: string) { }
   }
