@@ -10,15 +10,14 @@ import { TravelForm } from './travelForm';
   styleUrls: ['./travel-leg.component.css']
 })
 export class TravelLegComponent implements OnInit {
-  @Output() private onFormGroupChange = new EventEmitter<any>();
   travelForm: FormGroup;
   constructor(private fb: FormBuilder) { }
-
+  @Output() private onFormGroupChange = new EventEmitter<any>();
   ngOnInit(): void {
     this.travelForm = this.fb.group({
       travellerDetails: this.fb.array([this.buildDetail()])
     }); 
-    // this.onFormGroupChange.emit(this.travelForm);
+    this.onFormGroupChange.emit(this.travelForm);
   }
   get travellerDetails(): FormArray {
     return this.travelForm.get('travellerDetails') as FormArray;

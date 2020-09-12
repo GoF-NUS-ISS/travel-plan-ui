@@ -4,7 +4,7 @@
   </div>
   <br />
   <div class="card-body">
-    <form class="default" novalidate (ngSubmit)="save()" [formGroup]="overallForm">
+    <form class="default" novalidate (ngSubmit)="publish()" [formGroup]="overallForm">
       <div class="form-group">
         <label for="title">Title</label>
         <input type="text" formControlName="title" name="title" id="titleId" placeholder="Set a title for your trip">
@@ -29,7 +29,8 @@
               </div>
             </div>
             <div class="card-body-travel">
-              <app-travel-leg></app-travel-leg>
+              <app-travel-leg (onFormGroupChange)="onFormGroupChangeTravelEvent($event)"></app-travel-leg>
+              <!-- <app-travel-leg [formGroup]="overallForm"></app-travel-leg> -->
             </div>
             <div class="card-body-activity">
               <app-activity-leg></app-activity-leg>

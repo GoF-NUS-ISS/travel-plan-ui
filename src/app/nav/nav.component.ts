@@ -21,6 +21,5 @@ export class NavComponent implements OnInit {
     const URL = "https://travel-planner-project.auth.us-east-1.amazoncognito.com/login?client_id=q24v72k1nscsoarhp395jb3m5&response_type=code&scope=phone+email+openid+aws.cognito.signin.user.admin+profile&redirect_uri=http://localhost:4200";
     window.location.assign(URL);
   }
-  
 
 }

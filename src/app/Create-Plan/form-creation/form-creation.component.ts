@@ -18,9 +18,8 @@ import { ActivityLegComponent } from './activity-leg/activity-leg.component';
 })
 export class FormCreationComponent implements OnInit, AfterViewInit {
   formCheck :any  = '' 
-  public onFormGroupChangeEvent(_event) {
+  public onFormGroupChangeTravelEvent(_event) {
     this.formCheck = _event;
-    console.error(_event, this.formCheck['controls'])
   }
   isDirty:boolean=true
   latitude=51.678418
@@ -29,6 +28,7 @@ export class FormCreationComponent implements OnInit, AfterViewInit {
   overall=new overAll;
   // form: any = {};
   form:overAll
+  parentFormGroup :FormGroup;
   // form = new Form();
  
   constructor(private router: Router, private ob: FormBuilder, 
@@ -69,8 +69,9 @@ export class FormCreationComponent implements OnInit, AfterViewInit {
     });
   }
   publish() {
-    console.log('Saved: ' + JSON.stringify(this.overallForm.value));
-    this.formCreationService.publish(this.form).subscribe(result=>this.gotoPlansList());
+    console.log('Saved: ' + JSON.stringify(this.overallForm.value)
+    +JSON.stringify(this.formCheck.value));
+    // this.formCreationService.publish(this.form).subscribe(result=>this.gotoPlansList());
   }
   gotoPlansList(){
     this.router.navigate(['Home'])
@@ -80,4 +81,3 @@ export class FormCreationComponent implements OnInit, AfterViewInit {
   }
 
 }
-

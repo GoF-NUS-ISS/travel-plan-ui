@@ -8,7 +8,7 @@ export class TravelForm {
       public transport?: string,
       public bookedTicket?: string,
       public yetToBook?: string,
-      public cost?: null,
+      public cost?: number,
       public destination = '',
       // public street1?: string,
       // public street2?: string,
