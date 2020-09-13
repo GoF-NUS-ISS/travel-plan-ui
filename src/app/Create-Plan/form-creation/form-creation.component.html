@@ -30,22 +30,15 @@
             </div>
             <div class="card-body-travel">
               <app-travel-leg (onFormGroupChange)="onFormGroupChangeTravelEvent($event)"></app-travel-leg>
-              <!-- <app-travel-leg [formGroup]="overallForm"></app-travel-leg> -->
             </div>
+<!-- ---------------------------------Travel Detail start------------------------------------------------- -->
+<!-- ---------------------------------Travel Detail end------------------------------------------------- -->
             <div class="card-body-activity">
               <app-activity-leg></app-activity-leg>
             </div>
           </div>
         </div>
       </div>
-      <!-- <div class="form-group row mb-2">
-        <div class="col-md-4">
-          <button class="btn btn-outline-primary" type="button" style="margin-left:10px; font-size: 12px;"
-            (click)="addTravelDetail()">
-            Add Traveller Details
-          </button>
-        </div>
-      </div> -->
       <div class="form-group row mb-2">
         <div class="col-md-4">
           <button class="btn btn-outline-primary" type="button" style="font-size: 12px;" (click)="addDay()">
@@ -62,3 +55,5 @@
       <button type="button" class="btn btn-primary" style="margin-left:20px;" (click)="cancel()">Cancel</button>
     </form>
   </div>
+
+  <pre style="font-size:15px">{{ overallForm.value | json }}</pre>

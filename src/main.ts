@@ -4,13 +4,13 @@ import Amplify, { Auth } from 'aws-amplify';
 import awsconfig from './aws-exports'; 
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
-// import {CognitoUser, ISignUpResult} from 'amazon-cognito-identity-js';
+import {CognitoUser, ISignUpResult} from 'amazon-cognito-identity-js';
 // import Storage from '@aws-amplify/storage';
 
-// Auth.configure({
-//   userPoolId: 'us-east-1_31kgt7sfF',
-//   userPoolWebClientId: '6pocfe9h3un3s0rfbkggndgvp6'
-// })
+Auth.configure({
+  userPoolId: 'us-east-1_r26l8b00Y',
+  userPoolWebClientId: 'q24v72k1nscsoarhp395jb3m5'
+})
 Amplify.configure(awsconfig);
 
 const oauth = {
@@ -47,3 +47,12 @@ if (environment.production) {
 
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.error(err));
+
+  function onSignUp(){
+    let userData={
+      // username: document.getElementById('signup-name').value,
+      // email: document.getElementById('signup-email').value,
+      // password: document.getElementById('signup-password').value,
+      // confirmPassword: document.getElementById('signup-password').value
+    }
+  }

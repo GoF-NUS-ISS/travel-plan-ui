@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
+import { AngularFireModule } from 'angularfire2';
 // import { PlanListComponent } from './plans/plan-list/plan-list.component';
 // import { PlanListInputComponent } from './plans/plan-list-input/plan-list-input.component';
 import { NavComponent } from './nav/nav.component';
@@ -54,6 +55,7 @@ import {FormCreationService} from './Create-Plan/form-creation/form.service';
     AuthService,
     FormCreationService,
     AppService,
+    AngularFireModule,
     {
       provide: 'canDeactivateCreateEvent',
       useValue: checkDirtyState
