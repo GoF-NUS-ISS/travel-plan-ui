@@ -5,17 +5,50 @@
     <div [formGroupName]="i"
               *ngFor="let travellerDetail of travellerDetails.controls; let i=index">
               <div class="card-header" id="{{ 'travelId' + i }}">
-                Traveller Detail {{i+1}}
+                Travel Detail {{i+1}}
               </div>
-            <div class="body-travel-leg">
+              <div class="form-group row mb-2">
               <button class="btn btn-outline-primary"
-              type="button" style="float: right; margin-left:20px;"
+              type="button" style="margin-left:920px; font-size: 12px;"
               (click)="deleteDetail(i)">
-              Delete Traveller Details
+              Delete Travel Details
               </button>
-              <br/>
+              </div>
       <div class="inputs">
-        <label for="exampleFormControlTextarea1" [attr.for]="i">Traveller Name</label>  
+        <div class="form-group row mb-2">
+          <label class="col-md-2 col-form-label" [attr.for]="i">From:</label>
+            <div class="col-md-8"> 
+                <input type="text" class="form-control" id="{{ 'startId' + i }}"
+                placeholder="Travelling From"
+                formControlName="start">
+            </div>
+        </div>
+          <div class="form-group row mb-2">
+            <label class="col-md-2 col-form-label" [attr.for]="i">To:</label>
+              <div class="col-md-8">  
+                <input type="text" class="form-control" id="{{ 'reachId' + i }}" 
+                formControlName="reach"
+                placeholder="Travelling To">
+              </div>
+          </div>
+          <div class="form-group row mb-2">
+            <label class="col-md-2 col-form-label" [attr.for]="i">Starting on:</label>
+            <div class="col-md-8"> 
+      <input type="date" class="form-control" id="{{ 'startingOnId' + i }}" 
+      formControlName="startingOn" 
+      placeholder="Travelling From">
+      </div>
+    </div>
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" [attr.for]="i">Returning:</label>
+      <div class="col-md-8"> 
+      <input type="date" class="form-control" id="{{ 'returningOnId' + i }}" 
+      formControlName="returningOn" 
+      placeholder="Travelling To">
+      </div>
+    </div>
+    
+        <!-- <label for="exampleFormControlTextarea1" [attr.for]="i">Traveller Name</label>  
         <div class="form-row-name">       
           <div class="col">       
           <input type="text" class="form-control" 
@@ -31,33 +64,39 @@
           formControlName="lastName">
           </div>
         </div>
-        <br/>
-      <div class="form-group-s-r">
-        <div class="form-group">
-          <label for="exampleFormControlInput1" [attr.for]="i">Starting From:</label>
-            <input type="text" class="form-control" id="{{ 'startId' + i }}"
-            placeholder="Travelling From"
-            formControlName="start"><br/>
-        </div>
-        <div class="form-group">
-        <label for="exampleFormControlInput1" [attr.for]="i">Reaching To:</label>
-        <input type="text" class="form-control" id="{{ 'reachId' + i }}" 
-        formControlName="reach"
-        placeholder="Travelling To">
+        <br/> -->
+        <div class="form-group row mb-2">
+          <label class="col-md-2 col-form-label" [attr.for]="i">Cost:</label>
+        <div class="col-md-8">
+          <input type="text" class="form-control" id="{{ 'costTravelId' + i }}"
+          placeholder="Cost"
+          formControlName="cost">
         </div>
       </div>
-      <div class="form-group-mode">
-        <label for="exampleFormControlSelect1" [attr.for]="i">Mode of Transport</label>
-        <select class="form-control" id="{{'transportId'+i}}" formControlName="transport">
+  
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" [attr.for]="i">Mode of Transport:</label>
+        <div class="col-md-8">
+        <select class="form-control" id="{{'transportId'+i}}" [(ngModel)]="selectedValue" formControlName="transport">
           <option value="flight">Flight</option>
           <option value="train">Train</option>
           <option value="car">Car</option>
-          <option value="audi">Ferry</option>
-          <option value="audi">Others</option>
+          <option value="ferry">Ferry</option>
+          <option value="others">Others</option>
         </select>
       </div>
-      
-      <div class="form-group">
+      </div>
+      <br/>
+      <div class="form-group row mb-2" *ngIf="selectedValue == 'others'">
+        <label class="col-md-2 col-form-label" [attr.for]="i">If others, please specify below:</label>                
+        <div class="col-md-8">     
+          <input type="text" class="form-control" 
+          id="{{ 'othertransportId' + i }}" 
+          placeholder="Mode of Transport"
+          formControlName="othertransport">
+        </div>
+      </div>
+      <!-- <div class="form-group">
         <div class="form-check">
           <input class="form-check-input" type="radio"
            id="{{'bookedTicketId'+i}}" value="bookedTicket" formControlName="bookedTicket">
@@ -72,32 +111,17 @@
             Yet to proceed with bookings
           </label>
         </div>
-      </div>
-    <div class="form-group-dates">
-      <div class="form-group">
-    <label for="exampleFormControlInput1" [attr.for]="i">Starting on:</label>
-      <input type="date" class="form-control" id="{{ 'startingOnId' + i }}" 
-      formControlName="startingOn" 
-      placeholder="Travelling From"><br/>
-      </div>
-      <div class="form-group">
-      <label for="exampleFormControlInput1" [attr.for]="i">Returning:</label>
-      <input type="date" class="form-control" id="{{ 'returningOnId' + i }}" 
-      formControlName="returningOn" 
-      placeholder="Travelling To">
-    </div>
-    </div>
+      </div> -->
   </div>
   <div>
 </div>
 </div>
 </div>
 </div>
-  </div>
 <div class="form-group row mb-2">
   <div class="col-md-4">
     <button class="btn btn-outline-primary"
-            type="button"
+            type="button" style="margin-left:10px; font-size: 12px;"
             (click)="addDetail()">
       Add Traveller Details
     </button>

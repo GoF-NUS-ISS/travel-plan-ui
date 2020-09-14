@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { AgmCoreModule } from '@agm/core';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
-import { Form } from './travelForm';
+import { TravelForm } from './travelForm';
 
 @Component({
   selector: 'app-travel-leg',
@@ -12,14 +12,12 @@ import { Form } from './travelForm';
 export class TravelLegComponent implements OnInit {
   travelForm: FormGroup;
   constructor(private fb: FormBuilder) { }
-
+  @Output() private onFormGroupChange = new EventEmitter<any>();
   ngOnInit(): void {
     this.travelForm = this.fb.group({
-      title: '',
-      description: '',
-      sendCatalog: true,
       travellerDetails: this.fb.array([this.buildDetail()])
     }); 
+    this.onFormGroupChange.emit(this.travelForm);
   }
   get travellerDetails(): FormArray {
     return this.travelForm.get('travellerDetails') as FormArray;
@@ -33,17 +31,15 @@ export class TravelLegComponent implements OnInit {
 
   buildDetail(): FormGroup {
     return this.fb.group({
-      firstName: '',
-      lastName: '',
       start: '',
       reach: '',
       startingOn: '',
       returningOn: '',
       transport: '',
-      bookedTicket:'',
+      cost:null,
       source: '',
       destination: '',
-      yetToBook:''
+      othertransport:''
     });
   }
 
