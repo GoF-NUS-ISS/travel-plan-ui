@@ -1,0 +1,10 @@
+.default{
+    margin-top: 100px;
+    margin-bottom: 100px;
+    margin-right: 80px;
+    margin: 12px 12px 12px 12px;
+       border-style: dashed;
+         border-width: medium; 
+          border-color:white;
+    /* margin-left: 80px; */
+  }

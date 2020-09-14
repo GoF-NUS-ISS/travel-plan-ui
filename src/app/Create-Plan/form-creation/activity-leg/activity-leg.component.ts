@@ -36,9 +36,12 @@ activity=new Activity();
   buildActivity(): FormGroup {
     return this.ab.group({
       location: '',
-      description: '',
-      time: '',
-      cost:''
+      category: '',
+      timestart: '',
+      timeend:'',
+      cost:'',
+      starRating:null,
+      reviewdescription:''
     });
 }
 }
