@@ -2,9 +2,9 @@ name: ci
 
 on:
   push:
-    branches: Staging
+    branches: [ Staging ]
   pull_request: 
-    branches: Staging
+    branches: [ Staging ]
 
 jobs:
   main:
@@ -27,8 +27,8 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          context: .
-          file: ./Dockerfile
+          #context: .
+          #file: ./Dockerfile
           push: true
           tags: gofnusiss/travel-plan-ui:latest
       -
