@@ -1,5 +1,5 @@
 import { Component, OnInit  } from '@angular/core'
-import { AuthService } from './auth.service'
+import { AuthService } from '../auth.service'
 import { Router } from '@angular/router'
 import {NgForm} from "@angular/forms";
 import {Auth} from 'aws-amplify';
@@ -30,7 +30,7 @@ export class SignUpComponent implements OnInit  {
       console.log({ user });
       alert('User signup completed , please check verify your email.');
       
-      this.router.navigate(['login']);
+      this.router.navigate(['/user/login']);
     } catch (error) {
       console.log('error signing up:', error);
     }

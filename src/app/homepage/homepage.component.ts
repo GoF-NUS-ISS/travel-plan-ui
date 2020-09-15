@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormArray, FormGroup, Validators, FormControl } from "@angular/forms";
+import { Router } from '@angular/router';
+import {FormCreationService} from '../Create-Plan/form-creation/form.service';
 
 @Component({
   selector: 'app-homepage',
@@ -28,7 +30,7 @@ export class HomepageComponent implements OnInit {
       // ---------------------------------------------------------------------
       'Travel': this.fb.array([
         this.initY()
-      ])
+      ]),
     });
   }
 
@@ -269,10 +271,17 @@ export class HomepageComponent implements OnInit {
   // }
 
 
-
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private router: Router, 
+    private formCreationService: FormCreationService) {
 
   }
-
+  publish() {
+    console.log(this.form.value);
+    this.formCreationService.publish(this.form.value).subscribe(result=>this.gotoPlansList());
+  }
+  gotoPlansList(){
+    // this.router.navigate(['/user/login'])
+    alert("Published successfully")
+  }
 
 }

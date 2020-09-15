@@ -1,145 +1,70 @@
-import { Injectable } from '@angular/core'
-import { IUser } from './user.model'
-import Amplify, { Auth } from 'aws-amplify'
-import {CognitoUser, ISignUpResult, CognitoUserPool, AuthenticationDetails} from 'amazon-cognito-identity-js';
-import Storage from '@aws-amplify/storage';
-import { Observable } from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import Auth, { CognitoHostedUIIdentityProvider } from '@aws-amplify/auth';
+import { Hub, ICredentials } from '@aws-amplify/core';
+import { Subject, Observable } from 'rxjs';
+import { CognitoUser } from 'amazon-cognito-identity-js';
 
-// const poolData= {
-//   UserPoolId: 'us-east-1_r26l8b00Y',
-//   ClientId: 'q24v72k1nscsoarhp395jb3m5'
-// };
+export interface NewUser {
+  email: string,
+  password: string,
+  firstName: string,
+  lastName: string
+};
 
-// const userPool = new CognitoUserPool(poolData);
-
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthService {
-  constructor() { }
-
-  // register(email, password) {
-
-  //   const attributeList = [];
-
-  //   return Observable.create(observer => {
-  //     userPool.signUp(email, password, attributeList, null, (err, result) => {
-  //       if (err) {
-  //         console.log("signUp error", err);
-  //         observer.error(err);
-  //       }
-
-  //       this.cognitoUser = result.user;
-  //       console.log("signUp success", result);
-  //       observer.next(result);
-  //       observer.complete();
-  //     });
-  //   });
-  // register(email, password) {
-
-  //   const attributeList = [];
-  //   attributes: {
-  //     email
-  // };
-
-  //   return Observable.create(observer => {
-  //     userPool.signUp(email, password, attributeList, null, (err, result) => {
-  //       if (err) {
-  //         console.log("signUp error", err);
-  //         observer.error(err);
-  //       }
-
-  //       this.cognitoUser = result.user;
-  //       console.log("signUp success", result);
-  //       observer.next(result);
-  //       observer.complete();
-  //     });
-  //   });
-
-  // }
-
-  // confirmAuthCode(code) {
-  //   const user = {
-  //     Username : this.cognitoUser.name,
-  //     Email : this.cognitoUser.email,
-  //     Pool : userPool
-  //   };
-  //   return Observable.create(observer => {
-  //     const cognitoUser = new CognitoUser(user);
-  //     cognitoUser.confirmRegistration(code, true, function(err, result) {
-  //       if (err) {
-  //         console.log(err);
-  //         observer.error(err);
-  //       }
-  //       console.log("confirmAuthCode() success", result);
-  //       observer.next(result);
-  //       observer.complete();
-  //     });
-  //   });
-  // }
-
-  // signIn(name, password) { 
-
-  //   const authenticationData = {
-  //     Username : name,
-  //     // Email : email,
-  //     Password : password,
-  //   };
-  //   const authenticationDetails = new AuthenticationDetails(authenticationData);
-
-  //   const userData = {
-  //     Username : name,
-  //     // Email : email,
-  //     Pool : userPool
-  //   };
-  //   const cognitoUser = new CognitoUser(userData);
-    
-  //   return Observable.create(observer => {
-
-  //     cognitoUser.authenticateUser(authenticationDetails, {
-  //       onSuccess: function (result) {
-          
-  //         //console.log(result);
-  //         observer.next(result);
-  //         observer.complete();
-  //       },
-  //       onFailure: function(err) {
-  //         console.log(err);
-  //         observer.error(err);
-  //       },
-  //     });
-  //   });
-  // }
-
-  // isLoggedIn() {    
-  //   return userPool.getCurrentUser() != null;
-  // }
-
-  // getAuthenticatedUser() {
-  //   // gets the current user from the local storage
-  //   return userPool.getCurrentUser();
-  // }
-
-  // logOut() {
-  //   this.getAuthenticatedUser().signOut();
-  //   this.cognitoUser = null;
-  // }
-  // currentUser:IUser
-  // loginUser(userName: string, password: string) {
-  //   this.currentUser = {
-  //     id: 1,
-  //     userName: userName,
-  //     firstName: 'Keerthana',
-  //     lastName: 'Jayakumar'
-  //   }
-  // }
-
-  // isAuthenticated() {
-  //   return !!this.currentUser;
-  // }
-
-  // updateCurrentUser(firstName:string, lastName:string) {
-  //   this.currentUser.firstName = firstName
-  //   this.currentUser.lastName = lastName
-  // }
-
   
+  public loggedIn: boolean;
+  private _authState: Subject<CognitoUser|any> = new Subject<CognitoUser|any>();
+  authState: Observable<CognitoUser|any> = this._authState.asObservable();
+
+  public static SIGN_IN = 'signIn';
+  public static SIGN_OUT = 'signOut'; 
+  public static FACEBOOK = CognitoHostedUIIdentityProvider.Facebook;
+  public static GOOGLE = CognitoHostedUIIdentityProvider.Google;
+
+  constructor() { 
+    Hub.listen('auth',(data) => {
+      const { channel, payload } = data;
+      if (channel === 'auth') {
+        this._authState.next(payload.event);
+      }
+    });
+  }
+  
+  // signUp(user: NewUser): Promise<CognitoUser|any> {
+  //   return Auth.signUp({
+  //     "username": user.email,
+  //     "password": user.password,
+  //     "attributes": {
+  //       "email": user.email,
+  //       "given_name": user.firstName,
+  //       "family_name": user.lastName,
+  //     }
+  //   });
+  // }
+
+  // signIn(username: string, password: string):Promise<CognitoUser|any> {
+  //   return new Promise((resolve,reject) => {
+  //     Auth.signIn(username,password)
+  //     .then((user: CognitoUser|any) => {
+  //       this.loggedIn = true;
+  //       resolve(user);
+  //     }).catch((error: any) => reject(error));
+  //   });
+  // }
+
+  signOut(): Promise<any> {
+    return Auth.signOut()
+      .then(() => this.loggedIn = false)
+  }
+
+  socialSignIn(provider:CognitoHostedUIIdentityProvider): Promise<ICredentials> {
+    return Auth.federatedSignIn({
+      'provider': provider
+    });
+  }
+
 }

@@ -89,7 +89,7 @@
 							<input type="text" formControlName="Y7">
                         </div>
                     </div> -->
-							<!-- Z -->
+							<!-- Activity -->
 							<div formArrayName="Activity">
 								<div *ngFor="let Z of Y['controls'].Activity['controls']; let iz=index">
 									<div formGroupName="{{iz}}" class="Activity">
@@ -154,20 +154,21 @@
                                   </div>
 									</div>
 								</div>
-								<input type="button" (click)="addZ(ix,iy)" value="Add Z">
+								<input type="button" (click)="addZ(ix,iy)" value="Add Activity">
 							</div>
-							<!-- Z End -->
+							<!-- Activity End -->
                         </div>
 						</div>
 					</div>
-					<input type="button" (click)="addY(ix)" value="Add Y">
+					<input type="button" (click)="addY(ix)" value="Add Travel Detail">
 				</div>
 				<!-- Travel End-->
 			</div>
 		</div>
-		<input type="button" (click)="addX()" value="Add X">
+		<input type="button" (click)="addX()" value="Add Day">
 	</div>
-	<!-- Day End -->
+  <!-- Day End -->
+  <button type="button" class="btn btn-primary" style="margin-left:20px;" (click)="publish()">Publish</button>
 </form>
 
 		<h5>Field Values</h5>

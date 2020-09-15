@@ -1,6 +1,6 @@
 // import { ProfileComponent } from './profile.component'
-import { LoginComponent } from './login.component'
-import { SignUpComponent } from './sign-up.component'
+import { LoginComponent } from './Login/login.component'
+import { SignUpComponent } from './Sign-up/sign-up.component'
 
 export const userRoutes = [
   // {path: 'profile', component: ProfileComponent},
