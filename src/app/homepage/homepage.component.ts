@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormArray, FormGroup, Validators, FormControl } from "@angular/forms";
 import { Router } from '@angular/router';
 import {FormCreationService} from '../Create-Plan/form-creation/form.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-homepage',
@@ -11,6 +12,11 @@ import {FormCreationService} from '../Create-Plan/form-creation/form.service';
 export class HomepageComponent implements OnInit {
 
   form: FormGroup;
+ httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json',
+    })
+  };
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -272,12 +278,25 @@ export class HomepageComponent implements OnInit {
 
 
   constructor(private fb: FormBuilder, private router: Router, 
-    private formCreationService: FormCreationService) {
+    private formCreationService: FormCreationService, private http: HttpClient) {
 
   }
   publish() {
-    console.log(this.form.value);
-    this.formCreationService.publish(this.form.value).subscribe(result=>this.gotoPlansList());
+    let resource = JSON.stringify(this.form.value)
+    console.log(resource);
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+   });
+   let options = {
+      headers: headers
+   }
+  
+    this.http.post("http://localhost:9527/myPlan/travelPlan", resource, options)
+            .subscribe(
+                data => console.log("success!", data),
+                error => console.error("couldn't post because", error)
+            );
+    // this.formCreationService.publish(this.form.value).subscribe(result=>this.gotoPlansList());
   }
   gotoPlansList(){
     // this.router.navigate(['/user/login'])
