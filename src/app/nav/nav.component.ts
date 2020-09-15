@@ -25,8 +25,12 @@ async signOut() {
         console.log('error signing out: ', error);
     }
 }
+// signOut(){
+//   const URL = "https://travel-planner-project.auth.us-east-1.amazoncognito.com/logout?client_id=q24v72k1nscsoarhp395jb3m5&logout_uri=http://localhost:4200/user/login";
+//   window.location.assign(URL);
+// }
   onLoginClick() {
-    const URL = "https://travel-planner-project.auth.us-east-1.amazoncognito.com/login?client_id=q24v72k1nscsoarhp395jb3m5&response_type=code&scope=phone+email+openid+aws.cognito.signin.user.admin+profile&redirect_uri=http://localhost:4200";
+    const URL = "https://travel-planner-project.auth.us-east-1.amazoncognito.com/login?client_id=q24v72k1nscsoarhp395jb3m5&response_type=code&scope=phone+email+openid+aws.cognito.signin.user.admin+profile&redirect_uri=http://localhost:4200/home";
     window.location.assign(URL);
   }
 

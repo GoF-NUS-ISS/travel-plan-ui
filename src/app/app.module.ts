@@ -21,6 +21,7 @@ import { TravelLegComponent } from './Create-Plan/form-creation/travel-leg/trave
 import {AppService} from './Create-Plan/form-creation/AppService'
 import {HttpClientModule} from '@angular/common/http'
 import {FormCreationService} from './Create-Plan/form-creation/form.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // import { AmplifyUIAngularModule } from '@aws-amplify/ui-angular';
 
 @NgModule({
@@ -44,7 +45,8 @@ import {FormCreationService} from './Create-Plan/form-creation/form.service';
     // AmplifyUIAngularModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCwpq3QYb89Myl6ViV0nsGqmbMVUzHkERY'
-    })
+    }),
+    BrowserAnimationsModule
     
   ],
   exports: [RouterModule],
