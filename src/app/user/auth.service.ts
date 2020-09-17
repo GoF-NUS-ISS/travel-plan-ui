@@ -6,9 +6,9 @@ import { CognitoUser } from 'amazon-cognito-identity-js';
 
 export interface NewUser {
   email: string,
+  phone ?: string,
   password: string,
-  firstName: string,
-  lastName: string
+  name: string,
 };
 
 @Injectable({
@@ -34,27 +34,26 @@ export class AuthService {
     });
   }
   
-  // signUp(user: NewUser): Promise<CognitoUser|any> {
-  //   return Auth.signUp({
-  //     "username": user.email,
-  //     "password": user.password,
-  //     "attributes": {
-  //       "email": user.email,
-  //       "given_name": user.firstName,
-  //       "family_name": user.lastName,
-  //     }
-  //   });
-  // }
+  signUp(user: NewUser): Promise<CognitoUser|any> {
+    return Auth.signUp({
+      "username": user.name,
+      "password": user.password,
+      "attributes": {
+        "email": user.email,
+        "phone_number": user.phone
+      }
+    });
+  }
 
-  // signIn(username: string, password: string):Promise<CognitoUser|any> {
-  //   return new Promise((resolve,reject) => {
-  //     Auth.signIn(username,password)
-  //     .then((user: CognitoUser|any) => {
-  //       this.loggedIn = true;
-  //       resolve(user);
-  //     }).catch((error: any) => reject(error));
-  //   });
-  // }
+  signIn(username: string, password: string):Promise<CognitoUser|any> {
+    return new Promise((resolve,reject) => {
+      Auth.signIn(username,password)
+      .then((user: CognitoUser|any) => {
+        this.loggedIn = true;
+        resolve(user);
+      }).catch((error: any) => reject(error));
+    });
+  }
 
   signOut(): Promise<any> {
     return Auth.signOut()

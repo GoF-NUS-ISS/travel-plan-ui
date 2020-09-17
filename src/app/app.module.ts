@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { AngularFireModule } from 'angularfire2';
+// import { ServiceWorkerModule } from '@angular/service-worker';
 // import { PlanListComponent } from './plans/plan-list/plan-list.component';
 // import { PlanListInputComponent } from './plans/plan-list-input/plan-list-input.component';
 import { NavComponent } from './nav/nav.component';
@@ -11,8 +12,14 @@ import { FormCreationComponent } from './Create-Plan/form-creation/form-creation
 import { Routes, RouterModule } from '@angular/router';
 import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { HomepageComponent } from './homepage/homepage.component';
-import { UserModule } from './user/user.module';
-import { AuthService } from './user/auth.service';
+// import { AuthComponent } from './user/auth.component';
+// import { SignInComponent } from './user/sign-in/sign-in.component';
+// import { SignUpComponent } from './user/sign-up/sign-up.component';
+// import { AuthService } from './user/auth.service';
+// import { ProfileComponent } from './user/profile/profile.component';
+// import { LoaderComponent } from './loader/loader.component';
+// import { ConfirmCodeComponent } from './user/confirm-code/confirm-code.component';
+// import { CountryCodeSelectComponent } from './user/country-code-select/country-code-select.component';
 import {AgmCoreModule} from '@agm/core'
 import{ReactiveFormsModule} from '@angular/forms';
 import { FormsModule } from '@angular/forms';
@@ -22,6 +29,9 @@ import {AppService} from './Create-Plan/form-creation/AppService'
 import {HttpClientModule} from '@angular/common/http'
 import {FormCreationService} from './Create-Plan/form-creation/form.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { environment } from '../environments/environment';
+import { MaterialModule } from './material/material.module';
+import { UserModule } from './user/user.module';
 // import { AmplifyUIAngularModule } from '@aws-amplify/ui-angular';
 
 @NgModule({
@@ -29,11 +39,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppComponent,
     // PlanListComponent,
     // PlanListInputComponent,
+    // AuthComponent,
+    // SignInComponent,
     NavComponent,
     routingComponents,
     HomepageComponent,
     ActivityLegComponent,
-    TravelLegComponent
+    TravelLegComponent,
+    // SignUpComponent,
+    // CountryCodeSelectComponent,
+    // ConfirmCodeComponent,
+    // ProfileComponent,
+    // LoaderComponent
     //FormCreationComponent,
   ],
   imports: [
@@ -42,19 +59,21 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
+    MaterialModule,
     // AmplifyUIAngularModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCwpq3QYb89Myl6ViV0nsGqmbMVUzHkERY'
     }),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    // ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
     
   ],
-  exports: [RouterModule],
+  exports: [RouterModule, ReactiveFormsModule],
   providers: 
   [
     // PlanService, 
     ToastrService, 
-    AuthService,
+    // AuthService,
     FormCreationService,
     AppService,
     AngularFireModule,
@@ -63,7 +82,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       useValue: checkDirtyState
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
 export function checkDirtyState(component:FormCreationComponent){

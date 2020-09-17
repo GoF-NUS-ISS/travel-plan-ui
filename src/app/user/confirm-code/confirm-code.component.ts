@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
-import { environment } from '../../../environments/environment';
+import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import Auth from '@aws-amplify/auth';
-import { NotificationService } from '../../../app/common/notification.service';
-import { MatBottomSheetRef } from "@angular/material/bottom-sheet";
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-confirm-code',
@@ -13,7 +12,7 @@ import { MatBottomSheetRef } from "@angular/material/bottom-sheet";
 })
 export class ConfirmCodeComponent implements OnInit {
 
-  email = environment.confirm.email;
+  email = environment.confirm.name;
   confirmForm: FormGroup = new FormGroup({
     email: new FormControl({value: this.email, disabled: true}),
     code: new FormControl('', [ Validators.required, Validators.min(3) ])
@@ -25,7 +24,7 @@ export class ConfirmCodeComponent implements OnInit {
 
   ngOnInit() {
     if (!this.email) {
-      this._router.navigate(['auth/signup']);
+      this._router.navigate(['user/signup']);
     } else {
       Auth.resendSignUp(this.email);
     }
@@ -42,13 +41,13 @@ export class ConfirmCodeComponent implements OnInit {
       .then((data: any) => {
         console.log(data);
         if (data === 'SUCCESS' &&
-            environment.confirm.email && 
+            environment.confirm.name && 
             environment.confirm.password) {
           Auth.signIn(this.email, environment.confirm.password)
             .then(() => {
               this._router.navigate(['']);
             }).catch((error: any) => {
-              this._router.navigate(['auth/signin']);
+              this._router.navigate(['user/login']);
             })
         }
       })
