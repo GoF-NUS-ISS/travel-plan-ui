@@ -77,4 +77,8 @@ export class SignInComponent {
     const socialResult = await this.auth.socialSignIn(AuthService.GOOGLE);
     console.log('google Result:', socialResult);
   }
+  onForgotPasswordClick() {
+    const URL = "https://travel-planner-project.auth.us-east-1.amazoncognito.com/forgotPassword?redirect_uri=http%3A%2F%2Flocalhost%3A4200&response_type=code&client_id=q24v72k1nscsoarhp395jb3m5&identity_provider=Google&scope=phone%20email%20profile%20openid%20aws.cognito.signin.user.admin&state=71zn7T8C5bNr5FK5RYkDB69Er6tAfBot&code_challenge=pUy2w2ecfZg94ZU-5W1l0uawPzLjcKpu6qVjUEio2yM&code_challenge_method=S256";
+    window.location.assign(URL);
+  }
 }
