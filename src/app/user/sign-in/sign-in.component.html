@@ -2,7 +2,7 @@
   <h2>Sign in to your account</h2>
   <mat-form-field>
       <input matInput placeholder="name" type="text" formControlName="name" autocomplete="name" required>
-      <mat-hint *ngIf="!nameInput.value">Enter your name address</mat-hint>
+      <mat-hint *ngIf="!nameInput.value">Enter your name</mat-hint>
       <mat-error *ngIf="!nameInput.valid">
           {{getnameInputError()}}
       </mat-error>

@@ -13,6 +13,11 @@
                     Day {{ix+1}}
                   </div>
                   <div class="form-group row mb-2">
+                    <button class="btn btn-outline-primary"
+                    type="button" style="margin-left:920px; font-size: 12px;"
+                    (click)="deleteDay(ix)">
+                    Delete Day
+                    </button>
                     <label class="col-md-1 col-form-label" [attr.for]="i">Date: </label>
                     <div class="col-md-8">
                 <input type="date" formControlName="X">
@@ -29,7 +34,7 @@
                               <div class="form-group row mb-2">
                               <button class="btn btn-outline-primary"
                               type="button" style="margin-left:920px; font-size: 12px;"
-                              (click)="deleteDetail(iy)">
+                              (click)="deleteTravel(ix, iy)">
                               Delete Travel Details
                               </button>
                               </div>
@@ -98,7 +103,7 @@
                                           </div>
                                           <div class="form-group row mb-2">
                                             <button class="btn btn-outline-primary" type="button" style="margin-left:900px; font-size: 12px;"
-                                              (click)="deleteActivity(i)">
+                                              (click)="deleteActivity(ix, iy, iz)">
                                               Delete Activity
                                             </button>
                                             <br />
@@ -154,18 +159,18 @@
                                   </div>
 									</div>
 								</div>
-								<input type="button" (click)="addZ(ix,iy)" value="Add Activity">
+								<input type="button" (click)="addActivity(ix,iy)" value="Add Activity">
 							</div>
 							<!-- Activity End -->
                         </div>
 						</div>
 					</div>
-					<input type="button" (click)="addY(ix)" value="Add Travel Detail">
+					<input type="button" (click)="addTravel(ix)" value="Add Travel Detail">
 				</div>
 				<!-- Travel End-->
 			</div>
 		</div>
-		<input type="button" (click)="addX()" value="Add Day">
+		<input type="button" (click)="addDay()" value="Add Day">
 	</div>
   <!-- Day End -->
   <button type="button" class="btn btn-primary" style="margin-left:20px;" (click)="publish()">Publish</button>

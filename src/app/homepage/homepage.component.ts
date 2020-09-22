@@ -3,6 +3,7 @@ import { FormBuilder, FormArray, FormGroup, Validators, FormControl } from "@ang
 import { Router } from '@angular/router';
 import {FormCreationService} from '../Create-Plan/form-creation/form.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {Plans} from '../Plans/plans'
 
 @Component({
   selector: 'app-homepage',
@@ -12,6 +13,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class HomepageComponent implements OnInit {
 
   form: FormGroup;
+  plan:Plans;
  httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
@@ -71,28 +73,36 @@ export class HomepageComponent implements OnInit {
     })
   }
 
-  addX() {
-    const control = <FormArray>this.form.controls['Day'];
-    control.push(this.initX());
+  get Day():FormArray{
+    return this.form.get('Day') as FormArray;
   }
 
+  addDay() : void{
+    // const control = <FormArray>this.form.controls['Day'];
+    // control.push(this.initX());
+    this.Day.push(this.initX())
+  }
 
-  addY(ix) {
+  deleteDay(index: number): void{
+    this.Day.removeAt(index)
+  }
+
+  addTravel(ix){
     const control = (<FormArray>this.form.controls['Day']).at(ix).get('Travel') as FormArray;
-    control.push(this.initY());
+    control.push(this.initY())
   }
-  deleteDetail(index): void{
-    const control = (<FormArray>this.form.controls['Day']).at(index).get('Travel') as FormArray;
-    control.removeAt(index);
+  deleteTravel(ix, index): void{
+    const control = (<FormArray>this.form.controls['Day']).at(ix).get('Travel') as FormArray;
+    control.removeAt(index)
   }
 
-  addZ(ix, iy) {
+  addActivity(ix, iy) {
     const control = ((<FormArray>this.form.controls['Day']).at(ix).get('Travel') as FormArray).at(iy).get('Activity') as FormArray;
     control.push(this.initZ());
   }
   
-  deleteActivity(index,iy): void{
-    const control = ((<FormArray>this.form.controls['Day']).at(index).get('Travel') as FormArray).at(iy).get('Activity') as FormArray;
+  deleteActivity(ix,iy,index): void{
+    const control = ((<FormArray>this.form.controls['Day']).at(ix).get('Travel') as FormArray).at(iy).get('Activity') as FormArray;
     control.removeAt(index);
   }
 

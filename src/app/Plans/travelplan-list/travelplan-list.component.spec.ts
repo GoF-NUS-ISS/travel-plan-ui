@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PlanListInputComponent } from './plan-list-input.component';
+import { TravelplanListComponent } from './travelplan-list.component';
 
-describe('PlanListInputComponent', () => {
-  let component: PlanListInputComponent;
-  let fixture: ComponentFixture<PlanListInputComponent>;
+describe('TravelplanListComponent', () => {
+  let component: TravelplanListComponent;
+  let fixture: ComponentFixture<TravelplanListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PlanListInputComponent ]
+      declarations: [ TravelplanListComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PlanListInputComponent);
+    fixture = TestBed.createComponent(TravelplanListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
