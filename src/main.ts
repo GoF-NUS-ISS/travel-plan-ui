@@ -61,7 +61,9 @@ import {CognitoUser, ISignUpResult} from 'amazon-cognito-identity-js';
 
 Auth.configure({
   userPoolId: 'us-east-1_r26l8b00Y',
-  userPoolWebClientId: 'q24v72k1nscsoarhp395jb3m5'
+  // userPoolWebClientId: 'q24v72k1nscsoarhp395jb3m5',
+  userPoolWebClientId: '4rs9d1auvjcnvi2d2kmrgk4a95',
+  clientSecret:'1m3f4hhdjrrfecra0q2v2gpic3idtqk925o4dspb9o167d36dtli'
 })
 Amplify.configure(awsconfig);
 
