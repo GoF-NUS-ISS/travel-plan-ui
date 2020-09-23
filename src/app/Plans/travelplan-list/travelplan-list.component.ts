@@ -9,6 +9,7 @@ import {PlanService} from '../plan.service'
 })
 export class TravelplanListComponent implements OnInit {
   pageTitle = 'Product List';
+   errorMessage = '';
   _listFilter = '';
   get listFilter(): string {
     return this._listFilter;
@@ -24,12 +25,19 @@ export class TravelplanListComponent implements OnInit {
   performFilter(filterBy: string): Plans[] {
     filterBy = filterBy.toLocaleLowerCase();
     return 
-    // this.products.filter((product: Plans) =>
-    //   product.productName.toLocaleLowerCase().indexOf(filterBy) !== -1);
+    this.plans.filter((plan: Plans) =>
+    plan.title.toLocaleLowerCase().indexOf(filterBy) !== -1);
   }
-  constructor() { }
+  constructor(private planService: PlanService) { }
 
   ngOnInit(): void {
+    this.planService.getPlans().subscribe({
+      next: plans => {
+        this.plans = plans;
+        this.filteredPlans = this.plans;
+      },
+      error: err => this.errorMessage = err
+    });
   }
 
 }

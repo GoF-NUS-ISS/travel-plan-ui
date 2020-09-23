@@ -21,6 +21,7 @@ import { environment } from '../environments/environment';
 import { MaterialModule } from './material/material.module';
 import { UserModule } from './user/user.module';
 import { TravelplanListComponent } from './Plans/travelplan-list/travelplan-list.component';
+import { TravelplanDisplayComponent } from './Plans/travelplan-display/travelplan-display.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { TravelplanListComponent } from './Plans/travelplan-list/travelplan-list
     ActivityLegComponent,
     TravelLegComponent,
     TravelplanListComponent,
+    TravelplanDisplayComponent,
   ],
   imports: [
     BrowserModule,

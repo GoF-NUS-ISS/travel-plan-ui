@@ -10,7 +10,7 @@ import { Plans } from './plans';
   providedIn: 'root'
 })
 export class PlanService {
-    private plansUrl = 'api/products';
+    private plansUrl = 'http://localhost:9527/myPlan/travelPlan';
     constructor(private http: HttpClient){}
 
     getPlans(): Observable<Plans[]> {

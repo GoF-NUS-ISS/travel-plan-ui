@@ -295,7 +295,8 @@ export class HomepageComponent implements OnInit {
     let resource = JSON.stringify(this.form.value)
     console.log(resource);
     let headers = new HttpHeaders({
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'responseType': 'text'
    });
    let options = {
       headers: headers
