@@ -12,7 +12,6 @@ export class TravelplanDisplayComponent implements OnInit {
   pageTitle = 'Plan Detail';
   errorMessage = '';
   plans: Plans | undefined;
-
   constructor(private route: ActivatedRoute,
     private router: Router,
     private planService: PlanService) { }
@@ -20,11 +19,12 @@ export class TravelplanDisplayComponent implements OnInit {
   ngOnInit() {
     const param = this.route.snapshot.paramMap.get('id');
     if (param) {
-      const id = +param;
-      this.getProduct(id);
+      // const id = param;
+      const id = this.route.snapshot.params['id'];
+      this.getPlan(id);
     }
   }
-  getProduct(id: number) {
+  getPlan(id: string) {
     this.planService.getPlan(id).subscribe({
       next: plans => this.plans = plans,
       error: err => this.errorMessage = err

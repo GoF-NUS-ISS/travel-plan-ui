@@ -1,0 +1,68 @@
+<!-- Activity -->
+<div formArrayName="Activity">
+    <div *ngFor="let Z of X['controls'].Activity['controls']; let iz=index">
+        <div formGroupName="{{iz}}" class="Activity">
+            <div class="card-header" id="{{ 'activityId' + iz }}">
+                Activity {{iz+1}}
+              </div>
+              <div class="form-group row mb-2">
+                <button class="btn btn-outline-primary" type="button" style="margin-left:900px; font-size: 12px;"
+                  (click)="deleteActivity(ix, iy, iz)">
+                  Delete Activity
+                </button>
+                <br />
+              </div>
+              <div class="form-group row mb-2">
+                <label class="col-md-2 col-form-label" [attr.for]="iz">Location:</label>
+                <div class="col-md-8">
+            <input type="text" formControlName="location" style="column-width: 170px;">
+            <!-- <p>{{ formErrors.Day[ix].nodes[iy].Activity[iz].Z1 }}</p> -->
+        </div>
+    </div>
+    <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" [attr.for]="iz">Category:</label>
+        <div class="col-md-8">
+          <input type="text" placeholder="Description"
+            formControlName="category" style="column-width: 170px;">
+        </div>
+      </div>
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" [attr.for]="iz">Time Start:</label>
+        <div class="col-md-8">
+          <input type="time" class="form-control" placeholder="Time Start"
+            formControlName="timestart" style="column-width: 170px;">
+        </div>
+      </div>
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" [attr.for]="iz">Time End:</label>
+        <div class="col-md-8">
+          <input type="time" class="form-control" id="{{ 'timeendId' + iz }}" placeholder="Time End"
+            formControlName="timeend" style="column-width: 170px;">
+        </div>
+      </div>
+      <!-- </div> -->                        
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" [attr.for]="iz">Cost:</label>
+        <div class="col-md-8">
+          <input type="text" class="form-control" id="{{ 'costId' + iz }}" placeholder="Cost" formControlName="cost">
+        </div>
+      </div>
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" for="ratingId" [attr.for]="iz">Star Rating (1-5):</label>
+        <div class="col-md-8">
+          <input class="form-control" id="{{'ratingId'+iz}}" type="text" placeholder="Rating (1-5)"
+            formControlName="rating">
+        </div>
+      </div>
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" [attr.for]="iz">Review Description:</label>
+        <div class="col-md-8">
+          <textarea type="text" class="form-control" id="{{ 'reviewdescriptionId' + iz }}"
+            placeholder="Review Description if any" formControlName="reviewdescription"></textarea>
+        </div>
+      </div>
+        </div>
+    </div>
+    <input type="button" (click)="addActivity(ix,iy)" value="Add Activity">
+</div>
+<!-- Activity End -->

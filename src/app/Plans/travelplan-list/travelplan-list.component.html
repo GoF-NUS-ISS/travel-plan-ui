@@ -29,10 +29,15 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let plan of filteredProducts">
+                <tr *ngFor="let plan of filteredPlans">
                   <td>
-                    <a [routerLink]="['/plans', plans.id]">
+                    <a [routerLink]="['/PublishedPlans', plan.id]">
                       {{ plan.title }}
+                    </a>
+                  </td>
+                  <td>
+                    <a>
+                      {{ plan.days.date }}
                     </a>
                   </td>
                   <!-- <td>{{ product.productCode }}</td>

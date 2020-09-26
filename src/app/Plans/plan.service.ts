@@ -10,7 +10,8 @@ import { Plans } from './plans';
   providedIn: 'root'
 })
 export class PlanService {
-    private plansUrl = 'http://localhost:9527/myPlan/travelPlan/{user}/';
+    private plansUrl = 'http://localhost:9527/myPlan/travelPlan/string/';
+    private displayUrl='/PublishedPlans'
     constructor(private http: HttpClient){}
 
     getPlans(): Observable<Plans[]> {
@@ -21,11 +22,12 @@ export class PlanService {
           );
       }
     
-      getPlan(id: number): Observable<Plans> {
-        if (id === 0) {
+      getPlan(id: string): Observable<Plans> {
+        if (id === null) {
           return of(this.initializePlan());
         }
-        const url = `${this.plansUrl}/${id}`;
+        const url = `${this.plansUrl}`;
+        // const url = `${this.plansUrl}/${id}`;
         return this.http.get<Plans>(url)
           .pipe(
             tap(data => console.log('getPlan: ' + JSON.stringify(data))),
@@ -53,21 +55,22 @@ export class PlanService {
     private initializePlan(): Plans {
         // Return an initialized object
         return {
-          id: 0,
+          id: null,
           title: null,
-          day: [{
-            travel: [
+          days: [{
+            date: null,
+            nodes: [
                 {
+                    type: null,
                     from:null,
                     to:null,
-                    tripstart:null,
-                    return:null,
-                    travelcost:null,
-                    transport:null
-                }
-            ],
-            activity: [
-                {
+                    startOn:null,
+                    returnDate:null,
+                    transportMode:null,
+                    cost:null
+                },               
+                  {
+                    type:null,
                     location:null,
                     category:null,
                     timestart:null,
@@ -75,8 +78,19 @@ export class PlanService {
                     cost:null,
                     starRating:null,
                     reviewdescription:null
-                }
-            ]
+                }               
+            ],
+            // activity: [
+            //     {
+            //         location:null,
+            //         category:null,
+            //         timestart:null,
+            //         timeend:null,
+            //         cost:null,
+            //         starRating:null,
+            //         reviewdescription:null
+            //     }
+            // ]
           }]
         };
       }

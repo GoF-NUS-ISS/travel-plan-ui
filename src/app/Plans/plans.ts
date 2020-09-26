@@ -1,20 +1,21 @@
 export interface Plans {
-    id: number;
+    id: string;
     title: string;
-    day?: [
+    days ?: [
         {
-            travel: [
+            date: Date,
+            nodes: [
                 {
+                    type:string,
                     from:string,
                     to:string,
-                    tripstart:string,
-                    return:string,
-                    travelcost:number,
-                    transport:string
-                }
-            ],
-            activity: [
+                    startOn:string,
+                    returnDate:string,
+                    transportMode:string,
+                    cost:number
+                },
                 {
+                    type:string,
                     location:string,
                     category:string,
                     timestart:string,
@@ -23,7 +24,7 @@ export interface Plans {
                     starRating?:number,
                     reviewdescription?:string
                 }
-            ];
+            ]
         }
     ];
   }
