@@ -51,6 +51,8 @@ export class AuthService {
       .then((user: CognitoUser|any) => {
         this.loggedIn = true;
         resolve(user);
+        this.getIdToken(user);
+        return Auth.currentSession();
       }).catch((error: any) => reject(error));
     });
   }
@@ -65,5 +67,97 @@ export class AuthService {
       'provider': provider
     });
   }
+  info:any = {};
+  user_name:string;
+  
+  currentUserInfo(){
+    this.info= Auth.currentUserInfo();
+    this.user_name=this.info.attributes['name']
+    return this.info;
+  }
 
+  getAccessToken(callback: Callback): void {
+    if (callback == null) {
+        throw("CognitoUtil: callback in getAccessToken is null...returning");
+    }
+    if (this.currentUserInfo() != null) {
+        this.currentUserInfo().getSession(function (err, session) {
+            if (err) {
+                console.log("CognitoUtil: Can't set the credentials:" + err);
+                callback.callbackWithParam(null);
+            }
+            else {
+                if (session.isValid()) {
+                    callback.callbackWithParam(session.getAccessToken().getJwtToken());
+                }
+            }
+        });
+    }
+    else {
+        callback.callbackWithParam(null);
+    }
+}
+
+  getIdToken(callback: Callback): void {
+    if (callback == null) {
+        throw("CognitoUtil: callback in getIdToken is null...returning");
+    }
+    if (this.currentUserInfo() != null)
+        this.currentUserInfo().getSession(function (err, session) {
+            if (err) {
+                console.log("CognitoUtil: Can't set the credentials:" + err);
+                callback.callbackWithParam(null);
+            }
+            else {
+                if (session.isValid()) {
+                    callback.callbackWithParam(session.getIdToken().getJwtToken());
+                } else {
+                    console.log("CognitoUtil: Got the id token, but the session isn't valid");
+                }
+            }
+        });
+    else
+        callback.callbackWithParam(null);
+}
+getRefreshToken(callback: Callback): void {
+  if (callback == null) {
+      throw("CognitoUtil: callback in getRefreshToken is null...returning");
+  }
+  if (this.currentUserInfo() != null)
+      this.currentUserInfo().getSession(function (err, session) {
+          if (err) {
+              console.log("CognitoUtil: Can't set the credentials:" + err);
+              callback.callbackWithParam(null);
+          }
+
+          else {
+              if (session.isValid()) {
+                  callback.callbackWithParam(session.getRefreshToken());
+              }
+          }
+      });
+  else
+      callback.callbackWithParam(null);
+}
+
+refresh(): void {
+  this.currentUserInfo().getSession(function (err, session) {
+      if (err) {
+          console.log("CognitoUtil: Can't set the credentials:" + err);
+      }
+
+      else {
+          if (session.isValid()) {
+              console.log("CognitoUtil: refreshed successfully");
+          } else {
+              console.log("CognitoUtil: refreshed but session is still not valid");
+          }
+      }
+  });
+}
+}
+export interface Callback {
+  callback(): void;
+
+  callbackWithParam(result: any): void;
 }

@@ -11,7 +11,7 @@ import {PlanService} from '../plan.service'
 export class TravelplanDisplayComponent implements OnInit {
   pageTitle = 'Plan Detail';
   errorMessage = '';
-  plans: Plans | undefined;
+  plans: Plans;
   constructor(private route: ActivatedRoute,
     private router: Router,
     private planService: PlanService) { }

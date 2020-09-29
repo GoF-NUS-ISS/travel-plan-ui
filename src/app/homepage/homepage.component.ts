@@ -38,7 +38,7 @@ export class HomepageComponent implements OnInit {
       // ---------------------------------------------------------------------
       'nodes': this.fb.array([
         this.initY(),
-        this.initZ()
+        // this.initZ()
       ]),
     });
   }

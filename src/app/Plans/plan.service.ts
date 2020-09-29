@@ -3,16 +3,17 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators';
-
+import { AuthService } from '../user/auth.service';
 import { Plans } from './plans';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlanService {
-    private plansUrl = 'http://localhost:9527/myPlan/travelPlan/string/';
-    private displayUrl='/PublishedPlans'
-    constructor(private http: HttpClient){}
+    // uname=this.auth.currentUserInfo();
+    //${this.uname}
+    private plansUrl = `http://localhost:9527/myPlan/travelPlan/sample/`;
+    constructor(private http: HttpClient, private auth:AuthService){}
 
     getPlans(): Observable<Plans[]> {
         return this.http.get<Plans[]>(this.plansUrl)

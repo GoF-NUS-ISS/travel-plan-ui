@@ -31,7 +31,7 @@ import { environment } from '../../environments/environment';
     SignUpComponent,
     ConfirmCodeComponent,
     ProfileComponent,
-    LoaderComponent,
+    LoaderComponent
     
   ],
   exports: [ ],
