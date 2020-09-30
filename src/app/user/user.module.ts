@@ -27,8 +27,8 @@ import { environment } from '../../environments/environment';
   ],
   declarations: [
     AuthComponent,
-    SignInComponent,
     SignUpComponent,
+    SignInComponent,
     ConfirmCodeComponent,
     ProfileComponent,
     LoaderComponent
