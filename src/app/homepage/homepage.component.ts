@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import {FormCreationService} from '../Create-Plan/form-creation/form.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {Plans} from '../Plans/plans'
+import {PlanService} from '../Plans/plan.service'
+import { AuthService } from '../user/auth.service';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-homepage',
@@ -14,9 +17,15 @@ export class HomepageComponent implements OnInit {
 
   form: FormGroup;
   plan:Plans;
+  errorMessage: string;
+  bubbleActivity:any;
+  bubbleTravel:any;
+  data:{};
  httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
+      'responseType': 'text',
+      'Authorization': "Bearer "+ this.auth.getAccessToken()
     })
   };
 
@@ -46,14 +55,21 @@ export class HomepageComponent implements OnInit {
   initY() {
     return this.fb.group({
       //  ---------------------forms fields on y level ------------------------
-      'type': ['leg'],
+    //   'type': ['leg'],
       // 'from': ['from', [Validators.required, Validators.pattern('[0-9]{3}')]],
       'from': [],
       'to': [],
       'startOn': [],
       'returnDate': [],
-      'transportMode': [''],
+      'transportMode': [],
       'cost': [],
+      'category':[],
+      'costActivity':[],
+      'rating':[],
+      'reviewdescription':[],
+      'location': [],
+      'timestart':[],
+      'timeend':[]
       // 'Y7': [''],
       // ---------------------------------------------------------------------
       // 'Activity': this.fb.array([
@@ -66,13 +82,13 @@ export class HomepageComponent implements OnInit {
     return this.fb.group({
       //  ---------------------forms fields on z level ------------------------
       'type': ['activity'],
-      'category':[],
-      'cost':[],
-      'rating':[],
-      'reviewdescription':[],
-      'location': [],
-      'timestart':[],
-      'timeend':[]
+    //   'category':[],
+    //   'cost':[],
+    //   'rating':[],
+    //   'reviewdescription':[],
+    //   'location': [],
+    //   'timestart':[],
+    //   'timeend':[]
       // 'rating':[5, [Validators.required, Validators.pattern('[0-9]{3}')]],
       // ---------------------------------------------------------------------
     })
@@ -83,31 +99,71 @@ export class HomepageComponent implements OnInit {
   }
 
   addDay() : void{
-    // this.Day.push(this.initX())
+    this.Day.push(this.initX())
   }
 
   deleteDay(index: number): void{
-    // this.Day.removeAt(index)
+    this.Day.removeAt(index)
   }
 
   addTravel(ix){
-    // const control = (<FormArray>this.form.controls['days']).at(ix).get('nodes') as FormArray;
-    // control.push(this.initY())
+    this.bubbleTravel = true;
+    this.bubbleActivity = false;
+    const control = (<FormArray>this.form.controls['days']).at(ix).get('nodes') as FormArray;
+    control.push(
+        this.fb.group({
+            type: 'leg',
+            from: '',
+            to: '',
+            startOn:'',
+            returnDate:'',
+            transportMode:'',
+            cost:'',
+            category: null,
+            costActivity: null,
+            rating:null,
+            reviewdescription:null,
+            location:null,
+            timestart:null,
+            timeend:null
+          })
+    )
   }
   deleteTravel(ix, index): void{
-    // const control = (<FormArray>this.form.controls['days']).at(ix).get('nodes') as FormArray;
-    // control.removeAt(index)
+    const control = (<FormArray>this.form.controls['days']).at(ix).get('nodes') as FormArray;
+    control.removeAt(index)
   }
 
-  addActivity(ix, iy) {
-    const control = ((<FormArray>this.form.controls['days']).at(ix).get('nodes') as FormArray).at(iy).get('Activity') as FormArray;
-    control.push(this.initZ());
+  addActivity(ix) {
+    this.bubbleActivity = true;
+    this.bubbleTravel = false;
+    const control = (<FormArray>this.form.controls['days']).at(ix).get('nodes') as FormArray;
+    control.push
+    (
+        this.fb.group({
+            type: 'activity',
+            from: null,
+            to: null,
+            startOn:null,
+            returnDate:null,
+            transportMode:null,
+            cost:null,
+            category: '',
+            costActivity: '',
+            rating:'',
+            reviewdescription:'',
+            location:'',
+            timestart:'',
+            timeend:''
+          })
+    )
   }
   
-  deleteActivity(ix,iy,index): void{
-    const control = ((<FormArray>this.form.controls['days']).at(ix).get('nodes') as FormArray).at(iy).get('Activity') as FormArray;
-    control.removeAt(index);
+  deleteActivity(ix,index): void{
+    const control = (<FormArray>this.form.controls['days']).at(ix).get('nodes') as FormArray;
+    control.removeAt(index)
   }
+
 
 
   // formErrors = {
@@ -291,15 +347,59 @@ export class HomepageComponent implements OnInit {
 
 
   constructor(private fb: FormBuilder, private router: Router, 
-    private formCreationService: FormCreationService, private http: HttpClient) {
+    private auth:AuthService, private http: HttpClient,
+    private planService:PlanService) {
 
   }
+
+  getPlan(id: string): void {
+    this.planService.getPlan(id)
+      .subscribe({
+        next: (plans: Plans) => this.displayPlan(plans),
+        error: err => this.errorMessage = err
+      });
+  }
+
+  displayPlan(plans: Plans): void {
+    if (this.form) {
+      this.form.reset();
+    }
+    this.plan = plans;
+
+    // if (this.plan.id === 0) {
+    //   this.pageTitle = 'Add Product';
+    // } else {
+    //   this.pageTitle = `Edit Product: ${this.product.productName}`;
+    // }
+
+    // Update the data on the form
+    this.form.patchValue({
+      title: this.plan.title,
+      day: this.plan.days,
+    });
+    // this.form.setControl('tags', this.fb.array(this.plan.tags || []));
+  }
+
   publish() {
-    let resource = JSON.stringify(this.form.value)
+    let resource = this.form.value
+    const removeEmpty = (obj) => {
+      Object.keys(obj).forEach(key => {
+         if (obj[key] && typeof obj[key] === "object") {
+           // recursive
+           removeEmpty(obj[key]);
+         } else if (obj[key] === null) {
+           delete obj[key];
+         }
+       });
+       return obj;
+    };
     console.log(resource);
+    console.log("new obj :" + removeEmpty(resource));
+    // console.log(resource);
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'responseType': 'text'
+      'responseType': 'text',
+      'Authorization': "Bearer "+ this.auth.getAccessToken()
    });
    let options = {
       headers: headers

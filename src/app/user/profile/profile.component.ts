@@ -23,6 +23,7 @@ export class ProfileComponent implements OnInit {
   ses2:any = {};
   ses3:any = {};
   user: CognitoUser;
+  userName: CognitoUser;
   
   get emailInput() { return this.profileForm.get('email'); }
   get fnameInput() { return this.profileForm.get('fname'); }
@@ -51,6 +52,13 @@ export class ProfileComponent implements OnInit {
     console.log(this.ses1)
     console.log(this.ses2)
     console.log(this.ses3)
+    console.log(this.user.getUsername())
+  }
+
+  async getUserName(){
+    this.userName =  await Auth.currentAuthenticatedUser();
+    console.log(this.userName.getUsername());
+    return this.userName.getUsername()
   }
 
   getEmailInputError() {

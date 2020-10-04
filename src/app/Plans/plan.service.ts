@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
+import { ProfileComponent } from '../user/profile/profile.component'
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators';
 import { AuthService } from '../user/auth.service';
@@ -10,9 +10,9 @@ import { Plans } from './plans';
   providedIn: 'root'
 })
 export class PlanService {
-    // uname=this.auth.currentUserInfo();
+    uname=this.auth.currentUserInfo();
     //${this.uname}
-    private plansUrl = `http://localhost:9527/myPlan/travelPlan/sample/`;
+    private plansUrl = `http://localhost:9527/myPlan/travelPlan/${this.uname}/`;
     constructor(private http: HttpClient, private auth:AuthService){}
 
     getPlans(): Observable<Plans[]> {
@@ -35,6 +35,30 @@ export class PlanService {
             catchError(this.handleError)
           );
       }
+      createPlan(plans: Plans): Observable<Plans> {
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json', 
+        'Authorization': "Bearer "+ this.auth.getAccessToken() });
+        plans.id = null;
+        return this.http.post<Plans>(this.plansUrl, plans, { headers })
+          .pipe(
+            tap(data => console.log('createPlan: ' + JSON.stringify(data))),
+            catchError(this.handleError)
+          );
+      }
+
+      updatePlan(plans: Plans): Observable<Plans> {
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json',
+        'Authorization': "Bearer "+ this.auth.getAccessToken() });
+        const url = `${this.plansUrl}/${plans.id}`;
+        return this.http.put<Plans>(url, plans, { headers })
+          .pipe(
+            tap(() => console.log('updateProduct: ' + plans.id)),
+            // Return the product on an update
+            map(() => plans),
+            catchError(this.handleError)
+          );
+      }
+    
       
       private handleError(err) {
         // in a real world app, we may send the server to some remote logging infrastructure
@@ -81,17 +105,6 @@ export class PlanService {
                     reviewdescription:null
                 }               
             ],
-            // activity: [
-            //     {
-            //         location:null,
-            //         category:null,
-            //         timestart:null,
-            //         timeend:null,
-            //         cost:null,
-            //         starRating:null,
-            //         reviewdescription:null
-            //     }
-            // ]
           }]
         };
       }

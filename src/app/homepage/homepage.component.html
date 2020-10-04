@@ -13,7 +13,7 @@
             Day {{ix+1}}
           </div>
           <div class="form-group row mb-2">
-            <button class="btn btn-outline-primary" type="button" style="margin-left:920px; font-size: 12px;"
+            <button class="btn btn-outline-primary" type="button" style="margin-left:920px; font-style: 12px;"
               (click)="deleteDay(ix)">
               Delete Day
             </button>
@@ -27,11 +27,13 @@
           <div formArrayName="nodes">
             <div *ngFor="let Y of X['controls'].nodes['controls']; let iy=index">
               <div formGroupName="{{iy}}" class="nodes">
+                <div *ngIf="Y.value.type === 'leg'">
                 <div class="card-header" id="{{ 'travelId' + iy }}">
-                  Travel Detail {{iy+1}}
+                  Travel Detail 
+                  <!-- {{iy+1}} -->
                 </div>
                 <div class="form-group row mb-2">
-                  <button class="btn btn-outline-primary" type="button" style="margin-left:920px; font-size: 12px;"
+                  <button class="btn btn-outline-primary" type="button" style="margin-left:920px; font-style: 12px;"
                     (click)="deleteTravel(ix, iy)">
                     Delete Travel Details
                   </button>
@@ -85,19 +87,73 @@
                       </select>
                     </div>
                   </div>
-                  
+                  </div>
                 </div>
-                <!-- <div class="form-group row mb-2" *ngIf="selectedValue == 'others'">
-                        <label class="col-md-2 col-form-label" [attr.for]="iy">If others, please specify below:</label>                
-                        <div class="col-md-8">     
-							<input type="text" formControlName="Y7">
-                        </div>
-                    </div> -->
                 <!---------------------------------------- Activity comes here------------------------------ -->
+                <div *ngIf="Y.value.type === 'activity'">
+                <div  class="card-header" id="{{ 'activityId' + iy }}">
+                  Activity 
+                  <!-- {{iy+1}} -->
+                </div>
+                <div class="form-group row mb-2">
+                  <button class="btn btn-outline-primary" type="button" style="margin-left:920px; font-style: 12px;"
+                    (click)="deleteActivity(ix, iy)">
+                    Delete Activity
+                  </button>
+                </div>
+                <div  class="form-group row mb-2">
+                  <label class="col-md-2 col-form-label" [attr.for]="iy">Location:</label>
+                  <div class="col-md-8">
+                    <input type="text" formControlName="location" style="column-width: 170px;">
+                    <!-- <p>{{ formErrors.Day[ix].nodes[iy].Activity[iy].Z1 }}</p> -->
+                  </div>
+                </div>
+                <div  class="form-group row mb-2">
+                  <label class="col-md-2 col-form-label" [attr.for]="iy">Category:</label>
+                  <div class="col-md-8">
+                    <input type="text" placeholder="Description" formControlName="category" style="column-width: 170px;">
+                  </div>
+                </div>
+                <div  class="form-group row mb-2">
+                  <label class="col-md-2 col-form-label" [attr.for]="iy">Time Start:</label>
+                  <div class="col-md-8">
+                    <input type="time" class="form-control" placeholder="Time Start" formControlName="timestart"
+                      style="column-width: 170px;">
+                  </div>
+                </div>
+                <div  class="form-group row mb-2">
+                  <label class="col-md-2 col-form-label" [attr.for]="iy">Time End:</label>
+                  <div class="col-md-8">
+                    <input type="time" class="form-control" id="{{ 'timeendId' + iy }}" placeholder="Time End"
+                      formControlName="timeend" style="column-width: 170px;">
+                  </div>
+                </div>
+                <div  class="form-group row mb-2">
+                  <label class="col-md-2 col-form-label" [attr.for]="iy">Cost:</label>
+                  <div class="col-md-8">
+                    <input type="text" class="form-control" id="{{ 'costId' + iy }}" placeholder="Cost" formControlName="costActivity">
+                  </div>
+                </div>
+                <div  class="form-group row mb-2">
+                  <label class="col-md-2 col-form-label" for="ratingId" [attr.for]="iy">Star Rating (1-5):</label>
+                  <div class="col-md-8">
+                    <input class="form-control" id="{{'ratingId'+iy}}" type="text" placeholder="Rating (1-5)"
+                      formControlName="rating">
+                  </div>
+                </div>
+                <div  class="form-group row mb-2">
+                  <label class="col-md-2 col-form-label" [attr.for]="iy">Review Description:</label>
+                  <div class="col-md-8">
+                    <textarea type="text" class="form-control" id="{{ 'reviewdescriptionId' + iy }}"
+                      placeholder="Review Description if any" formControlName="reviewdescription"></textarea>
+                  </div>
+                </div>
+              </div>
               </div>
             </div>
           </div>
-          <input type="button" (click)="addTravel(ix)" value="Add Travel Detail">
+          <input type="button" (click)="addActivity(ix)" ng-click="bubbleActivity=true" value="Add Activity">
+          <input type="button" (click)="addTravel(ix)" bubbleTravel="true" value="Add Travel Detail">
           <!-- Test start -->
 
           <!-- Test end -->
@@ -112,4 +168,4 @@
 </form>
 
 <h5>Field Values</h5>
-<pre style="font-size:15px">{{ form.value | json }}</pre>
+<pre style="font-style:15px">{{ form.value | json }}</pre>

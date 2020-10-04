@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { AppComponent } from './app.component';
 import { AngularFireModule } from 'angularfire2';
 import { NavComponent } from './nav/nav.component';
@@ -22,6 +23,7 @@ import { MaterialModule } from './material/material.module';
 import { UserModule } from './user/user.module';
 import { TravelplanListComponent } from './Plans/travelplan-list/travelplan-list.component';
 import { TravelplanDisplayComponent } from './Plans/travelplan-display/travelplan-display.component';
+import { TravelplanEditComponent } from './Plans/travelplan-edit/travelplan-edit.component';
 
 @NgModule({
   declarations: [
@@ -33,9 +35,11 @@ import { TravelplanDisplayComponent } from './Plans/travelplan-display/travelpla
     TravelLegComponent,
     TravelplanListComponent,
     TravelplanDisplayComponent,
+    TravelplanEditComponent
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     ReactiveFormsModule,
     FormsModule,
     AppRoutingModule,
