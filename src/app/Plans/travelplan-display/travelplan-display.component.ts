@@ -19,8 +19,9 @@ export class TravelplanDisplayComponent implements OnInit {
   ngOnInit() {
     const param = this.route.snapshot.paramMap.get('id');
     if (param) {
+      //this.route.snapshot.params['id'];
       // const id = param;
-      const id = this.route.snapshot.params['id'];
+      const id = param
       this.getPlan(id);
     }
   }
@@ -32,7 +33,7 @@ export class TravelplanDisplayComponent implements OnInit {
   }
 
   onBack(): void {
-    this.router.navigate(['/PublishedPlans']);
+    this.router.navigate(['/plans']);
   }
 
 }

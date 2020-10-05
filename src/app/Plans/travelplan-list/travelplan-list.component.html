@@ -23,23 +23,21 @@
               <thead>
                 <tr>
                   <th>Title</th>
-                  <th>Price</th>
-                  <th>5 Star Rating</th>
                   <th></th>
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let plan of filteredPlans">
                   <td>
-                    <a [routerLink]="['/PublishedPlans', plan.id]">
+                    <a [routerLink]="['/plans', plan.id]">
                       {{ plan.title }}
                     </a>
                   </td>
-                  <td>
+                  <!-- <td>
                     <a>
                       {{ plan.days.date }}
                     </a>
-                  </td>
+                  </td> -->
                   <!-- <td>{{ product.productCode }}</td>
                   <td>{{ product.releaseDate }}</td>
                   <td>{{ product.price | currency:"USD":"symbol":"1.2-2" }}</td>

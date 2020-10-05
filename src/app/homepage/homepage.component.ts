@@ -21,13 +21,13 @@ export class HomepageComponent implements OnInit {
   bubbleActivity:any;
   bubbleTravel:any;
   data:{};
- httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type':  'application/json',
-      'responseType': 'text',
-      'Authorization': "Bearer "+ this.auth.getAccessToken()
-    })
-  };
+//  httpOptions = {
+//     headers: new HttpHeaders({
+//       'Content-Type':  'application/json',
+//       'responseType': 'text',
+//       'Authorization': "Bearer "+ this.auth.getAccessToken()
+//     })
+//   };
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -393,13 +393,13 @@ export class HomepageComponent implements OnInit {
        });
        return obj;
     };
-    console.log(resource);
+    console.log(JSON.stringify(resource));
     console.log("new obj :" + removeEmpty(resource));
     // console.log(resource);
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'responseType': 'text',
-      'Authorization': "Bearer "+ this.auth.getAccessToken()
+      'responseType': 'text'
+      // 'Authorization': "Bearer "+ this.auth.getAccessToken()
    });
    let options = {
       headers: headers

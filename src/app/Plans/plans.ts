@@ -3,10 +3,10 @@ export interface Plans {
     title: string;
     days ?: [
         {
-            date: Date,
+            date: string,
             nodes: [
                 {
-                    type:string,
+                    type:'leg',
                     from:string,
                     to:string,
                     startOn:string,
@@ -15,14 +15,14 @@ export interface Plans {
                     cost:number
                 },
                 {
-                    type:string,
+                    type:'activity',
                     location:string,
                     category:string,
-                    timestart:string,
-                    timeend:string,
+                    timeStart:string,
+                    timeEnd:string,
                     cost:number,
-                    starRating?:number,
-                    reviewdescription?:string
+                    rating?:number,
+                    review?:string
                 }
             ]
         }

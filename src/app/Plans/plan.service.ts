@@ -10,13 +10,17 @@ import { Plans } from './plans';
   providedIn: 'root'
 })
 export class PlanService {
-    uname=this.auth.currentUserInfo();
+    uname=this.auth.currentUserInfo().then(value=>{
+      return value;
+    }
+    )
     //${this.uname}
-    private plansUrl = `http://localhost:9527/myPlan/travelPlan/${this.uname}/`;
+    private plansUrl = `http://localhost:9527/myPlan/travelPlan`;
     constructor(private http: HttpClient, private auth:AuthService){}
 
     getPlans(): Observable<Plans[]> {
-        return this.http.get<Plans[]>(this.plansUrl)
+      const url = `${this.plansUrl}/name`;
+        return this.http.get<Plans[]>(url)
           .pipe(
             tap(data => console.log(JSON.stringify(data))),
             catchError(this.handleError)
@@ -27,8 +31,8 @@ export class PlanService {
         if (id === null) {
           return of(this.initializePlan());
         }
-        const url = `${this.plansUrl}`;
-        // const url = `${this.plansUrl}/${id}`;
+       // const url = `${this.plansUrl}/name/${id}`;
+        const url = `${this.plansUrl}/${id}`;
         return this.http.get<Plans>(url)
           .pipe(
             tap(data => console.log('getPlan: ' + JSON.stringify(data))),
@@ -98,11 +102,11 @@ export class PlanService {
                     type:null,
                     location:null,
                     category:null,
-                    timestart:null,
-                    timeend:null,
+                    timeStart:null,
+                    timeEnd:null,
                     cost:null,
-                    starRating:null,
-                    reviewdescription:null
+                    rating:null,
+                    review:null
                 }               
             ],
           }]

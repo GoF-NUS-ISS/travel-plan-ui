@@ -16,6 +16,7 @@ export interface NewUser {
 })
 export class AuthService {
   userName: CognitoUser;
+  uname:string;
   public loggedIn: boolean;
   private _authState: Subject<CognitoUser|any> = new Subject<CognitoUser|any>();
   authState: Observable<CognitoUser|any> = this._authState.asObservable();
@@ -72,9 +73,10 @@ export class AuthService {
   user:string;
   
   async currentUserInfo(){
-    this.userName =  await Auth.currentAuthenticatedUser();
-    console.log(this.userName.getUsername());
-    return this.userName.getUsername();
+    this.userName =  await Auth.currentAuthenticatedUser()
+    this.uname=this.userName.getUsername();
+    console.log(this.uname);
+    return Promise.resolve(this.uname);
   }
 
 //   getAccessToken(callback: Callback): void {
