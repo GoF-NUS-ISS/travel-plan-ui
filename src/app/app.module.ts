@@ -1,18 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { AppComponent } from './app.component';
 import { AngularFireModule } from 'angularfire2';
-// import { PlanListComponent } from './plans/plan-list/plan-list.component';
-// import { PlanListInputComponent } from './plans/plan-list-input/plan-list-input.component';
 import { NavComponent } from './nav/nav.component';
-// import {PlanService} from './plans/Service/plans.service';
 import { ToastrService } from './common/toastr.service';
 import { FormCreationComponent } from './Create-Plan/form-creation/form-creation.component';
 import { Routes, RouterModule } from '@angular/router';
 import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { HomepageComponent } from './homepage/homepage.component';
-import { UserModule } from './user/user.module';
-import { AuthService } from './user/auth.service';
 import {AgmCoreModule} from '@agm/core'
 import{ReactiveFormsModule} from '@angular/forms';
 import { FormsModule } from '@angular/forms';
@@ -21,38 +17,44 @@ import { TravelLegComponent } from './Create-Plan/form-creation/travel-leg/trave
 import {AppService} from './Create-Plan/form-creation/AppService'
 import {HttpClientModule} from '@angular/common/http'
 import {FormCreationService} from './Create-Plan/form-creation/form.service';
-// import { AmplifyUIAngularModule } from '@aws-amplify/ui-angular';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { environment } from '../environments/environment';
+import { MaterialModule } from './material/material.module';
+import { UserModule } from './user/user.module';
+import { TravelplanListComponent } from './Plans/travelplan-list/travelplan-list.component';
+import { TravelplanDisplayComponent } from './Plans/travelplan-display/travelplan-display.component';
+import { TravelplanEditComponent } from './Plans/travelplan-edit/travelplan-edit.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    // PlanListComponent,
-    // PlanListInputComponent,
     NavComponent,
     routingComponents,
     HomepageComponent,
     ActivityLegComponent,
-    TravelLegComponent
-    //FormCreationComponent,
+    TravelLegComponent,
+    TravelplanListComponent,
+    TravelplanDisplayComponent,
+    TravelplanEditComponent
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     ReactiveFormsModule,
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    // AmplifyUIAngularModule,
+    MaterialModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCwpq3QYb89Myl6ViV0nsGqmbMVUzHkERY'
-    })
+    }),
+    BrowserAnimationsModule,
     
   ],
-  exports: [RouterModule],
+  exports: [RouterModule, ReactiveFormsModule],
   providers: 
   [
-    // PlanService, 
     ToastrService, 
-    AuthService,
     FormCreationService,
     AppService,
     AngularFireModule,
@@ -61,7 +63,7 @@ import {FormCreationService} from './Create-Plan/form-creation/form.service';
       useValue: checkDirtyState
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
 export function checkDirtyState(component:FormCreationComponent){

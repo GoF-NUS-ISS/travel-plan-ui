@@ -1,0 +1,43 @@
+<div class="card">
+    <div class="card-header"
+         *ngIf="plans">
+      {{pageTitle + ": " + plans.title}}
+    </div>
+  
+    <div class="card-body"
+         *ngIf="plans">
+  
+      <div class="row">
+  
+        <div class="col-md-8">
+          <div class="row">
+            <div class="col-md-3">Title:</div>
+            <div class="col-md-6">{{plans.title}}</div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">Days:</div>
+            <div class="col-md-6">{{plans.Days}}</div>
+          </div>
+          
+  
+      <div class="row mt-4">
+        <div class="col-md-4">
+          <button class="btn btn-outline-secondary mr-3"
+                  style="width:80px"
+                  (click)="onBack()">
+            <i class="fa fa-chevron-left"></i> Back
+          </button>
+          <button class="btn btn-outline-primary"
+                  style="width:80px"
+                  [routerLink]="['/plans', plans.id, 'edit']">
+            Edit
+          </button>
+        </div>
+      </div>
+  
+    </div>
+  
+    <div class="alert alert-danger"
+         *ngIf="errorMessage">{{errorMessage}}
+    </div>
+  </div>

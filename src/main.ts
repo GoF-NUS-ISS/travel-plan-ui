@@ -9,7 +9,9 @@ import {CognitoUser, ISignUpResult} from 'amazon-cognito-identity-js';
 
 Auth.configure({
   userPoolId: 'us-east-1_r26l8b00Y',
-  userPoolWebClientId: 'q24v72k1nscsoarhp395jb3m5'
+  userPoolWebClientId: 'q24v72k1nscsoarhp395jb3m5',
+  // userPoolWebClientId: '4rs9d1auvjcnvi2d2kmrgk4a95',
+  // clientSecret:'1m3f4hhdjrrfecra0q2v2gpic3idtqk925o4dspb9o167d36dtli'
 })
 Amplify.configure(awsconfig);
 
@@ -47,12 +49,3 @@ if (environment.production) {
 
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.error(err));
-
-  function onSignUp(){
-    let userData={
-      // username: document.getElementById('signup-name').value,
-      // email: document.getElementById('signup-email').value,
-      // password: document.getElementById('signup-password').value,
-      // confirmPassword: document.getElementById('signup-password').value
-    }
-  }
