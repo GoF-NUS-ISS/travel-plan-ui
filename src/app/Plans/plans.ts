@@ -7,17 +7,17 @@ export interface Plans {
             nodes: [
                 {
                     type:string,
-                    from:string,
-                    to:string,
-                    startOn:string,
-                    returnDate:string,
-                    transportMode:string,
-                    cost:number,
-                    location:string,
-                    category:string,
-                    timeStart:string,
-                    timeEnd:string,
-                    costActivity:number,
+                    from?:string,
+                    to?:string,
+                    startOn?:string,
+                    returnDate?:string,
+                    transportMode?:string,
+                    cost?:number,
+                    location?:string,
+                    category?:string,
+                    timeStart?:string,
+                    timeEnd?:string,
+                    costActivity?:number,
                     rating?:number,
                     review?:string
                 }

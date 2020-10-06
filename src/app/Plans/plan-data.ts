@@ -12,7 +12,7 @@ export class PlanData implements InMemoryDbService {
                     "nodes": [
                       {
                         "type":"leg",
-                        "from":"string",
+                        "from":"try",
                         "to":"oshiage station",
                         "startOn":"2020-09-11T13:10:02.578+00:00",
                         "returnDate":"2020-09-11T14:10:02.578+00:00",

@@ -39,7 +39,9 @@ div.card {
 div.card-header {
   font-size: large;
  }
-
+ .table {
+  margin-top: 10px
+}
 /* div.card-body
  {
   width: 100%;

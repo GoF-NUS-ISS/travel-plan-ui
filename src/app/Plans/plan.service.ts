@@ -10,11 +10,12 @@ import { Plans } from './plans';
   providedIn: 'root'
 })
 export class PlanService {
+  usname:string;
     uname=this.auth.currentUserInfo().then(value=>{
+      this.usname=value;
       return value;
     }
     )
-    //${this.uname}
     // private plansUrl = `http://localhost:9527/myPlan/travelPlan`;
     private plansUrl = `api/plan`;
     constructor(private http: HttpClient, private auth:AuthService){}

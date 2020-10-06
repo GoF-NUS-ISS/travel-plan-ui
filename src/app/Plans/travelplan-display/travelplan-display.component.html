@@ -1,43 +1,74 @@
 <div class="card">
-    <div class="card-header"
-         *ngIf="plan">
-      {{pageTitle + ": " + plan.title}}
-    </div>
-  
-    <div class="card-body"
-         *ngIf="plan">
-  
-      <div class="row">
-  
-        <div class="col-md-8">
-          <div class="row">
-            <div class="col-md-3">Title:</div>
-            <div class="col-md-6">{{plan.title}}</div>
-          </div>
-          <div class="row">
-            <div class="col-md-3">Days:</div>
-            <div class="col-md-6">{{plan.date}}</div>
-          </div>
-          
-  
-      <div class="row mt-4">
-        <div class="col-md-4">
-          <button class="btn btn-outline-secondary mr-3"
-                  style="width:80px"
-                  (click)="onBack()">
-            <i class="fa fa-chevron-left"></i> Back
-          </button>
-          <button class="btn btn-outline-primary"
-                  style="width:80px"
-                  [routerLink]="['/plan', plan.id, 'edit']">
-            Edit
-          </button>
-        </div>
-      </div>
-  
-    </div>
-  
-    <div class="alert alert-danger"
-         *ngIf="errorMessage">{{errorMessage}}
-    </div>
+  <div class="card-header" *ngIf="plan">
+    {{pageTitle + ": " + plan.title}}
   </div>
+
+  <div class="card-body" *ngIf="plan">
+
+    <div class="row">
+
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col-md-3">Title:</div>
+          <div class="col-md-6">{{plan.title}}</div>
+        </div>
+        <div class="row" *ngFor="let day of plan.days">
+          <div class="col-md-3">Days:</div>
+          <div *ngIf="day.date" class="col-md-3">Date:
+            <p class="col-md-6">{{day.date}}</p>
+          </div>
+          <div *ngFor="let node of day.nodes">
+            <div *ngIf="node.from" class="col-md-3">From:
+            <p class="col-md-6">{{node.from}}</p></div>
+            <div *ngIf="node.to" class="col-md-3">To:
+            <p class="col-md-6">{{node.to}}</p></div>
+            <div *ngIf="node.startOn" class="col-md-3">Starting on:
+            <p class="col-md-6">{{node.startOn}}</p></div>
+            <div *ngIf="node.returnDate" class="col-md-3">Returning On:
+              <p class="col-md-6">{{node.returnDate}}</p>
+            </div>
+            <div *ngIf="node.transportMode" class="col-md-3">Transport Mode:
+              <p class="col-md-6">{{node.transportMode}}</p>
+            </div>
+            <div *ngIf="node.cost" class="col-md-3">Cost:
+              <p class="col-md-6">{{node.cost}}</p>
+            </div>
+            <div *ngIf="node.location" class="col-md-3">Location:
+              <p class="col-md-6">{{node.location}}</p>
+            </div>
+            <div *ngIf="node.category" class="col-md-3">category:
+              <p class="col-md-6">{{node.category}}</p>
+            </div>
+            <div *ngIf="node.timeStart" class="col-md-3">Time Start:
+              <p class="col-md-6">{{node.timeStart}}</p>
+            </div>
+            <div *ngIf="node.timeEnd" class="col-md-3">Time End:
+              <p class="col-md-6">{{node.timeEnd}}</p>
+            </div>
+            <div *ngIf="node.costActivity" class="col-md-3">Cost:
+              <p class="col-md-6">{{node.costActivity}}</p>
+            </div>
+            <div *ngIf="node.rating" class="col-md-3">Rating:
+              <p class="col-md-6">{{node.rating}}</p>
+            </div>
+            <div *ngIf="node.review" class="col-md-3">Review:
+              <p class="col-md-6">{{node.review}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-md-4">
+            <button class="btn btn-outline-secondary mr-3" style="width:80px" (click)="onBack()">
+              <i class="fa fa-chevron-left"></i> Back
+            </button>
+            <button class="btn btn-outline-primary" style="width:80px" [routerLink]="['/plans', plan.id, 'edit']">
+              Edit
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}
+      </div>
+    </div>
