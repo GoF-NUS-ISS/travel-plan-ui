@@ -1,22 +1,22 @@
 <div class="card">
     <div class="card-header"
-         *ngIf="plans">
-      {{pageTitle + ": " + plans.title}}
+         *ngIf="plan">
+      {{pageTitle + ": " + plan.title}}
     </div>
   
     <div class="card-body"
-         *ngIf="plans">
+         *ngIf="plan">
   
       <div class="row">
   
         <div class="col-md-8">
           <div class="row">
             <div class="col-md-3">Title:</div>
-            <div class="col-md-6">{{plans.title}}</div>
+            <div class="col-md-6">{{plan.title}}</div>
           </div>
           <div class="row">
             <div class="col-md-3">Days:</div>
-            <div class="col-md-6">{{plans.Days}}</div>
+            <div class="col-md-6">{{plan.date}}</div>
           </div>
           
   
@@ -29,7 +29,7 @@
           </button>
           <button class="btn btn-outline-primary"
                   style="width:80px"
-                  [routerLink]="['/plans', plans.id, 'edit']">
+                  [routerLink]="['/plan', plan.id, 'edit']">
             Edit
           </button>
         </div>

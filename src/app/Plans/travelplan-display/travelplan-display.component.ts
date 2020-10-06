@@ -11,7 +11,7 @@ import {PlanService} from '../plan.service'
 export class TravelplanDisplayComponent implements OnInit {
   pageTitle = 'Plan Detail';
   errorMessage = '';
-  plans: Plans;
+  plan: Plans;
   constructor(private route: ActivatedRoute,
     private router: Router,
     private planService: PlanService) { }
@@ -27,7 +27,7 @@ export class TravelplanDisplayComponent implements OnInit {
   }
   getPlan(id: string) {
     this.planService.getPlan(id).subscribe({
-      next: plans => this.plans = plans,
+      next: plan => this.plan = plan,
       error: err => this.errorMessage = err
     });
   }
