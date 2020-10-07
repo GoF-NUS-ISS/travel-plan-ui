@@ -45,19 +45,19 @@ import { ThrowStmt } from '@angular/compiler';
         //  ---------------------forms fields on y level ------------------------
       //   'type': ['leg'],
         // 'from': ['from', [Validators.required, Validators.pattern('[0-9]{3}')]],
-        'from': [],
-        'to': [],
-        'startOn': [],
-        'returnDate': [],
-        'transportMode': [],
-        'cost': [],
-        'category':[],
-        'costActivity':[],
-        'rating':[],
-        'review':[],
-        'location': [],
-        'timeStart':[],
-        'timeEnd':[]
+        'from': [undefined],
+        'to': [undefined],
+        'startOn': [undefined],
+        'returnDate': [undefined],
+        'transportMode': [undefined],
+        'cost': [undefined],
+        'category':[undefined],
+        'costActivity':[undefined],
+        'rating':[undefined],
+        'review':[undefined],
+        'location': [undefined],
+        'timeStart':[undefined],
+        'timeEnd':[undefined]
         // 'Y7': [''],
         // ---------------------------------------------------------------------
         // 'Activity': this.fb.array([
@@ -370,9 +370,23 @@ import { ThrowStmt } from '@angular/compiler';
     }
   
     publish() {
-      const p = { ...this.plan, ...this.form.value };
+      let resource = this.form.value
+    const removeEmpty = (obj) => {
+      Object.keys(obj).forEach(key => {
+         if (obj[key] && typeof obj[key] === "object") {
+           // recursive
+           removeEmpty(obj[key]);
+         } else if (obj[key] === null) {
+           delete obj[key];
+         }
+       });
+       return obj;
+    };
+      const p = { ...this.plan, ...removeEmpty(this.form.value) };
       console.log(p.id);
-      if (p.id === undefined) {
+      console.log(JSON.stringify(this.form.value));
+      console.log(removeEmpty(this.form.value));
+      if (p.id === null) {
         this.planService.createPlan(p)
           .subscribe({
             next: () => this.onSaveComplete(),
