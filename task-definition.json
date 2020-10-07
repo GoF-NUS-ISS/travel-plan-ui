@@ -2,14 +2,6 @@
     "containerDefinitions": [ 
        { 
           "essential": true,
-          "logConfiguration": { 
-             "logDriver": "awslogs",
-             "options": { 
-                "awslogs-group" : "/ecs/fargate-task-definition",
-                "awslogs-region": "us-east-1",
-                "awslogs-stream-prefix": "ecs"
-             }
-          },
           "name": "travel-plan-ui",
           "portMappings": [ 
              { 
