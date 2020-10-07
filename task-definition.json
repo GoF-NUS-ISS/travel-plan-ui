@@ -1,0 +1,31 @@
+{
+    "containerDefinitions": [ 
+       { 
+          "essential": true,
+          "logConfiguration": { 
+             "logDriver": "awslogs",
+             "options": { 
+                "awslogs-group" : "/ecs/fargate-task-definition",
+                "awslogs-region": "us-east-1",
+                "awslogs-stream-prefix": "ecs"
+             }
+          },
+          "name": "travel-plan-ui",
+          "portMappings": [ 
+             { 
+                "containerPort": 4200,
+                "hostPort": 4200,
+                "protocol": "tcp"
+             }
+          ]
+       }
+    ],
+    "cpu": "256",
+    "executionRoleArn": "arn:aws:iam::356567610291:role/ecsTaskExecutionRole",
+    "family": "fargate-task-definition",
+    "memory": "512",
+    "networkMode": "awsvpc",
+    "requiresCompatibilities": [ 
+        "FARGATE" 
+     ]
+ }
