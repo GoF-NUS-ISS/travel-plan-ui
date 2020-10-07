@@ -1,76 +1,59 @@
-<form class="default">
-  <div class="form-group">
-    <label for="exampleFormControlInput1">Title</label>
-    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Set a title for your trip">
+<div class="card">
+  <div class="card-header">
+    Create a New Plan
   </div>
-  <div class="form-group">
-    <label for="exampleFormControlTextarea1">Description of your Travel</label>
-    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Enter a description"></textarea>
-  </div>
-    <!-- <h4>Traveller details:</h4> -->
-    <label for="exampleFormControlTextarea1">Traveller Name</label>  
-    <div class="form-row-name">       
-      <div class="col">       
-        <input type="text" class="form-control" placeholder="First name">
+  <br />
+  <div class="card-body">
+    <form class="default" novalidate (ngSubmit)="publish()" [formGroup]="overallForm">
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" formControlName="title" name="title" id="titleId" placeholder="Set a title for your trip">
       </div>
-      <div class="col">
-        <input type="text" class="form-control" placeholder="Last name">
+      <!-- <form class="default" novalidate [formGroup]="overallForm"> -->
+      <div formArrayName="formDetails">
+        <div [formGroupName]="i" *ngFor="let formDetail of formDetails.controls; let i=index">
+          <div class="card-header" id="{{ 'dayId' + i }}">
+            Day {{i+1}}
+          </div>
+          <div class="body-form-leg">
+            <button class="btn btn-outline-primary" type="button" style="float: right;font-size: 12px;"
+              (click)="deleteDay(i)">
+              <!-- *ngIf="i!=0" -->
+              Delete Day
+            </button>
+            <br />
+            <div class="form-group row mb-2">
+              <label class="col-md-1 col-form-label" [attr.for]="i">Date: </label>
+              <div class="col-md-8">
+                <input type="date" id="{{'dateId'}}" formControlName="date" required>
+              </div>
+            </div>
+            <div class="card-body-travel">
+              <app-travel-leg (onFormGroupChange)="onFormGroupChangeTravelEvent($event)"></app-travel-leg>
+            </div>
+<!-- ---------------------------------Travel Detail start------------------------------------------------- -->
+<!-- ---------------------------------Travel Detail end------------------------------------------------- -->
+            <div class="card-body-activity">
+              <app-activity-leg></app-activity-leg>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-    <br/>
-  <div class="form-group-s-d">
-    <div class="form-group">
-  <label for="exampleFormControlInput1">Source:</label>
-    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Travelling From"><br/>
-    </div>
-    <div class="form-group">
-    <label for="exampleFormControlInput1">Destination:</label>
-    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Travelling To">
+      <div class="form-group row mb-2">
+        <div class="col-md-4">
+          <button class="btn btn-outline-primary" type="button" style="font-size: 12px;" (click)="addDay()">
+            Add Day
+          </button>
+        </div>
+      </div>
+      <!-- <app-activity-leg></app-activity-leg> -->
+      <!-- <agm-map [latitude]="latitude" [longitude]="longitude" (mapclick)="onChoseLocation($event)">
+      <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+    </agm-map><br/> -->
+      <button type="submit" class="btn btn-primary">Save as Draft</button>
+      <button type="button" class="btn btn-primary" style="margin-left:20px;" (click)="publish()">Publish</button>
+      <button type="button" class="btn btn-primary" style="margin-left:20px;" (click)="cancel()">Cancel</button>
+    </form>
   </div>
-  </div>
-  <div class="form-group-dates">
-    <div class="form-group">
-  <label for="exampleFormControlInput1">Starting on:</label>
-    <input type="date" class="form-control" id="exampleFormControlInput1" placeholder="Travelling From"><br/>
-    </div>
-    <div class="form-group">
-    <label for="exampleFormControlInput1">Returning:</label>
-    <input type="date" class="form-control" id="exampleFormControlInput1" placeholder="Travelling To">
-  </div>
-  </div>
-  <div class="form-group">
-    <label for="exampleFormControlSelect1">Mode of Transport</label>
-    <select class="form-control" id="exampleFormControlSelect1">
-      <option value="volvo">Flight</option>
-      <option value="saab">Train</option>
-      <option value="opel">Car</option>
-      <option value="audi">Ferry</option>
-      <option value="audi">Others</option>
-    </select>
-  </div>
-  <div class="form-group">
-    <div class="form-check">
-      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-      <label class="form-check-label" for="exampleRadios1">
-        Booked Tickets
-      </label>
-    </div>
-    <div class="form-check">
-      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-      <label class="form-check-label" for="exampleRadios2">
-        Yet to proceed with bookings
-      </label>
-    </div>
-  </div>
-  <!-- <div class="form-group">
-    <label for="exampleFormControlFile1">Example file input</label>
-    <input type="file" class="form-control-file" id="exampleFormControlFile1">
-  </div> -->
-  <div class="form-group">
-    <label for="exampleFormControlFile1">Upload Supporting Document:</label>
-    <input type="file" class="form-control-file" placeholder="Upload" style="color:antiquewhite">
-  </div>
-    <button type="button" class="btn btn-primary">Save as Draft</button>
-    <button type="submit" class="btn btn-primary" style="margin-left:20px;">Publish</button>
-  </form>			
-  
+
+  <pre style="font-size:15px">{{ overallForm.value | json }}</pre>
