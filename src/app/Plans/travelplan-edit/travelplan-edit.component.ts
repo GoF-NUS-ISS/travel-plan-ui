@@ -1,31 +1,46 @@
 import {  Component, OnInit, AfterViewInit, OnDestroy, ViewChildren, ElementRef  } from '@angular/core';
-import { FormBuilder, FormArray, FormGroup, Validators, FormControl } from "@angular/forms";
-import { Router } from '@angular/router';
+import { FormBuilder, FormArray, FormGroup, Validators, FormControl, FormControlName } from "@angular/forms";
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {Plans} from '../../Plans/plans'
 import {PlanService} from '../../Plans/plan.service'
 import { AuthService } from '../../user/auth.service';
 import { ThrowStmt } from '@angular/compiler';
+import { Observable, Subscription, fromEvent, merge } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
+import {GenericValidator} from '../../common/generic-validator'
+import {NumberValidators} from '../../common/NumberValidators'
 @Component({
     templateUrl: './travelplan-edit.component.html'
   })
   export class TravelplanEditComponent implements OnInit, AfterViewInit, OnDestroy {
+    @ViewChildren(FormControlName, { read: ElementRef }) formInputElements: ElementRef[];
     pageTitle = 'Plan Edit';
     form: FormGroup;
     plan:Plans;
     errorMessage: string;
     bubbleActivity:any;
     bubbleTravel:any;
+    displayMessage: { [key: string]: string } = {};
+    private validationMessages: { [key: string]: { [key: string]: string } };
+    private genericValidator: GenericValidator;
+    private sub: Subscription;
     data:{};
-    ngOnInit() {
+    ngOnInit() :void {
       this.form = this.fb.group({
-        'title': [],
+        'title': ['', Validators.required],
         'days': this.fb.array([
           this.initX()
         ])
       });
       // this.form.valueChanges.subscribe(data => this.validateForm());
       // this.validateForm();
+      this.sub = this.route.paramMap.subscribe(
+        params => {
+          const id = params.get('id');
+          this.getPlan(id);
+        }
+      );
     }
   
     initX() {
@@ -53,7 +68,7 @@ import { ThrowStmt } from '@angular/compiler';
         'cost': [undefined],
         'category':[undefined],
         'costActivity':[undefined],
-        'rating':[undefined],
+        'rating':[undefined, NumberValidators.range(1, 5)],
         'review':[undefined],
         'location': [undefined],
         'timeStart':[undefined],
@@ -81,6 +96,7 @@ import { ThrowStmt } from '@angular/compiler';
         // ---------------------------------------------------------------------
       })
     }
+    
     displayPlan(plans: Plans): void {
       if (this.form) {
         this.form.reset();
@@ -95,10 +111,7 @@ import { ThrowStmt } from '@angular/compiler';
   
       // Update the data on the form
       this.form.patchValue({
-        productName: this.plan.title,
-        // productCode: this.product.productCode,
-        // starRating: this.product.starRating,
-        // description: this.product.description
+        title: this.plan.title,
       });
       this.form.setControl('days', this.fb.array(this.plan.days || []));
     }
@@ -172,193 +185,18 @@ import { ThrowStmt } from '@angular/compiler';
       const control = (<FormArray>this.form.controls['days']).at(ix).get('nodes') as FormArray;
       control.removeAt(index)
     }
-  
-  
-  
-    // formErrors = {
-    //   days: this.DayErrors()
-    // };
-  
-  
-    // DayErrors() {
-    //   return [{
-    //     //  ---------------------forms errors on x level ------------------------
-    //     date: '',
-  
-    //     // ---------------------------------------------------------------------
-    //     'nodes': this.TravelErrors()
-  
-    //   }]
-  
-    // }
-  
-    // TravelErrors() {
-    //   return [{
-    //     //  ---------------------forms errors on y level ------------------------
-    //     from: '',
-    //     to: '',
-    //     // ----------------------------------------------------------------------
-    //     Activity: this.ActivityErrors()
-    //   }]
-    // }
-  
-    // ActivityErrors() {
-    //   return [{
-    //     //  ---------------------forms errors on z level ------------------------
-    //     location: '',
-    //     category:'',
-    //     rating:''
-  
-    //     // ---------------------------------------------------------------------
-  
-  
-    //   }]
-    // }
-  
-  
-    // validationMessages = {
-    //   days: {
-    //     date: {
-    //       required: 'X is required.',
-    //       pattern: 'X must be 3 characters long.'
-  
-    //     },
-    //     nodes: {
-    //       from: {
-    //         required: 'from is required.',
-    //         pattern: 'from must be 3 characters long.'
-    //       },
-    //       to: {
-    //         required: 'to is required.',
-    //         pattern: 'to must be 3 characters long.'
-    //       },
-    //       Activity: {
-    //         location: {
-    //           required: 'Z is required.',
-    //           pattern: 'Z must be 3 characters long.',            
-    //         },
-    //         rating: {
-    //           required: 'Z is required.',
-    //           pattern: 'Z must be numerical value.',            
-    //         }
-    //       }
-    //     }
-    //   }
-    // };
-    // // form validation
-    // validateForm() {
-    //   this.validateDay();
-    // }
-    // validateDay() {
-    //   let DayA = <FormArray>this.form['controls'].days;
-    //   console.log('validateDay');
-    //   // console.log(DayA.value);
-    //   this.formErrors.days = [];
-    //   let x = 1;
-    //   while (x <= DayA.length) {
-    //     this.formErrors.days.push({
-    //       date: '',
-    //       nodes: [{
-    //         from: '',
-    //         to: '',
-    //         Activity: [{
-    //           location: '',
-    //           category:'',
-    //           rating:''
-    //         }]
-    //       }]
-    //     });
-    //     let X = <FormGroup>DayA.at(x - 1);
-    //     console.log('X--->');
-    //     console.log(X.value);
-    //     for (let field in X.controls) {
-    //       let input = X.get(field);
-    //       console.log('field--->');
-    //       console.log(field);
-    //       if (input.invalid && input.dirty) {
-    //         for (let error in input.errors) {
-    //           this.formErrors.days[x - 1][field] = this.validationMessages.days[field][error];
-    //         }
-    //       }
-    //     }
-    //     this.validateTravel(x);
-    //     x++;
-    //   }
-  
-    // }
-  
-    // validateTravel(x) {
-    //   console.log('validateTravel');
-    //   let TravelA = (<FormArray>this.form.controls['days']).at(x - 1).get('nodes') as FormArray;
-    //   this.formErrors.days[x - 1].nodes = [];
-    //   let y = 1;
-    //   while (y <= TravelA.length) {
-    //     this.formErrors.days[x - 1].nodes.push({
-    //       from: '',
-    //       to: '',
-    //       Activity: [{
-    //         location: '',
-    //         category:'',
-    //         rating:''
-    //       }]
-    //     });
-    //     let Y = <FormGroup>TravelA.at(y - 1);
-    //     for (let field in Y.controls) {
-    //       let input = Y.get(field);
-    //       if (input.invalid && input.dirty) {
-    //         for (let error in input.errors) {
-    //           this.formErrors.days[x - 1].nodes[y - 1][field] = this.validationMessages.days.nodes[field][error];
-  
-    //         }
-  
-    //       }
-    //     }
-  
-    //     this.validateActivity(x, y);
-    //     y++;
-    //   }
-    // }
-  
-    // validateActivity(x, y) {
-    //   console.log('validateActivity--');
-    //   let ActivityA = ((<FormArray>this.form.controls['days']).at(x - 1).get('nodes') as FormArray).at(y - 1).get('Activity') as FormArray;
-    //   this.formErrors.days[x - 1].nodes[y - 1].Activity = [];
-    //   let z = 1;
-    //   while (z <= ActivityA.length) {
-    //     this.formErrors.days[x - 1].nodes[y - 1].Activity.push({
-    //       location: '',
-    //       category:'',
-    //       rating:''
-    //     });
-    //     let Z = <FormGroup>ActivityA.at(z - 1);
-    //     for (let field in Z.controls) {
-    //       let input = Z.get(field);
-    //       console.log('input--->');
-    //       console.log(input);
-    //       if (input.invalid && input.dirty) {
-    //         for (let error in input.errors) {
-    //           this.formErrors.days[x - 1].nodes[y - 1].Activity[z - 1][field] = this.validationMessages.days.nodes.Activity[field][error];
-  
-    //         }
-  
-    //       }
-    //     }
-  
-    //     // this.validateSamnumbers(x, y);
-    //     z++;
-    //   }
-    // }
-  
-  
-    // deleteDetail(index: number): void{
-    //   this.Y.removeAt(index);
-    // }
-  
-  
-    constructor(private fb: FormBuilder, private router: Router, 
+    constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute,
       private auth:AuthService, private http: HttpClient,
       private planService:PlanService) {
-  
+        this.validationMessages = {
+          title: {
+            required: 'Title is required.',
+          },
+          starRating: {
+            range: 'Rate the activity between 1 (lowest) and 5 (highest).'
+          }
+        };
+        this.genericValidator = new GenericValidator(this.validationMessages);
     }
   
     getPlan(id: string): void {
@@ -442,6 +280,17 @@ import { ThrowStmt } from '@angular/compiler';
       this.router.navigate(['/plans']);
     }
   
-    ngOnDestroy(): void {}
-    ngAfterViewInit(): void {}
+    ngOnDestroy(): void { 
+      this.sub.unsubscribe();
+    }
+
+    ngAfterViewInit(): void {
+      const controlBlurs: Observable<any>[] = this.formInputElements
+      .map((formControl: ElementRef) => fromEvent(formControl.nativeElement, 'blur'));
+      merge(this.form.valueChanges, ...controlBlurs).pipe(
+        debounceTime(800)
+      ).subscribe(value => {
+        this.displayMessage = this.genericValidator.processMessages(this.form);
+      });
+    }
   }

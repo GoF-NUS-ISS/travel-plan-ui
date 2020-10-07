@@ -4,7 +4,14 @@
   <form [formGroup]="form">
     <div class="form-group">
       <label for="title">Title</label>
-      <input type="text" formControlName="title" name="title" id="titleId" placeholder="Set a title for your trip">
+      <input type="text" 
+      formControlName="title"
+       id="titleId" 
+       placeholder="Set a title for your trip"
+       [ngClass]="{'is-invalid': displayMessage.title }"/>
+       <span class="invalid-feedback">
+        {{displayMessage.title}}
+      </span>
     </div>
     <!-- Day -->
     <div formArrayName="days">
@@ -139,8 +146,14 @@
                   <div  class="form-group row mb-2">
                     <label class="col-md-2 col-form-label" for="ratingId" [attr.for]="iy">Star Rating (1-5):</label>
                     <div class="col-md-8">
-                      <input class="form-control" id="{{'ratingId'+iy}}" type="text" placeholder="Rating (1-5)"
-                        formControlName="rating">
+                      <input class="form-control" id="{{'ratingId'+iy}}" 
+                      type="text" 
+                      placeholder="Rating (1-5)"
+                        formControlName="rating"
+                        [ngClass]="{'is-invalid': displayMessage.rating}"/>
+                        <span class="invalid-feedback">
+                          {{displayMessage.rating}}
+                        </span>
                     </div>
                   </div>
                   <div  class="form-group row mb-2">
