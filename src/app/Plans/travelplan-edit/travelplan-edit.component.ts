@@ -45,7 +45,7 @@ import {NumberValidators} from '../../common/NumberValidators'
   
     initX() {
       return this.fb.group({
-        //  ---------------------forms fields on x level ------------------------
+        //  ---------------------forms fields on Day level ------------------------
         'date': [],
         // ---------------------------------------------------------------------
         'nodes': this.fb.array([
@@ -57,7 +57,7 @@ import {NumberValidators} from '../../common/NumberValidators'
   
     initY() {
       return this.fb.group({
-        //  ---------------------forms fields on y level ------------------------
+        //  ---------------------forms fields on Node level ------------------------
       //   'type': ['leg'],
         // 'from': ['from', [Validators.required, Validators.pattern('[0-9]{3}')]],
         'from': [undefined],
@@ -68,32 +68,11 @@ import {NumberValidators} from '../../common/NumberValidators'
         'cost': [undefined],
         'category':[undefined],
         'costActivity':[undefined],
-        'rating':[undefined, NumberValidators.range(1, 5)],
+        'rating':['', NumberValidators.range(1, 5)],
         'review':[undefined],
         'location': [undefined],
         'timeStart':[undefined],
         'timeEnd':[undefined]
-        // 'Y7': [''],
-        // ---------------------------------------------------------------------
-        // 'Activity': this.fb.array([
-        //   this.initZ()
-        // ])
-      })
-    }
-  
-    initZ() {
-      return this.fb.group({
-        //  ---------------------forms fields on z level ------------------------
-        'type': ['activity'],
-      //   'category':[],
-      //   'cost':[],
-      //   'rating':[],
-      //   'review':[],
-      //   'location': [],
-      //   'timeStart':[],
-      //   'timeEnd':[]
-        // 'rating':[5, [Validators.required, Validators.pattern('[0-9]{3}')]],
-        // ---------------------------------------------------------------------
       })
     }
     
@@ -108,9 +87,20 @@ import {NumberValidators} from '../../common/NumberValidators'
       } else {
         this.pageTitle = `Edit Product: ${this.plan.title}`;
       }
+
+      // for (let X = 0; X < plans.days.length; X++){
+      //   const linesFormArray = this.form.get("lines") as FormArray;
+      //   linesFormArray.push(this.initX());
+        
+      //   for (let Y=0; Y < plans.days[X].nodes.length; Y++){
+      //     const playersFormsArray = linesFormArray.at(X).get("players") as FormArray;
+      //     playersFormsArray.push(this.initY());
+      //   }
+      // }
   
       // Update the data on the form
-      this.form.patchValue({
+      this.form.patchValue(
+        {
         title: this.plan.title,
       });
       this.form.setControl('days', this.fb.array(this.plan.days || []));
@@ -125,7 +115,8 @@ import {NumberValidators} from '../../common/NumberValidators'
     }
   
     deleteDay(index: number): void{
-      this.Day.removeAt(index)
+      this.Day.removeAt(index);
+      this.Day.markAsDirty();
     }
   
     addTravel(ix){
@@ -153,7 +144,8 @@ import {NumberValidators} from '../../common/NumberValidators'
     }
     deleteTravel(ix, index): void{
       const control = (<FormArray>this.form.controls['days']).at(ix).get('nodes') as FormArray;
-      control.removeAt(index)
+      control.removeAt(index);
+      control.markAsDirty();
     }
   
     addActivity(ix) {
@@ -184,6 +176,7 @@ import {NumberValidators} from '../../common/NumberValidators'
     deleteActivity(ix,index): void{
       const control = (<FormArray>this.form.controls['days']).at(ix).get('nodes') as FormArray;
       control.removeAt(index)
+      control.markAsDirty();
     }
     constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute,
       private auth:AuthService, private http: HttpClient,
@@ -192,7 +185,7 @@ import {NumberValidators} from '../../common/NumberValidators'
           title: {
             required: 'Title is required.',
           },
-          starRating: {
+          rating: {
             range: 'Rate the activity between 1 (lowest) and 5 (highest).'
           }
         };
@@ -220,6 +213,8 @@ import {NumberValidators} from '../../common/NumberValidators'
        });
        return obj;
     };
+    if (this.form.valid) {
+      if (this.form.dirty) {
       const p = { ...this.plan, ...removeEmpty(this.form.value) };
       console.log(p.id);
       console.log(JSON.stringify(this.form.value));
@@ -237,6 +232,14 @@ import {NumberValidators} from '../../common/NumberValidators'
             error: err => this.errorMessage = err
           });
       }
+    }
+    else {
+      this.onSaveComplete();
+    }
+    }
+    else {
+      this.errorMessage = 'Please correct the validation errors.';
+    }
     // } else {
     //   this.onSaveComplete();
     // }

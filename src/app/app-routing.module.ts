@@ -7,9 +7,10 @@ import { TravelplanEditComponent } from './Plans/travelplan-edit/travelplan-edit
 import { HomepageComponent } from './homepage/homepage.component';
 import { AuthGuard } from './user/auth.guard';
 import { UnauthGuard } from './user/unauth.guard';
+import { TravelplanEditGuard } from './Plans/travelplan-edit/travelplan-edit.guard';
 
 const routes: Routes = [
-    {path:'plans/:id/edit', component: TravelplanEditComponent, canActivate: [AuthGuard], canDeactivate: ['canDeactivateCreateEvent']},
+    {path:'plans/:id/edit', component: TravelplanEditComponent, canActivate: [AuthGuard], canDeactivate: ['TravelplanEditGuard']},
     {path:'plans', component: TravelplanListComponent, canActivate: [AuthGuard]},
     { path: 'plans/:id', component: TravelplanDisplayComponent, canActivate: [AuthGuard]},
     {path:'Home', component: HomepageComponent, canActivate: [AuthGuard]},
