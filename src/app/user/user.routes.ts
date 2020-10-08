@@ -1,7 +1,6 @@
 import { ProfileComponent } from './profile/profile.component';
 import { SignInComponent } from './sign-in/sign-in.component';
-import { SignUpComponent } from './sign-up/sign-up.component'
-import { AuthComponent } from './auth.component';
+import { SignUpComponent } from 'src/app/user/sign-up/sign-up.component';
 import { AuthGuard } from './auth.guard';
 import { UnauthGuard } from './unauth.guard';
 import { ConfirmCodeComponent } from './confirm-code/confirm-code.component';
