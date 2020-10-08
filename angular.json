@@ -43,7 +43,7 @@
               "@aws-sdk/xml-builder", "@aws-sdk/md5-js", "@aws-sdk/hash-blob-browser",
               "@aws-sdk/eventstream-serde-browser", "@aws-sdk/middleware-location-constraint", "uuid",
               "@aws-sdk/credential-provider-cognito-identity", "@aws-sdk/eventstream-serde-config-resolver",
-              "ulid", "zen-push", "lodash", "@aws-amplify/core", "url", "@aws-crypto/crc32", "isomorphic-unfetch"],
+              "ulid", "zen-push", "@aws-amplify/core", "url", "@aws-crypto/crc32", "isomorphic-unfetch"],
             "assets": [
               "src/favicon.ico",
               "src/assets",

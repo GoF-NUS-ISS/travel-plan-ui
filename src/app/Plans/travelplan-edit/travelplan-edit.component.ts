@@ -26,9 +26,16 @@ import {NumberValidators} from '../../common/NumberValidators'
     private genericValidator: GenericValidator;
     private sub: Subscription;
     data:{};
+    usname:string;
+    uname=this.auth.currentUserInfo().then(value=>{
+      this.usname=value;
+      return value;
+    }
+    )
     ngOnInit() :void {
       this.form = this.fb.group({
         'title': ['', Validators.required],
+        'name' : [this.usname],
         'days': this.fb.array([
           this.initX()
         ])
