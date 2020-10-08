@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material/material.module';
 import { userRoutes } from './user.routes';
 import { SignInComponent } from './sign-in/sign-in.component';
-import { SignUpComponent } from 'src/app/user/sign-up/sign-up.component';
+// import { SignUpComponent } from 'src/app/user/sign-up/sign-up.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ConfirmCodeComponent } from './confirm-code/confirm-code.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -27,7 +27,7 @@ import { environment } from '../../environments/environment';
   ],
   declarations: [
     AuthComponent,
-    SignUpComponent,
+    // SignUpComponent,
     SignInComponent,
     ConfirmCodeComponent,
     ProfileComponent,
