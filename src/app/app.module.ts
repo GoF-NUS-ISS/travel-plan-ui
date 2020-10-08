@@ -27,6 +27,7 @@ import { TravelplanEditComponent } from './Plans/travelplan-edit/travelplan-edit
 import { TravelplanEditGuard } from './Plans/travelplan-edit/travelplan-edit.guard';
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { PlanData } from './Plans/plan-data';
+import { TravelplanSearchComponent } from './Plans/travelplan-search/travelplan-search.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { PlanData } from './Plans/plan-data';
     TravelLegComponent,
     TravelplanListComponent,
     TravelplanDisplayComponent,
-    TravelplanEditComponent
+    TravelplanEditComponent,
+    TravelplanSearchComponent
   ],
   imports: [
     BrowserModule,

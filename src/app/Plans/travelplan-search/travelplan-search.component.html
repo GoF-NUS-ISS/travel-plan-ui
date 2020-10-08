@@ -1,0 +1,20 @@
+<form id="searchForm">
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Search plans with keywords" style="width:800px;">
+    </div>
+    <button class="btn btn-default" style="width:80px;" (click)="searchPlan()">
+        Search
+    </button>
+</form>
+<table *ngIf="searchResults">
+    <thead>
+    <tr>
+      <th>Title</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let plan of searchResults; let i=index">
+      <td><a [routerLink]="['/plans', plan.id]">{{plan.title}}</a></td>
+    </tr>
+    </tbody>
+  </table>
