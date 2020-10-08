@@ -108,10 +108,10 @@ import {NumberValidators} from '../../common/NumberValidators'
       // Update the data on the form
       this.form.patchValue(
         {
+        id:this.plan.id,
+        name:this.plan.name,
         title: this.plan.title,
-        date:{
-          date: this.plan.days
-        }
+        day: this.form.controls['days'] as FormArray
       });
       // this.form.setControl('days', this.fb.array(this.plan.days || []));
     }

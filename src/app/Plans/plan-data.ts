@@ -5,6 +5,7 @@ export class PlanData implements InMemoryDbService {
         const plan: Plans[] = [
             {
                 "id": "5f7ac1b776f5755fe60c8099",
+                "name": "Keerthana",
                 "title": "string",
                 "days": [
                   {
@@ -32,6 +33,7 @@ export class PlanData implements InMemoryDbService {
               },
               {
                 "id": "5f7ae15476f5755fe60c809a",
+                "name": "Keerthana",
                 "title": "Food Party",
                 "days": [
                   {

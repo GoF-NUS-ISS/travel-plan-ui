@@ -1,5 +1,6 @@
 export interface Plans {
     id: string;
+    name:string;
     title: string;
     days ?: [
         {

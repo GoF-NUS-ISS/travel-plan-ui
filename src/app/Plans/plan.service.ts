@@ -87,6 +87,7 @@ export class PlanService {
         // Return an initialized object
         return {
           id: null,
+          name: null,
           title: null,
           days: [{
             date: null,
