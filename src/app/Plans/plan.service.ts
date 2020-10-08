@@ -30,7 +30,7 @@ export class PlanService {
       }
     
       getPlan(id: string): Observable<Plans> {
-        if (id === null) {
+        if (id === "0") {
           return of(this.initializePlan());
         }
        // const url = `${this.plansUrl}/name/${id}`;

@@ -34,7 +34,7 @@
             <div formArrayName="nodes">
               <div *ngFor="let Y of X['controls'].nodes['controls']; let iy=index">
                 <div formGroupName="{{iy}}" class="nodes">
-                  <div *ngIf="Y.value.type === 'leg'">
+                  <!-- <div *ngIf="Y.value.type === 'leg'"> -->
                     <div class="card-header" id="{{ 'travelId' + iy }}">
                       Travel Detail
                       <!-- {{iy+1}} -->
@@ -93,7 +93,7 @@
                             <option value="others">Others</option>
                           </select>
                         </div>
-                      </div>
+                      <!-- </div> -->
                     </div>
                   </div>
                   <!---------------------------------------- Activity comes here------------------------------ -->

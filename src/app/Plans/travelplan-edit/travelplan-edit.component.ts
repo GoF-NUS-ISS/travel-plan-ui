@@ -109,8 +109,11 @@ import {NumberValidators} from '../../common/NumberValidators'
       this.form.patchValue(
         {
         title: this.plan.title,
+        date:{
+          date: this.plan.days
+        }
       });
-      this.form.setControl('days', this.fb.array(this.plan.days || []));
+      // this.form.setControl('days', this.fb.array(this.plan.days || []));
     }
   
     get Day():FormArray{
@@ -226,7 +229,7 @@ import {NumberValidators} from '../../common/NumberValidators'
       console.log(p.id);
       console.log(JSON.stringify(this.form.value));
       console.log(removeEmpty(this.form.value));
-      if (p.id === null) {
+      if (p.id === "0") {
         this.planService.createPlan(p)
           .subscribe({
             next: () => this.onSaveComplete(),
