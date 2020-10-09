@@ -5,7 +5,7 @@
           "logConfiguration": { 
              "logDriver": "awslogs",
              "options": { 
-                "awslogs-group" : "/ecs/fargate-task-definition",
+                "awslogs-group" : "/ecs/ui-travel-app-task-definition",
                 "awslogs-region": "us-east-1",
                 "awslogs-stream-prefix": "ecs"
              }
@@ -22,7 +22,7 @@
     ],
     "cpu": "256",
     "executionRoleArn": "arn:aws:iam::356567610291:role/ecsTaskExecutionRole",
-    "family": "fargate-task-definition",
+    "family": "ui-travel-app-task-definition",
     "memory": "512",
     "networkMode": "awsvpc",
     "requiresCompatibilities": [ 
