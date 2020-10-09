@@ -13,12 +13,39 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
     - name: Checkout
       uses: actions/checkout@v2
 
-#Run SAST Tool - Pending
+    #Pending - Run SAST Tool Here - Pending
 
-#Run DAST Tool - Pending
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v1
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Login to DockerHub
+      uses: docker/login-action@v1 
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKER_HUB_REPO_SECRET_KEY }}
+
+    #Pending - Run Unit tests or Integration Tests during build process using npm test commands
+    - name: Build and push
+      id: docker_build
+      uses: docker/build-push-action@v2
+      with:
+        push: true
+        tags: gofnusiss/travel-plan-ui:${{ github.sha }}
+
+    - name: Image digest
+      run: echo ${{ steps.docker_build.outputs.digest }}
+
+    #Pending - Run DAST Tool Here - Pending
+
+    #Pending - Run Integration Automation Tests Here. These tests will Hit Docker container directly Here - Pending
+    #Pending - However, if tests are executed during build phase, we can skip testing the docker container.
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
