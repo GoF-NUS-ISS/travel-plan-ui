@@ -2,8 +2,6 @@
     "containerDefinitions": [ 
        { 
           "essential": true,
-<<<<<<< HEAD
-=======
           "logConfiguration": { 
              "logDriver": "awslogs",
              "options": { 
@@ -12,7 +10,6 @@
                 "awslogs-stream-prefix": "ecs"
              }
           },
->>>>>>> dfc41e9e674bedab5de75fe521360117b6b13593
           "name": "travel-plan-ui",
           "portMappings": [ 
              { 
