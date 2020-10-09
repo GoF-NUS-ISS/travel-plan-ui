@@ -24,6 +24,7 @@ import { UserModule } from './user/user.module';
 import { TravelplanListComponent } from './Plans/travelplan-list/travelplan-list.component';
 import { TravelplanDisplayComponent } from './Plans/travelplan-display/travelplan-display.component';
 import { TravelplanEditComponent } from './Plans/travelplan-edit/travelplan-edit.component';
+import { TravelplanEditGuard } from './Plans/travelplan-edit/travelplan-edit.guard';
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { PlanData } from './Plans/plan-data';
 
@@ -61,6 +62,7 @@ import { PlanData } from './Plans/plan-data';
     FormCreationService,
     AppService,
     AngularFireModule,
+    TravelplanEditGuard,
     {
       provide: 'canDeactivateCreateEvent',
       useValue: checkDirtyState
