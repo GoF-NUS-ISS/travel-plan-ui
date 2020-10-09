@@ -2,63 +2,44 @@
   <div class="card-header" *ngIf="plan">
     {{pageTitle + ": " + plan.title}}
   </div>
+<br/>
+  <div *ngIf="plan">
 
-  <div class="card-body" *ngIf="plan">
+    <div>
 
-    <div class="row">
-
-      <div class="col-md-8">
-        <div class="row">
-          <div class="col-md-3">Title:</div>
-          <div class="col-md-6">{{plan.title}}</div>
+      <div>
+        <div>
+          <h3>Title: {{plan.title}}</h3>
         </div>
-        <div class="row" *ngFor="let day of plan.days">
-          <div class="col-md-3">Days:</div>
-          <div *ngIf="day.date" class="col-md-3">Date:
-            <p class="col-md-6">{{day.date}}</p>
-          </div>
+        <div *ngFor="let day of plan.days">
+          <h2>Days</h2>
+          <div *ngIf="day.date">Date: {{day.date | date:'d'}}/{{day.date | date:'M'}}/{{day.date | date:'y'}}
+           </div>
           <div *ngFor="let node of day.nodes">
-            <div *ngIf="node.from" class="col-md-3">From:
-            <p class="col-md-6">{{node.from}}</p></div>
-            <div *ngIf="node.to" class="col-md-3">To:
-            <p class="col-md-6">{{node.to}}</p></div>
-            <div *ngIf="node.startOn" class="col-md-3">Starting on:
-            <p class="col-md-6">{{node.startOn}}</p></div>
-            <div *ngIf="node.returnDate" class="col-md-3">Returning On:
-              <p class="col-md-6">{{node.returnDate}}</p>
+            <br/>
+            <h2>{{node.type}}</h2>
+            <div *ngIf="node.from">From: {{node.from}}</div>
+            <div *ngIf="node.to">To: {{node.to}}</div>
+            <div *ngIf="node.startOn">Starting on:  {{node.startOn | date:'d'}}/{{node.startOn | date:'M'}}/{{node.startOn | date:'y'}}
+            </div>           
+            <div *ngIf="node.returnDate">Returning On:  {{node.returnDate | date:'d'}}/{{node.returnDate | date:'M'}}/{{node.returnDate | date:'y'}} 
             </div>
-            <div *ngIf="node.transportMode" class="col-md-3">Transport Mode:
-              <p class="col-md-6">{{node.transportMode}}</p>
+            <div *ngIf="node.transportMode">Transport Mode: {{node.transportMode}}</div>
+            <div *ngIf="node.cost">Cost: {{node.cost}}</div>
+            <div *ngIf="node.location">Location: {{node.location}}</div>
+            <div *ngIf="node.category">Category: {{node.category}}</div>
+            <div *ngIf="node.timeStart">Time Start: {{node.timeStart | date:'hh'}}:{{node.timeStart | date:'mm'}}
             </div>
-            <div *ngIf="node.cost" class="col-md-3">Cost:
-              <p class="col-md-6">{{node.cost}}</p>
+            <div *ngIf="node.timeEnd">Time End: {{node.timeEnd | date:'hh'}}:{{node.timeEnd | date:'mm'}}
             </div>
-            <div *ngIf="node.location" class="col-md-3">Location:
-              <p class="col-md-6">{{node.location}}</p>
-            </div>
-            <div *ngIf="node.category" class="col-md-3">category:
-              <p class="col-md-6">{{node.category}}</p>
-            </div>
-            <div *ngIf="node.timeStart" class="col-md-3">Time Start:
-              <p class="col-md-6">{{node.timeStart}}</p>
-            </div>
-            <div *ngIf="node.timeEnd" class="col-md-3">Time End:
-              <p class="col-md-6">{{node.timeEnd}}</p>
-            </div>
-            <div *ngIf="node.costActivity" class="col-md-3">Cost:
-              <p class="col-md-6">{{node.costActivity}}</p>
-            </div>
-            <div *ngIf="node.rating" class="col-md-3">Rating:
-              <p class="col-md-6">{{node.rating}}</p>
-            </div>
-            <div *ngIf="node.review" class="col-md-3">Review:
-              <p class="col-md-6">{{node.review}}</p>
-            </div>
+            <div *ngIf="node.costActivity">Cost: {{node.costActivity}}</div>
+            <div *ngIf="node.rating">Rating: {{node.rating}}</div>
+            <div *ngIf="node.review">Review: {{node.review}}</div>
           </div>
-        </div>
+        </div><br/>
         <div class="row mt-4">
           <div class="col-md-4">
-            <button class="btn btn-outline-secondary mr-3" style="width:80px" (click)="onBack()">
+            <button class="btn btn-outline-secondary mr-1" style="width:80px" (click)="onBack()">
               <i class="fa fa-chevron-left"></i> Back
             </button>
             <button class="btn btn-outline-primary" style="width:80px" [routerLink]="['/plans', plan.id, 'edit']">

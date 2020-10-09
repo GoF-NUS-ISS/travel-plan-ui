@@ -11,7 +11,9 @@ import { debounceTime } from 'rxjs/operators';
 import {GenericValidator} from '../../common/generic-validator'
 import {NumberValidators} from '../../common/NumberValidators'
 @Component({
-    templateUrl: './travelplan-edit.component.html'
+    selector: 'app-travelplan-edit',
+    templateUrl: './travelplan-edit.component.html',
+    styleUrls: ['./travelplan-edit.component.css']
   })
   export class TravelplanEditComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChildren(FormControlName, { read: ElementRef }) formInputElements: ElementRef[];
@@ -19,6 +21,7 @@ import {NumberValidators} from '../../common/NumberValidators'
     form: FormGroup;
     plan:Plans;
     errorMessage: string;
+    type: 'leg';
     bubbleActivity:any;
     bubbleTravel:any;
     displayMessage: { [key: string]: string } = {};
@@ -35,7 +38,7 @@ import {NumberValidators} from '../../common/NumberValidators'
     ngOnInit() :void {
       this.form = this.fb.group({
         'title': ['', Validators.required],
-        'name' : [this.usname],
+        'name' : [''],
         'days': this.fb.array([
           this.initX()
         ])
@@ -65,21 +68,21 @@ import {NumberValidators} from '../../common/NumberValidators'
     initY() {
       return this.fb.group({
         //  ---------------------forms fields on Node level ------------------------
-      //   'type': ['leg'],
+        'type': ['leg'],
         // 'from': ['from', [Validators.required, Validators.pattern('[0-9]{3}')]],
-        'from': [undefined],
-        'to': [undefined],
-        'startOn': [undefined],
-        'returnDate': [undefined],
-        'transportMode': [undefined],
-        'cost': [undefined],
-        'category':[undefined],
-        'costActivity':[undefined],
-        'rating':['', NumberValidators.range(1, 5)],
-        'review':[undefined],
-        'location': [undefined],
-        'timeStart':[undefined],
-        'timeEnd':[undefined]
+        'from': [null],
+        'to': [null],
+        'startOn': [null],
+        'returnDate': [null],
+        'transportMode': [null],
+        'cost': [null],
+        // 'category':[''],
+        // 'costActivity':[''],
+        // 'rating':['', NumberValidators.range(1, 5)],
+        // 'review':[''],
+        // 'location': [''],
+        // 'timeStart':[''],
+        // 'timeEnd':['']
       })
     }
     
@@ -94,28 +97,18 @@ import {NumberValidators} from '../../common/NumberValidators'
       } else {
         this.pageTitle = `Edit Product: ${this.plan.title}`;
       }
-
-      // for (let X = 0; X < plans.days.length; X++){
-      //   const linesFormArray = this.form.get("lines") as FormArray;
-      //   linesFormArray.push(this.initX());
-        
-      //   for (let Y=0; Y < plans.days[X].nodes.length; Y++){
-      //     const playersFormsArray = linesFormArray.at(X).get("players") as FormArray;
-      //     playersFormsArray.push(this.initY());
-      //   }
-      // }
   
       // Update the data on the form
       this.form.patchValue(
         {
         id:this.plan.id,
-        name:this.plan.name,
+        name:this.usname,
         title: this.plan.title,
-        day: this.form.controls['days'] as FormArray
       });
-      // this.form.setControl('days', this.fb.array(this.plan.days || []));
+      //this.form.setControl('days', this.fb.array(this.plan.days || []));
+      // (this.form.get('days') as FormGroup).setControl('date', new FormControl(this.plan.days))
+
     }
-  
     get Day():FormArray{
       return this.form.get('days') as FormArray;
     }
@@ -136,19 +129,19 @@ import {NumberValidators} from '../../common/NumberValidators'
       control.push(
           this.fb.group({
               type: 'leg',
-              from: '',
-              to: '',
-              startOn:'',
-              returnDate:'',
-              transportMode:'',
-              cost:'',
-              category: null,
-              costActivity: null,
-              rating:null,
-              review:null,
-              location:null,
-              timeStart:null,
-              timeEnd:null
+              from: null,
+              to: null,
+              startOn:null,
+              returnDate:null,
+              transportMode:null,
+              cost:null,
+              category: '',
+              costActivity: '',
+              rating:'',
+              review:'',
+              location:'',
+              timeStart:'',
+              timeEnd:''
             })
       )
     }
@@ -166,19 +159,19 @@ import {NumberValidators} from '../../common/NumberValidators'
       (
           this.fb.group({
               type: 'activity',
-              from: null,
-              to: null,
-              startOn:null,
-              returnDate:null,
-              transportMode:null,
-              cost:null,
-              category: '',
-              costActivity: '',
-              rating:'',
-              review:'',
-              location:'',
-              timeStart:'',
-              timeEnd:''
+              from: '',
+              to: '',
+              startOn:'',
+              returnDate:'',
+              transportMode:'',
+              cost:'',
+              category: null,
+              costActivity: null,
+              rating:null,
+              review:null,
+              location:null,
+              timeStart:null,
+              timeEnd:null
             })
       )
     }
@@ -217,7 +210,7 @@ import {NumberValidators} from '../../common/NumberValidators'
          if (obj[key] && typeof obj[key] === "object") {
            // recursive
            removeEmpty(obj[key]);
-         } else if (obj[key] === null) {
+         } else if (obj[key] === '') {
            delete obj[key];
          }
        });
@@ -225,16 +218,32 @@ import {NumberValidators} from '../../common/NumberValidators'
     };
     if (this.form.valid) {
       if (this.form.dirty) {
-      const p = { ...this.plan, ...removeEmpty(this.form.value) };
+      const p = { ...this.plan, ...removeEmpty(resource) };
       console.log(p.id);
-      console.log(JSON.stringify(this.form.value));
-      console.log(removeEmpty(this.form.value));
+      console.log('Name:'+this.usname);
+      console.log(JSON.stringify(resource));
+      console.log(removeEmpty(resource));
       if (p.id === "0") {
         this.planService.createPlan(p)
           .subscribe({
             next: () => this.onSaveComplete(),
             error: err => this.errorMessage = err
           });
+
+    //           let headers = new HttpHeaders({
+    //     'Content-Type': 'application/json',
+    //     'responseType': 'text'
+    //     // 'Authorization': "Bearer "+ this.auth.getAccessToken()
+    //  });
+    //  let options = {
+    //     headers: headers
+    //  }
+    
+    //   this.http.post("http://localhost:9527/myPlan/travelPlan", resource, options)
+    //           .subscribe(
+    //               data => console.log("success!", data),
+    //               error => console.error("couldn't post because", error)
+    //           );
       } else {
         this.planService.updatePlan(p)
           .subscribe({

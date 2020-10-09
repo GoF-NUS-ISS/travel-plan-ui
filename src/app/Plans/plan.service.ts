@@ -16,12 +16,14 @@ export class PlanService {
       return value;
     }
     )
-    // private plansUrl = `http://localhost:9527/myPlan/travelPlan`;
-    private plansUrl = `api/plan`;
+    content:string;
+    private plansUrl = `http://localhost:9527/myPlan/travelPlan`;
+    //private plansUrl = `api/plan`;
+    private searchUrl ='http://localhost:9527/myPlan/elastic/findByContent?content=';
     constructor(private http: HttpClient, private auth:AuthService){}
 
     getPlans(): Observable<Plans[]> {
-      const url = `${this.plansUrl}`;
+      const url = `${this.plansUrl}/name/${this.usname}/`;
         return this.http.get<Plans[]>(url)
           .pipe(
             tap(data => console.log(JSON.stringify(data))),
@@ -30,12 +32,13 @@ export class PlanService {
       }
     
       getPlan(id: string): Observable<Plans> {
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json'});
         if (id === "0") {
           return of(this.initializePlan());
         }
        // const url = `${this.plansUrl}/name/${id}`;
-        const url = `${this.plansUrl}/${id}`;
-        return this.http.get<Plans>(url)
+        const url = `${this.plansUrl}/id/${id}`;
+        return this.http.get<Plans>(url, {headers : headers})
           .pipe(
             tap(data => console.log('getPlan: ' + JSON.stringify(data))),
             catchError(this.handleError)
@@ -55,8 +58,9 @@ export class PlanService {
       updatePlan(plans: Plans): Observable<Plans> {
         const headers = new HttpHeaders({ 'Content-Type': 'application/json',
         'Authorization': "Bearer "+ this.auth.getAccessToken() });
-        const url = `${this.plansUrl}/${plans.id}`;
-        return this.http.put<Plans>(url, plans, { headers })
+        // const url = `${this.plansUrl}/${plans.id}`;
+        const url = `${this.plansUrl}`;
+        return this.http.post<Plans>(url, plans, { headers })
           .pipe(
             tap(() => console.log('updateProduct: ' + plans.id)),
             // Return the product on an update
@@ -64,8 +68,15 @@ export class PlanService {
             catchError(this.handleError)
           );
       }
-      searchPlan(plans: Plans): Observable<Plans> {
-        return
+      searchPlan(): Observable<Plans[]> {
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json',
+        'Authorization': "Bearer "+ this.auth.getAccessToken() });
+        const url = `${this.searchUrl}/${this.content}`;
+        return this.http.get<Plans[]>(url)
+        .pipe(
+          tap(data => console.log(JSON.stringify(data))),
+          catchError(this.handleError)
+        );
       }
     
       
@@ -96,7 +107,7 @@ export class PlanService {
             date: null,
             nodes: [
                 {
-                    type: null,
+                    type: 'leg',
                     from:null,
                     to:null,
                     startOn:null,
