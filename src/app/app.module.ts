@@ -26,7 +26,7 @@ import { TravelplanDisplayComponent } from './Plans/travelplan-display/travelpla
 import { TravelplanEditComponent } from './Plans/travelplan-edit/travelplan-edit.component';
 import { TravelplanEditGuard } from './Plans/travelplan-edit/travelplan-edit.guard';
 // import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { PlanData } from './Plans/plan-data';
+// import { PlanData } from './Plans/plan-data';
 import { TravelplanSearchComponent } from './Plans/travelplan-search/travelplan-search.component';
 
 @NgModule({

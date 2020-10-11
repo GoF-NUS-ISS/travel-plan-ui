@@ -101,19 +101,19 @@ export class PlanService {
         // Return an initialized object
         return {
           id: null,
-          name: null,
+          name: this.usname,
           title: null,
           days: [{
             date: null,
             nodes: [
                 {
                     type: 'leg',
-                    from:null,
-                    to:null,
-                    startOn:null,
-                    returnDate:null,
-                    transportMode:null,
-                    cost:null,
+                    from:'',
+                    to:'',
+                    startOn:'',
+                    returnDate:'',
+                    transportMode:'',
+                    cost:0,
                     location:null,
                     category:null,
                     timeStart:null,

@@ -4,7 +4,7 @@ export interface Plans {
     title: string;
     days ?: [
         {
-            date: string,
+            date: Date,
             nodes: [
                 {
                     type:string,
