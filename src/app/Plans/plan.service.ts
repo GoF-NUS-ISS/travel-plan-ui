@@ -5,6 +5,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators';
 import { AuthService } from '../user/auth.service';
 import { Plans } from './plans';
+import { Search } from './search';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class PlanService {
     content:string;
     private plansUrl = `http://localhost:9527/myPlan/travelPlan`;
     //private plansUrl = `api/plan`;
-    private searchUrl ='http://localhost:9527/myPlan/elastic/findByContent?content=';
+    private searchUrl ='http://localhost:9527/mySearch/elastic/pageByParam?pageSize=5&startPage=1';
     constructor(private http: HttpClient, private auth:AuthService){}
 
     getPlans(): Observable<Plans[]> {
@@ -68,18 +69,16 @@ export class PlanService {
             catchError(this.handleError)
           );
       }
-      searchPlan(): Observable<Plans[]> {
+      searchPlan(search: Search): Observable<Search> {
         const headers = new HttpHeaders({ 'Content-Type': 'application/json',
         'Authorization': "Bearer "+ this.auth.getAccessToken() });
-        const url = `${this.searchUrl}/${this.content}`;
-        return this.http.get<Plans[]>(url)
+        return this.http.post<Search>(this.searchUrl, search, {headers})
         .pipe(
-          tap(data => console.log(JSON.stringify(data))),
+          tap(data => console.log('Search: ' + JSON.stringify(data))),
           catchError(this.handleError)
         );
-      }
-    
-      
+      }    
+            
       private handleError(err) {
         // in a real world app, we may send the server to some remote logging infrastructure
         // instead of just logging it to the console
@@ -135,5 +134,14 @@ export class PlanService {
             ],
           }]
         };
+      }
+
+      private initializeSearch(): Search{
+        return{
+          keyword: "",
+          site: "",
+          totalCostEnd: null,
+          totalCostStart: null
+        }
       }
 }
