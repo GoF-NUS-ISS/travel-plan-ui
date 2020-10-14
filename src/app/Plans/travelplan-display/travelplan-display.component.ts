@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, PipeTransform } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {Plans} from '../plans'
 import {PlanService} from '../plan.service'
@@ -31,6 +31,12 @@ export class TravelplanDisplayComponent implements OnInit {
       error: err => this.errorMessage = err
     });
   }
+
+//   transform(value: string) {
+//     var datePipe = new DatePipe("en-US");
+//      value = datePipe.transform(value, 'dd/MM/yyyy');
+//      return value;
+//  }
 
   onBack(): void {
     this.router.navigate(['/plans']);

@@ -8,7 +8,7 @@ import {PlanService} from '../plan.service'
   styleUrls: ['./travelplan-list.component.css']
 })
 export class TravelplanListComponent implements OnInit {
-  pageTitle = 'Product List';
+  pageTitle = 'Plan List';
    errorMessage = '';
   _listFilter = '';
   get listFilter(): string {

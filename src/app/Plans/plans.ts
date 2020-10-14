@@ -1,9 +1,10 @@
 export interface Plans {
     id: string;
+    name:string;
     title: string;
     days ?: [
         {
-            date: string,
+            date: Date,
             nodes: [
                 {
                     type:string,

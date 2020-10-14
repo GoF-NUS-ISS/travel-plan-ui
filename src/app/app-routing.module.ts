@@ -6,6 +6,7 @@ import { TravelplanDisplayComponent } from './Plans/travelplan-display/travelpla
 import { TravelplanEditComponent } from './Plans/travelplan-edit/travelplan-edit.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { AuthGuard } from './user/auth.guard';
+import {TravelplanSearchComponent} from './Plans/travelplan-search/travelplan-search.component'
 import { UnauthGuard } from './user/unauth.guard';
 import { TravelplanEditGuard } from './Plans/travelplan-edit/travelplan-edit.guard';
 
@@ -15,6 +16,7 @@ const routes: Routes = [
     {path:'plans', component: TravelplanListComponent, canActivate: [AuthGuard]},
     { path: 'plans/:id', component: TravelplanDisplayComponent, canActivate: [AuthGuard]},
     {path:'Home', component: HomepageComponent, canActivate: [AuthGuard]},
+    {path:'search', component: TravelplanSearchComponent, canActivate: [AuthGuard]},
     {path:'', redirectTo: '/Home', pathMatch: 'full'}, // redirect to the Homepage directly
     { path: 'user', loadChildren: './user/user.module#UserModule'}
 ];

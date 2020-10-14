@@ -25,8 +25,9 @@ import { TravelplanListComponent } from './Plans/travelplan-list/travelplan-list
 import { TravelplanDisplayComponent } from './Plans/travelplan-display/travelplan-display.component';
 import { TravelplanEditComponent } from './Plans/travelplan-edit/travelplan-edit.component';
 import { TravelplanEditGuard } from './Plans/travelplan-edit/travelplan-edit.guard';
-import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { PlanData } from './Plans/plan-data';
+// import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+// import { PlanData } from './Plans/plan-data';
+import { TravelplanSearchComponent } from './Plans/travelplan-search/travelplan-search.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { PlanData } from './Plans/plan-data';
     TravelLegComponent,
     TravelplanListComponent,
     TravelplanDisplayComponent,
-    TravelplanEditComponent
+    TravelplanEditComponent,
+    TravelplanSearchComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +50,7 @@ import { PlanData } from './Plans/plan-data';
     AppRoutingModule,
     HttpClientModule,
     MaterialModule,
-    InMemoryWebApiModule.forRoot(PlanData),
+    // InMemoryWebApiModule.forRoot(PlanData),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCwpq3QYb89Myl6ViV0nsGqmbMVUzHkERY'
     }),
