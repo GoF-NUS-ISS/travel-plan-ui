@@ -5,6 +5,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators';
 import { AuthService } from '../user/auth.service';
 import { Plans } from './plans';
+import { Search } from './search';
 
 @Injectable({
   providedIn: 'root'
@@ -16,12 +17,14 @@ export class PlanService {
       return value;
     }
     )
-    // private plansUrl = `http://localhost:9527/myPlan/travelPlan`;
-    private plansUrl = `api/plan`;
+    content:string;
+    private plansUrl = `http://localhost:9527/myPlan/travelPlan`;
+    //private plansUrl = `api/plan`;
+    private searchUrl ='http://localhost:9527/mySearch/elastic/pageByParam?pageSize=5&startPage=1';
     constructor(private http: HttpClient, private auth:AuthService){}
 
     getPlans(): Observable<Plans[]> {
-      const url = `${this.plansUrl}`;
+      const url = `${this.plansUrl}/name/${this.usname}/`;
         return this.http.get<Plans[]>(url)
           .pipe(
             tap(data => console.log(JSON.stringify(data))),
@@ -30,12 +33,13 @@ export class PlanService {
       }
     
       getPlan(id: string): Observable<Plans> {
-        if (id === null) {
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json'});
+        if (id === "0") {
           return of(this.initializePlan());
         }
        // const url = `${this.plansUrl}/name/${id}`;
-        const url = `${this.plansUrl}/${id}`;
-        return this.http.get<Plans>(url)
+        const url = `${this.plansUrl}/id/${id}`;
+        return this.http.get<Plans>(url, {headers : headers})
           .pipe(
             tap(data => console.log('getPlan: ' + JSON.stringify(data))),
             catchError(this.handleError)
@@ -55,8 +59,9 @@ export class PlanService {
       updatePlan(plans: Plans): Observable<Plans> {
         const headers = new HttpHeaders({ 'Content-Type': 'application/json',
         'Authorization': "Bearer "+ this.auth.getAccessToken() });
-        const url = `${this.plansUrl}/${plans.id}`;
-        return this.http.put<Plans>(url, plans, { headers })
+        // const url = `${this.plansUrl}/${plans.id}`;
+        const url = `${this.plansUrl}`;
+        return this.http.post<Plans>(url, plans, { headers })
           .pipe(
             tap(() => console.log('updateProduct: ' + plans.id)),
             // Return the product on an update
@@ -64,8 +69,16 @@ export class PlanService {
             catchError(this.handleError)
           );
       }
-    
-      
+      searchPlan(search: Search): Observable<Search> {
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json',
+        'Authorization': "Bearer "+ this.auth.getAccessToken() });
+        return this.http.post<Search>(this.searchUrl, search, {headers})
+        .pipe(
+          tap(data => console.log('Search: ' + JSON.stringify(data))),
+          catchError(this.handleError)
+        );
+      }    
+            
       private handleError(err) {
         // in a real world app, we may send the server to some remote logging infrastructure
         // instead of just logging it to the console
@@ -87,18 +100,19 @@ export class PlanService {
         // Return an initialized object
         return {
           id: null,
+          name: this.usname,
           title: null,
           days: [{
             date: null,
             nodes: [
                 {
-                    type: null,
-                    from:null,
-                    to:null,
-                    startOn:null,
-                    returnDate:null,
-                    transportMode:null,
-                    cost:null,
+                    type: 'leg',
+                    from:'',
+                    to:'',
+                    startOn:'',
+                    returnDate:'',
+                    transportMode:'',
+                    cost:0,
                     location:null,
                     category:null,
                     timeStart:null,
@@ -120,5 +134,14 @@ export class PlanService {
             ],
           }]
         };
+      }
+
+      private initializeSearch(): Search{
+        return{
+          keyword: "",
+          site: "",
+          totalCostEnd: null,
+          totalCostStart: null
+        }
       }
 }

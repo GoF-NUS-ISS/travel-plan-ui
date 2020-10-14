@@ -1,11 +1,12 @@
 <div class="card">
-  <div class="card-header">
+  <h1>
     {{pageTitle}}
-  </div>
+  </h1>
+  <br/>
   <form [formGroup]="form">
     <div class="form-group">
       <label for="title">Title</label>
-      <input type="text" formControlName="title" id="titleId" placeholder="Set a title for your trip"
+      <input type="text" formControlName="title" class="form-control" id="titleId" placeholder="Set a title for your trip"
         [ngClass]="{'is-invalid': displayMessage.title }" />
       <span class="invalid-feedback">
         {{displayMessage.title}}
@@ -34,7 +35,7 @@
             <div formArrayName="nodes">
               <div *ngFor="let Y of X['controls'].nodes['controls']; let iy=index">
                 <div formGroupName="{{iy}}" class="nodes">
-                  <div *ngIf="Y.value.type === 'leg'">
+                  <div *ngIf="Y.value.type != 'activity'">
                     <div class="card-header" id="{{ 'travelId' + iy }}">
                       Travel Detail
                       <!-- {{iy+1}} -->
@@ -49,42 +50,42 @@
                       <div class="form-group row mb-2">
                         <label class="col-md-2 col-form-label" [attr.for]="iy">From:</label>
                         <div class="col-md-8">
-                          <input type="text" formControlName="from">
-                          <!-- <p> {{ formErrors.days[ix].nodes[iy].from }}</p> -->
+                          <input type="text" class="form-control" id="{{ 'from' + iy }}"
+                            placeholder="From" formControlName="from">
                         </div>
                       </div>
                       <div class="form-group row mb-2">
                         <label class="col-md-2 col-form-label" [attr.for]="iy">To:</label>
                         <div class="col-md-8">
-                          <input type="text" formControlName="to">
-                          <!-- <p>{{ formErrors.days[ix].nodes[iy].to }}</p> -->
+                          <input type="text" class="form-control" id="{{ 'to' + iy }}"
+                            placeholder="To" formControlName="to">
                         </div>
                       </div>
                       <div class="form-group row mb-2">
                         <label class="col-md-2 col-form-label" [attr.for]="iy">Starting on:</label>
                         <div class="col-md-8">
-                          <input type="date" formControlName="startOn" style="column-width: 170px;">
-                          <!-- <p>{{ formErrors.days[ix].nodes[iy].startOn }}</p> -->
+                          <input type="date" class="form-control" id="{{ 'startOn' + iy }}"
+                            formControlName="startOn">
                         </div>
                       </div>
                       <div class="form-group row mb-2">
                         <label class="col-md-2 col-form-label" [attr.for]="iy">Returning:</label>
                         <div class="col-md-8">
-                          <input type="date" formControlName="returnDate">
-                          <!-- <p>{{ formErrors.days[ix].nodes[iy].returnDate }}</p> -->
+                          <input type="date" class="form-control" id="{{ 'returnDate' + iy }}"
+                            formControlName="returnDate">
                         </div>
                       </div>
                       <div class="form-group row mb-2">
                         <label class="col-md-2 col-form-label" [attr.for]="iy">Cost:</label>
                         <div class="col-md-8">
-                          <input type="text" formControlName="cost">
-                          <!-- <p>{{ formErrors.days[ix].nodes[iy].cost }}</p> -->
+                          <input type="text" class="form-control" id="{{ 'returnDate' + iy }}"
+                            formControlName="cost">
                         </div>
                       </div>
                       <div class="form-group row mb-2">
                         <label class="col-md-2 col-form-label" [attr.for]="iy">Mode of Transport:</label>
                         <div class="col-md-8">
-                          <select formControlName="transportMode">
+                          <select class="form-control" formControlName="transportMode">
                             <option value="flight">Flight</option>
                             <option value="train">Train</option>
                             <option value="car">Car</option>
@@ -111,14 +112,13 @@
                     <div class="form-group row mb-2">
                       <label class="col-md-2 col-form-label" [attr.for]="iy">Location:</label>
                       <div class="col-md-8">
-                        <input type="text" formControlName="location" style="column-width: 170px;">
-                        <!-- <p>{{ formErrors.Day[ix].nodes[iy].Activity[iy].Z1 }}</p> -->
+                        <input type="text" class="form-control" formControlName="location" style="column-width: 170px;">
                       </div>
                     </div>
                     <div class="form-group row mb-2">
                       <label class="col-md-2 col-form-label" [attr.for]="iy">Category:</label>
                       <div class="col-md-8">
-                        <input type="text" placeholder="Description" formControlName="category"
+                        <input type="text" class="form-control" placeholder="Description" formControlName="category"
                           style="column-width: 170px;">
                       </div>
                     </div>
@@ -146,11 +146,19 @@
                     <div class="form-group row mb-2">
                       <label class="col-md-2 col-form-label" for="ratingId" [attr.for]="iy">Star Rating (1-5):</label>
                       <div class="col-md-8">
-                        <input class="form-control" id="{{'ratingId'+iy}}" type="text" placeholder="Rating (1-5)"
-                          formControlName="rating" [ngClass]="{'is-invalid': displayMessage.rating}" />
-                        <span class="invalid-feedback">
+                        <select class="form-control" formControlName="rating">
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>               
+                        </select>
+                        <!-- <input class="form-control" id="{{'ratingId'+iy}}" type="text" placeholder="Rating (1-5)"
+                          formControlName="rating" /> -->
+                          <!-- [ngClass]="{'is-invalid': displayMessage.rating}"  -->
+                        <!-- <span class="invalid-feedback">
                           {{displayMessage.rating}}
-                        </span>
+                        </span> -->
                       </div>
                     </div>
                     <div class="form-group row mb-2">

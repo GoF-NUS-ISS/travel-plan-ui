@@ -59,7 +59,7 @@ export class SignInComponent {
           case "UserNotConfirmedException":
             environment.confirm.name = this.nameInput.value;
             environment.confirm.password = this.passwordInput.value;
-            this._router.navigate(['user/confirm']);
+            this._router.navigate(['user/profile']);
             break;
           case "UsernameExistsException":
             this._router.navigate(['user/login']);

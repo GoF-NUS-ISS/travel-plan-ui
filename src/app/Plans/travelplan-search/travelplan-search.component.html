@@ -1,0 +1,42 @@
+<form id="searchForm" [formGroup]="searchForm">
+    <div class="form-group">
+        <input type="text" class="form-control-keyword" 
+        placeholder="Search plans with keywords" 
+        formControlName="keyword"
+        style="width:800px;">
+    </div>
+    <div class="form-group">
+      <input type="text" 
+      class="form-control-site" 
+      placeholder="Location" 
+      formControlName="site"
+      style="width:800px;">
+  </div>
+  <div class="form-group">
+    <input type="text" 
+    class="form-control-costStart" 
+    placeholder="Cost Start" 
+    formControlName="totalCostStart"
+    style="width:350px;"> 
+    <input type="text" 
+    class="form-control-costEnd" 
+    placeholder="Cost End" 
+    formControlName="totalCostEnd"
+    style="width:350px;">
+</div>
+    <button class="btn btn-default" style="width:200px;" (click)="searchPlan()">
+        Generate Plan
+    </button>
+</form>
+<table *ngIf="searchResults">
+    <thead>
+    <tr>
+      <th>Title</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let plan of searchResults; let i=index">
+      <td><a [routerLink]="['/plans', plan.id]">{{plan.title}}</a></td>
+    </tr>
+    </tbody>
+  </table>
