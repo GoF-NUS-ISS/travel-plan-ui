@@ -63,8 +63,8 @@ export class PlanService {
         const url = `${this.plansUrl}`;
         return this.http.post<Plans>(url, plans, { headers })
           .pipe(
-            tap(() => console.log('updateProduct: ' + plans.id)),
-            // Return the product on an update
+            tap(() => console.log('updatePlan: ' + plans.id)),
+            // Return the plan on an update
             map(() => plans),
             catchError(this.handleError)
           );

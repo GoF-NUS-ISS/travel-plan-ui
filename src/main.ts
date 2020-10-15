@@ -23,14 +23,14 @@ const oauth = {
   scope : ['phone', 'email', 'profile', 'openid','aws.cognito.signin.user.admin'], 
 
   // Callback URL
-  redirectSignIn : 'http://localhost:4200', 
+  redirectSignIn : 'http://localhost:4200/', 
   
   // Sign out URL
-  redirectSignOut : 'http://localhost:4200',
+  redirectSignOut : 'http://localhost:4200/',
 
   // 'code' for Authorization code grant, 
   // 'token' for Implicit grant
-  responseType: 'code',
+  responseType: 'token',
 
   // optional, for Cognito hosted ui specified options
   options: {
