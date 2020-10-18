@@ -18,9 +18,9 @@ export class PlanService {
     }
     )
     content:string;
-    private plansUrl = `http://localhost:9527/myPlan/travelPlan`;
+    private plansUrl = `http://zuul.local:9527/myPlan/travelPlan`;
     //private plansUrl = `api/plan`;
-    private searchUrl ='http://localhost:9527/mySearch/elastic/pageByParam?pageSize=5&startPage=1';
+    private searchUrl ='http://zuul.local:9527/mySearch/elastic/pageByParam?pageSize=5&startPage=1';
     constructor(private http: HttpClient, private auth:AuthService){}
 
     getPlans(): Observable<Plans[]> {

@@ -305,7 +305,7 @@
 //       headers: headers
 //    }
   
-//     this.http.post("http://localhost:9527/myPlan/travelPlan", resource, options)
+//     this.http.post("http://zuul.local:9527/myPlan/travelPlan", resource, options)
 //             .subscribe(
 //                 data => console.log("success!", data),
 //                 error => console.error("couldn't post because", error)
