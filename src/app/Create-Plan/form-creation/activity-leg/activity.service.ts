@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 
 //   export class ActivityService {
   
-//     private activityUrl = 'http://localhost:9527/myPlan/swagger-ui/index.html#/';
+//     private activityUrl = 'http://zuul.local:9527/myPlan/swagger-ui/index.html#/';
   
 //     constructor(private http: HttpClient) { }
   
