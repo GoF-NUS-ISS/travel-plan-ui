@@ -27,7 +27,9 @@
               </button>
               <label class="col-md-1 col-form-label" [attr.for]="ix">Date: </label>
               <div class="col-md-8">
-                <input type="date" formControlName="date">
+                <input type="date" formControlName="date"
+                [value]="X.date | date:'shortDate'"
+                >
               </div>
             </div>
             <!-- <p>{{ formErrors.Day[ix].X }}</p> -->
@@ -77,7 +79,7 @@
                       <div class="form-group row mb-2">
                         <label class="col-md-2 col-form-label" [attr.for]="iy">Cost:</label>
                         <div class="col-md-8">
-                          <input type="text" class="form-control" id="{{ 'returnDate' + iy }}" formControlName="cost"
+                          <input type="text" class="form-control" id="{{ 'cost' + iy }}" formControlName="cost"
                             [ngClass]="{'is-invalid': displayMessage.cost }" />
                           <span class="invalid-feedback">
                             {{displayMessage.cost}}

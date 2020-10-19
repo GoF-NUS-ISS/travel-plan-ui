@@ -10,6 +10,7 @@ import { debounceTime } from 'rxjs/operators';
 import { GenericValidator } from '../../common/generic-validator'
 import { NumberValidators } from '../../common/NumberValidators'
 import { NotificationService } from 'src/app/services/notification.service';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-travelplan-edit',
   templateUrl: './travelplan-edit.component.html',
@@ -58,7 +59,7 @@ export class TravelplanEditComponent implements OnInit, AfterViewInit, OnDestroy
   initX() {
     return this.fb.group({
       //  ---------------------forms fields on Day level ------------------------
-      'date': [],
+      'date': [''],
       // ---------------------------------------------------------------------
       'nodes': this.fb.array([
         this.initY(),
@@ -109,6 +110,10 @@ export class TravelplanEditComponent implements OnInit, AfterViewInit, OnDestroy
       this.deleteDay(0);
       for (let dayarray = 0; dayarray < plans.days.length; dayarray++) {
         const daysFormArray = this.form.get("days") as FormArray;
+        // if(plans.days[dayarray].date){
+          this.datePipe.transform(plans.days[dayarray].date, 'dd-MM-yyyy')
+          console.log(this.datePipe.transform(plans.days[dayarray].date, 'yyyy-MM-dd'))
+        // }
         daysFormArray.push(this.initX());
         // for(let nodearray in plans.days[dayarray].nodes)
         for (let nodearray = 0; nodearray < plans.days[dayarray].nodes.length - 1; nodearray++) {
@@ -130,17 +135,6 @@ export class TravelplanEditComponent implements OnInit, AfterViewInit, OnDestroy
     // }
     //patch the form:
     this.form.patchValue(plans);
-
-    // Update the data on the form
-    // this.form.patchValue(
-    //   {
-    //   id:this.plan.id,
-    //   name:this.usname,
-    //   title: this.plan.title,
-    // });
-    //this.form.setControl('days', this.fb.array(this.plan.days || []));
-    // (this.form.get('days') as FormGroup).setControl('date', new FormControl(this.plan.days))
-
   }
   get Day(): FormArray {
     return this.form.get('days') as FormArray;
@@ -216,7 +210,7 @@ export class TravelplanEditComponent implements OnInit, AfterViewInit, OnDestroy
   }
   constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute,
     private auth: AuthService, private http: HttpClient, private _notification: NotificationService,
-    private planService: PlanService) {
+    private planService: PlanService, private datePipe: DatePipe) {
     this.validationMessages = {
       title: {
         required: 'Title is required.',
@@ -243,7 +237,6 @@ export class TravelplanEditComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   publish() {
-    let resource = this.form.value
     const removeEmpty = (obj) => {
       Object.keys(obj).forEach(key => {
         if (obj[key] && typeof obj[key] === "object") {

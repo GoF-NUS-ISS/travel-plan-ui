@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { FormCreationComponent } from './Create-Plan/form-creation/form-creation.component';
 import { TravelplanListComponent } from './Plans/travelplan-list/travelplan-list.component';
 import { TravelplanDisplayComponent } from './Plans/travelplan-display/travelplan-display.component';
 import { TravelplanEditComponent } from './Plans/travelplan-edit/travelplan-edit.component';
@@ -17,7 +16,7 @@ const routes: Routes = [
     { path: 'plans/:id', component: TravelplanDisplayComponent, canActivate: [AuthGuard]},
     {path:'Home', component: HomepageComponent, canActivate: [AuthGuard]},
     {path:'search', component: TravelplanSearchComponent, canActivate: [AuthGuard]},
-    {path:'', redirectTo: '/Home', pathMatch: 'full'}, // redirect to the Homepage directly
+    {path:'', redirectTo: '/user/profile', pathMatch: 'full'}, // redirect to the Homepage directly
     { path: 'user', loadChildren: './user/user.module#UserModule'}
 ];
 
@@ -26,4 +25,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
-export const routingComponents=[FormCreationComponent, HomepageComponent]
+export const routingComponents=[HomepageComponent]

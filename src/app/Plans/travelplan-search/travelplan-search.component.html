@@ -18,11 +18,19 @@
     placeholder="Cost Start" 
     formControlName="totalCostStart"
     style="width:350px;"> 
+
+    <div *ngIf="f.totalCostStart.invalid" class="alert alert-danger">
+      <div *ngIf="f.totalCostStart.errors.pattern">Enter only number.</div>
+    </div>
+
     <input type="text" 
     class="form-control-costEnd" 
     placeholder="Cost End" 
     formControlName="totalCostEnd"
     style="width:350px;">
+    <div *ngIf="f.totalCostEnd.invalid" class="alert alert-danger">
+      <div *ngIf="f.totalCostEnd.errors.pattern">Enter only number.</div>
+    </div>
 </div>
     <button class="btn btn-default" style="width:200px;" (click)="searchPlan()">
         Generate Plan

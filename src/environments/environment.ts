@@ -7,7 +7,14 @@ export const environment = {
   confirm: {
     name: '',
     password: ''
-  }
+  },
+  // APIEndpoint: '{API_ENDPOINT}'
+  backendApiPlanUrl: 'http://localhost:9527/myPlan/travelPlan',
+  // '${BACKEND_API_PLAN}',
+  backendApiSearchUrl: 'http://localhost:9527/mySearch/elastic/pageByParam?pageSize=5&startPage=1'
+  // '${BACKEND_API_SEARCH}'
+  // apiBaseUrl: 'API_BASE_URL',
+  // version: 'v${require("../package.json").version}'
 };
 
 /*
