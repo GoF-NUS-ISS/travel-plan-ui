@@ -6,7 +6,7 @@ name: Post Deployment DAST OWASP ZAP Execution
 
 jobs:
   deploy:
-    name: Deploy
+    name: Run OWASP ZAP DAST tool
     runs-on: ubuntu-latest
 
     steps:

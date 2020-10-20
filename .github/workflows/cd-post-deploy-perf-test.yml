@@ -6,7 +6,7 @@ name: Post Deployment Performance Test
 
 jobs:
   deploy:
-    name: Deploy
+    name: Run Perf Test
     runs-on: ubuntu-latest
 
     steps:

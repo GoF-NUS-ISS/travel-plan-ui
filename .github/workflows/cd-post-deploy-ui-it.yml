@@ -6,7 +6,7 @@ name: Post Deployment Integration Test
 
 jobs:
   deploy:
-    name: Deploy
+    name: Run UI IT test post Deployment
     runs-on: ubuntu-latest
 
     steps:
@@ -17,7 +17,7 @@ jobs:
     - name: Checkout tools repo
       uses: actions/checkout@v2
       with:
-        repository: https://github.com/GoF-NUS-ISS/f-qa-integration-tests.git
+        repository: GoF-NUS-ISS/f-qa-integration-tests
         path: f-qa-integration-tests
 
     - name: Wait for URL to be responsive
