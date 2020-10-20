@@ -17,7 +17,10 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
-    #Pending - Run SAST Tool Here - Pending
+    #Task: Run SAST Tool Here
+    # Its already being taken care with GitHub-Sonar Cloud web hook integration
+    # Check the report Below
+    #https://sonarcloud.io/dashboard?id=GoF-NUS-ISS_travel-plan-ui
 
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v1
@@ -32,6 +35,7 @@ jobs:
         password: ${{ secrets.DOCKER_HUB_REPO_SECRET_KEY }}
 
     #Pending - Run Unit tests or Integration Tests during build process using npm test commands
+
     - name: Build and push
       id: docker_build
       uses: docker/build-push-action@v2
@@ -41,11 +45,6 @@ jobs:
 
     - name: Image digest
       run: echo ${{ steps.docker_build.outputs.digest }}
-
-    #Pending - Run DAST Tool Here - Pending
-
-    #Pending - Run Integration Automation Tests Here. These tests will Hit Docker container directly Here - Pending
-    #Pending - However, if tests are executed during build phase, we can skip testing the docker container.
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
@@ -69,3 +68,12 @@ jobs:
         service: service-travel-plan-ui
         cluster: travel-plan-app-env-prod
         wait-for-service-stability: true
+ 
+    - name: OWASP ZAP Baseline Scan DAST
+      uses: zaproxy/action-baseline@v0.3.0
+      with:
+        target: "alb-travel-app-451787435.us-east-1.elb.amazonaws.com:4200"
+
+    #Pending - Run Integration Automation Tests Here. These tests will Hit Docker container directly Here - Pending
+    #Pending - However, if tests are executed during build phase, we can skip testing the docker container.
+
