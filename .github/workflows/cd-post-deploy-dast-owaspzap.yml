@@ -1,0 +1,26 @@
+on:
+  push:
+    branches: [ master ]
+
+name: Post Deployment DAST OWASP ZAP Execution
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+
+    -name: Wait for URL to be responsive
+    uses: nev7n/wait_for_response@v1
+    with:
+      url: 'htp://alb-travel-app-451787435.us-east-1.elb.amazonaws.com:4200'
+      responseCode: 200
+      timeout: 60000
+      interval: 10000
+
+    #DAST Tool Execution
+    - name: OWASP ZAP Baseline Scan DAST
+      uses: zaproxy/action-baseline@v0.3.0
+      with:
+        target: "htp://alb-travel-app-451787435.us-east-1.elb.amazonaws.com:4200"

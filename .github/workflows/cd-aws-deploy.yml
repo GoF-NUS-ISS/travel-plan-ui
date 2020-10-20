@@ -34,8 +34,6 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKER_HUB_REPO_SECRET_KEY }}
 
-    #Pending - Run Unit tests or Integration Tests during build process using npm test commands
-
     - name: Build and push
       id: docker_build
       uses: docker/build-push-action@v2
@@ -68,12 +66,3 @@ jobs:
         service: service-travel-plan-ui
         cluster: travel-plan-app-env-prod
         wait-for-service-stability: true
- 
-    - name: OWASP ZAP Baseline Scan DAST
-      uses: zaproxy/action-baseline@v0.3.0
-      with:
-        target: "alb-travel-app-451787435.us-east-1.elb.amazonaws.com:4200"
-
-    #Pending - Run Integration Automation Tests Here. These tests will Hit Docker container directly Here - Pending
-    #Pending - However, if tests are executed during build phase, we can skip testing the docker container.
-
