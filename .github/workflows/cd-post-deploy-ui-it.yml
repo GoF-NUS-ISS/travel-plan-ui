@@ -33,6 +33,11 @@ jobs:
         user_name: ${{ secrets.QA_UI_TEST_LOGIN_USER_NAME }}
         password: ${{ secrets.QA_UI_TEST_LOGIN_PASSWORD }}
       run: mvn -f f-qa-integration-tests/cucumber-selenium-fw/pom.xml clean install -Dbrowser=headless -Dusername=$user_name -Dpassword=$password -Dbase_url=http://alb-travel-app-451787435.us-east-1.elb.amazonaws.com:4200
-
+ 
+    - name: Upload Test Artifcat
+      uses: actions/upload-artifact@v2
+      with:
+        name: ui-test-report
+        path: f-qa-integration-tests/cucumber-selenium-fw/target/html/htmlreport.html
 
       
