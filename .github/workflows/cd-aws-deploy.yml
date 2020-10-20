@@ -63,6 +63,6 @@ jobs:
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
       with:
         task-definition: ${{ steps.task-def.outputs.task-definition }}
-        service: service-travel-plan-ui
+        service: f-srv-ui
         cluster: travel-plan-app-env-prod
         wait-for-service-stability: true
