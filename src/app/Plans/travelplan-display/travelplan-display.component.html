@@ -1,0 +1,61 @@
+<div class="card">
+  <div class="card-header" *ngIf="plan">
+    {{pageTitle + ": " + plan.title}}
+  </div>
+<br/>
+  <div *ngIf="plan">
+
+    <div>
+
+      <div>
+        <div>
+          <h3>Title: {{plan.title}}</h3>
+        </div>
+        <div *ngFor="let day of plan.days">
+          <h2>Days</h2>
+          <div *ngIf="day.date">Date: 
+            <!-- {{day.date | date:'shortDate'}} -->
+            {{day.date | date:'d'}}/{{day.date | date:'M'}}/{{day.date | date:'y'}}
+           </div>
+          <div *ngFor="let node of day.nodes">
+            <br/>
+            <h2>{{node.type}}</h2>
+            <div *ngIf="node.from">From: {{node.from}}</div>
+            <div *ngIf="node.to">To: {{node.to}}</div>
+            <div *ngIf="node.startOn">Starting on: 
+              <!-- {{node.startOn | date:'shortDate'}} -->
+              {{node.startOn | date:'d'}}/{{node.startOn | date:'M'}}/{{node.startOn | date:'y'}}
+            </div>           
+            <div *ngIf="node.stopAt">Returning On: 
+              <!-- {{node.stopAt | date:'shortDate'}}  -->
+              {{node.stopAt | date:'d'}}/{{node.stopAt | date:'M'}}/{{node.stopAt | date:'y'}} 
+            </div>
+            <div *ngIf="node.transportMode">Transport Mode: {{node.transportMode}}</div>
+            <div *ngIf="node.cost">Cost: {{node.cost}}</div>
+            <div *ngIf="node.location">Location: {{node.location}}</div>
+            <div *ngIf="node.category">Category: {{node.category}}</div>
+            <div *ngIf="node.timeStart">Time Start: {{node.timeStart | date:'hh'}}:{{node.timeStart | date:'mm'}}
+            </div>
+            <div *ngIf="node.timeEnd">Time End: {{node.timeEnd | date:'hh'}}:{{node.timeEnd | date:'mm'}}
+            </div>
+            <div *ngIf="node.costActivity">Cost: {{node.costActivity}}</div>
+            <div *ngIf="node.rating">Rating: {{node.rating}}</div>
+            <div *ngIf="node.review">Review: {{node.review}}</div>
+          </div>
+        </div><br/>
+        <div class="row mt-4">
+          <div class="col-md-4">
+            <button class="btn btn-outline-secondary mr-1" style="width:80px" (click)="onBack()">
+              <i class="fa fa-chevron-left"></i> Back
+            </button>
+            <button class="btn btn-outline-primary" style="width:80px" [routerLink]="['/plans', plan.id, 'edit']">
+              Edit
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}
+      </div>
+    </div>

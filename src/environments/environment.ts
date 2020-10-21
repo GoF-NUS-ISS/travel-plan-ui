@@ -3,7 +3,20 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  confirm: {
+    name: '',
+    password: ''
+  },
+  // APIEndpoint: '{API_ENDPOINT}'
+  backendApiPlanUrl: 'http://zuul.local:9527/myPlan/travelPlan',
+  // 'http://18.234.87.155:9527/myPlan/travelPlan',
+  // 'http://localhost:9527/myPlan/travelPlan',
+  // '${BACKEND_API_PLAN}',
+  backendApiSearchUrl: 'http://zuul.local:9527/mySearch/elastic/pageByParam?pageSize=5&startPage=1'
+  // '${BACKEND_API_SEARCH}'
+  // apiBaseUrl: 'API_BASE_URL',
+  // version: 'v${require("../package.json").version}'
 };
 
 /*

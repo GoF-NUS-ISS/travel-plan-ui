@@ -1,0 +1,210 @@
+<div class="card">
+  <h1>
+    {{pageTitle}}
+  </h1>
+  <br />
+  <form [formGroup]="form">
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input type="text" formControlName="title" class="form-control" id="titleId"
+        placeholder="Set a title for your trip" [ngClass]="{'is-invalid': displayMessage.title }" />
+      <span class="invalid-feedback">
+        {{displayMessage.title}}
+      </span>
+    </div>
+    <!-- Day -->
+    <div formArrayName="days">
+      <div class="container">
+        <div *ngFor="let X of form['controls'].days['controls']; let ix=index">
+          <div formGroupName="{{ix}}" class="days">
+            <div class="card-header" id="{{ 'daysId' + ix }}">
+              Day {{ix+1}}
+            </div>
+            <div class="form-group row mb-2">
+              <button class="btn btn-outline-primary" type="button" style="margin-left:920px; font-style: 12px;"
+                (click)="deleteDay(ix)">
+                Delete Day
+              </button>
+              <label class="col-md-1 col-form-label" [attr.for]="ix">Date: </label>
+              <div class="col-md-8">
+                <input type="date" formControlName="date"
+                >
+              </div>
+            </div>
+            <!-- <p>{{ formErrors.Day[ix].X }}</p> -->
+            <!-- Travel -->
+            <div formArrayName="nodes">
+              <div *ngFor="let Y of X['controls'].nodes['controls']; let iy=index">
+                <div formGroupName="{{iy}}" class="nodes">
+                  <div *ngIf="Y.value.type != 'activity'">
+                    <div class="card-header" id="{{ 'travelId' + iy }}">
+                      Travel Detail
+                      <!-- {{iy+1}} -->
+                    </div>
+                    <div class="form-group row mb-2">
+                      <button class="btn btn-outline-primary" type="button" style="margin-left:920px; font-style: 12px;"
+                        (click)="deleteTravel(ix, iy)">
+                        Delete Travel Details
+                      </button>
+                    </div>
+                    <div class="inputs">
+                      <div class="form-group row mb-2">
+                        <label class="col-md-2 col-form-label" [attr.for]="iy">From:</label>
+                        <div class="col-md-8">
+                          <input type="text" class="form-control" id="{{ 'from' + iy }}" placeholder="From"
+                            formControlName="from">
+                        </div>
+                      </div>
+                      <div class="form-group row mb-2">
+                        <label class="col-md-2 col-form-label" [attr.for]="iy">To:</label>
+                        <div class="col-md-8">
+                          <input type="text" class="form-control" id="{{ 'to' + iy }}" placeholder="To"
+                            formControlName="to">
+                        </div>
+                      </div>
+                      <div class="form-group row mb-2">
+                        <label class="col-md-2 col-form-label" [attr.for]="iy">Starting on:</label>
+                        <div class="col-md-8">
+                          <input type="datetime-local" class="form-control" id="{{ 'startOn' + iy }}" formControlName="startOn">
+                        </div>
+                      </div>
+                      <div class="form-group row mb-2">
+                        <label class="col-md-2 col-form-label" [attr.for]="iy">Returning:</label>
+                        <div class="col-md-8">
+                          <input type="datetime-local" class="form-control" id="{{ 'stopAt' + iy }}"
+                            formControlName="stopAt">
+                        </div>
+                      </div>
+                      <div class="form-group row mb-2">
+                        <label class="col-md-2 col-form-label" [attr.for]="iy">Cost:</label>
+                        <div class="col-md-8">
+                          <input type="text" class="form-control" id="{{ 'cost' + iy }}" formControlName="cost"
+                            [ngClass]="{'is-invalid': displayMessage.cost }" />
+                          <span class="invalid-feedback">
+                            {{displayMessage.cost}}
+                          </span>
+                        </div>
+                      </div>
+                      <div class="form-group row mb-2">
+                        <label class="col-md-2 col-form-label" [attr.for]="iy">Mode of Transport:</label>
+                        <div class="col-md-8">
+                          <select class="form-control" formControlName="transportMode">
+                            <option value="flight">Flight</option>
+                            <option value="train">Train</option>
+                            <option value="car">Car</option>
+                            <option value="ferry">Ferry</option>
+                            <option value="bike">Bike</option>
+                            <option value="others">Others</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!---------------------------------------- Activity comes here------------------------------ -->
+                  <div *ngIf="Y.value.type === 'activity'">
+                    <div class="card-header" id="{{ 'activityId' + iy }}">
+                      Activity
+                      <!-- {{iy+1}} -->
+                    </div>
+                    <div class="form-group row mb-2">
+                      <button class="btn btn-outline-primary" type="button" style="margin-left:920px; font-style: 12px;"
+                        (click)="deleteActivity(ix, iy)">
+                        Delete Activity
+                      </button>
+                    </div>
+                    <div class="form-group row mb-2">
+                      <label class="col-md-2 col-form-label" [attr.for]="iy">Location:</label>
+                      <div class="col-md-8">
+                        <input type="text" class="form-control" formControlName="location" style="column-width: 170px;">
+                      </div>
+                    </div>
+                    <div class="form-group row mb-2">
+                      <label class="col-md-2 col-form-label" [attr.for]="iy">Category:</label>
+                      <div class="col-md-8">
+                        <input type="text" class="form-control" placeholder="Description" formControlName="category"
+                          style="column-width: 170px;">
+                      </div>
+                    </div>
+                    <div class="form-group row mb-2">
+                      <label class="col-md-2 col-form-label" [attr.for]="iy">Time Start:</label>
+                      <div class="col-md-8">
+                        <input type="datetime-local" class="form-control" placeholder="Time Start" formControlName="timeStart"
+                          style="column-width: 170px;">
+                      </div>
+                    </div>
+                    <div class="form-group row mb-2">
+                      <label class="col-md-2 col-form-label" [attr.for]="iy">Time End:</label>
+                      <div class="col-md-8">
+                        <input type="datetime-local" class="form-control" id="{{ 'timeendId' + iy }}" placeholder="Time End"
+                          formControlName="timeEnd" style="column-width: 170px;">
+                      </div>
+                    </div>
+                    <div class="form-group row mb-2">
+                      <label class="col-md-2 col-form-label" [attr.for]="iy">Cost:</label>
+                      <div class="col-md-8">
+                        <input type="text" class="form-control" id="{{ 'costId' + iy }}" placeholder="Cost"
+                          formControlName="costActivity" [ngClass]="{'is-invalid': displayMessage.costActivity }" />
+                        <span class="invalid-feedback">
+                          {{displayMessage.costActivity}}
+                        </span>
+                      </div>
+                    </div>
+                    <div class="form-group row mb-2">
+                      <label class="col-md-2 col-form-label" for="ratingId" [attr.for]="iy">Star Rating (1-5):</label>
+                      <div class="col-md-8">
+                        <select class="form-control" formControlName="rating">
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                        </select>
+                        <!-- <input class="form-control" id="{{'ratingId'+iy}}" type="text" placeholder="Rating (1-5)"
+                          formControlName="rating" /> -->
+                        <!-- [ngClass]="{'is-invalid': displayMessage.rating}"  -->
+                        <!-- <span class="invalid-feedback">
+                          {{displayMessage.rating}}
+                        </span> -->
+                      </div>
+                    </div>
+                    <div class="form-group row mb-2">
+                      <label class="col-md-2 col-form-label" [attr.for]="iy">Review Description:</label>
+                      <div class="col-md-8">
+                        <textarea type="text" class="form-control" id="{{ 'reviewdescriptionId' + iy }}"
+                          placeholder="Review Description if any" formControlName="review"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <input type="button" (click)="addActivity(ix)" ng-click="bubbleActivity=true" value="Add Activity">
+            <input type="button" (click)="addTravel(ix)" bubbleTravel="true" value="Add Travel Detail">
+            <!-- Test start -->
+
+            <!-- Test end -->
+          </div>
+          <!-- Travel End-->
+        </div>
+      </div>
+      <input type="button" (click)="addDay()" value="Add Day">
+    </div>
+    <!-- Day End -->
+    <div class="form-group row mb-2">
+      <div class="offset-md-2 col-md-4">
+        <button type="button" class="btn btn-primary" style="width:80px;" (click)="publish()">
+          Publish
+        </button>
+        <!-- <button class="btn btn-primary" style="width:80px;" type="button" title="Cancel your edits"
+          [routerLink]="['/plans']">
+          Cancel
+        </button> -->
+      </div>
+    </div>
+  </form>
+  <div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}
+  </div>
+</div>
+
+<h5>Field Values</h5>
+<pre style="font-style:15px">{{ form.value | json }}</pre>

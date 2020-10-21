@@ -1,7 +1,29 @@
-import { ProfileComponent } from './profile.component'
-import { LoginComponent } from './login.component'
+import { ProfileComponent } from './profile/profile.component';
+import { SignInComponent } from './sign-in/sign-in.component';
+import { SignUpComponent } from 'src/app/user/sign-up/sign-up.component';
+import { AuthGuard } from './auth.guard';
+import { UnauthGuard } from './unauth.guard';
+import { ConfirmCodeComponent } from './confirm-code/confirm-code.component';
 
 export const userRoutes = [
-  {path: 'profile', component: ProfileComponent},
-  {path: 'login', component: LoginComponent}
+  {
+    path: 'login',
+    component: SignInComponent,
+    canActivate: [UnauthGuard]
+  },
+  {
+    path: 'signup',
+    component: SignUpComponent,
+    canActivate: [UnauthGuard]
+  },
+  {
+    path: 'confirm',
+    component: ConfirmCodeComponent,
+    canActivate: [UnauthGuard]
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [AuthGuard]
+  }
 ]

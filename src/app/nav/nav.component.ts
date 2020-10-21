@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormCreationComponent } from '../Create-Plan/form-creation/form-creation.component';
 import { Router } from '@angular/router';
 import { AuthService } from '../user/auth.service'
+import { Auth } from 'aws-amplify';
 
 @Component({
   selector: 'app-nav',
@@ -15,8 +15,7 @@ export class NavComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //this.router.navigate(['/FormCreation']);
+    
   }
-  
 
 }

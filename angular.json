@@ -19,20 +19,47 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": true,
+            "allowedCommonJsDependencies": ["rxjs-compat","lodash",
+              "firebase",
+              "@angular/common/locales/fr",
+              "lodash/dropRight",
+              "@firebase/app",
+              "firebase/app",
+              "@firebase/database",
+              "@firebase/firestore",
+              "@firebase/functions",
+              "@firebase/performance",
+              "@firebase/remote-config","crypto-js", "@aws-sdk/eventstream-marshaller", "buffer", "js-cookie", 
+              "@aws-crypto", "zen-observable", "@aws-sdk/util-utf8-node", "@aws-crypto/sha256-js", "@aws-sdk/util-buffer-from",
+              "@aws-sdk/smithy-client", "@aws-sdk/middleware-serde", "@aws-sdk/middleware-user-agent",
+              "@aws-sdk/middleware-retry", "@aws-sdk/middleware-signing", "@aws-sdk/middleware-content-length",
+              "@aws-sdk/middleware-host-header", "@aws-sdk/config-resolver", "@aws-sdk/s3-request-presigner",
+              "@aws-sdk/util-format-url", "@aws-sdk/util-create-request", "@aws-sdk/property-provider",
+              "axios", "@aws-sdk/fetch-http-handler", "@aws-sdk/protocol-http", "@aws-sdk/querystring-builder",
+              "@aws-sdk/util-utf8-browser", "@aws-sdk/url-parser-browser", "@aws-crypto/sha256-browser",
+              "@aws-sdk/url-parser-node", "@aws-sdk/util-uri-escape", "@aws-sdk/middleware-sdk-s3",
+              "@aws-sdk/middleware-bucket-endpoint", "@aws-sdk/querystring-parser", "@aws-sdk/middleware-apply-body-checksum",
+              "@aws-sdk/middleware-ssec", "@aws-sdk/middleware-expect-continue", "fast-xml-parser",
+              "@aws-sdk/xml-builder", "@aws-sdk/md5-js", "@aws-sdk/hash-blob-browser",
+              "@aws-sdk/eventstream-serde-browser", "@aws-sdk/middleware-location-constraint", "uuid",
+              "@aws-sdk/credential-provider-cognito-identity", "@aws-sdk/eventstream-serde-config-resolver",
+              "ulid", "zen-push", "@aws-amplify/core", "url", "@aws-crypto/crc32", "isomorphic-unfetch"],
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/manifest.webmanifest"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "node_modules/toastr/build/toastr.min.css",
               "node_modules/ngf-bootstrap/dist/bootstrap.min.css",
-              "src/styles.css"
+              "src/styles.css",
+              "src/styles.scss"
             ],
-            "scripts": [  
-              "node_modules/jquery/dist/jquery.min.js" ,
-              "node_modules/bootstrap/dist/js/bootstrap.js", 
-              "node_modules/toastr/build/toastr.min.js"  
-                                    
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.js",
+              "node_modules/toastr/build/toastr.min.js"
             ]
           },
           "configurations": {
@@ -62,7 +89,9 @@
                   "maximumWarning": "6kb",
                   "maximumError": "10kb"
                 }
-              ]
+              ],
+              "serviceWorker": true,
+              "ngswConfigPath": "ngsw-config.json"
             }
           }
         },
@@ -92,10 +121,13 @@
             "karmaConfig": "karma.conf.js",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/manifest.webmanifest"
             ],
             "styles": [
-              "src/styles.css"
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "src/styles.css",
+              "src/styles.scss"
             ],
             "scripts": []
           }
@@ -126,6 +158,7 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "travel-planner-project"
 }
