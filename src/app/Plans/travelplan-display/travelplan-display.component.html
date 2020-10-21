@@ -26,9 +26,9 @@
               <!-- {{node.startOn | date:'shortDate'}} -->
               {{node.startOn | date:'d'}}/{{node.startOn | date:'M'}}/{{node.startOn | date:'y'}}
             </div>           
-            <div *ngIf="node.returnDate">Returning On: 
-              <!-- {{node.returnDate | date:'shortDate'}}  -->
-              {{node.returnDate | date:'d'}}/{{node.returnDate | date:'M'}}/{{node.returnDate | date:'y'}} 
+            <div *ngIf="node.stopAt">Returning On: 
+              <!-- {{node.stopAt | date:'shortDate'}}  -->
+              {{node.stopAt | date:'d'}}/{{node.stopAt | date:'M'}}/{{node.stopAt | date:'y'}} 
             </div>
             <div *ngIf="node.transportMode">Transport Mode: {{node.transportMode}}</div>
             <div *ngIf="node.cost">Cost: {{node.cost}}</div>

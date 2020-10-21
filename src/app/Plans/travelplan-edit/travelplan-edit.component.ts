@@ -76,7 +76,7 @@ export class TravelplanEditComponent implements OnInit, AfterViewInit, OnDestroy
       'from': [''],
       'to': [''],
       'startOn': [''],
-      'returnDate': [''],
+      'stopAt': [''],
       'transportMode': [''],
       'cost': ['', Validators.pattern("^[0-9]*$")],
       'category': [null],
@@ -110,29 +110,20 @@ export class TravelplanEditComponent implements OnInit, AfterViewInit, OnDestroy
       this.deleteDay(0);
       for (let dayarray = 0; dayarray < plans.days.length; dayarray++) {
         const daysFormArray = this.form.get("days") as FormArray;
-        // if(plans.days[dayarray].date){
-          this.datePipe.transform(plans.days[dayarray].date, 'dd-MM-yyyy')
-          console.log(this.datePipe.transform(plans.days[dayarray].date, 'yyyy-MM-dd'))
-        // }
         daysFormArray.push(this.initX());
-        // for(let nodearray in plans.days[dayarray].nodes)
+        this.form.patchValue({
+          date: this.datePipe.transform(this.plan.days[dayarray].date, 'dd-MM-yyyy')
+        });
         for (let nodearray = 0; nodearray < plans.days[dayarray].nodes.length - 1; nodearray++) {
           const nodesFormsArray = daysFormArray.at(dayarray).get("nodes") as FormArray;
           nodesFormsArray.push(this.initY());
+          this.form.patchValue({
+            startOn: this.datePipe.transform(plans.days[dayarray].nodes[nodearray].startOn, 'yyyy-MM-dd')
+          });
         }
       }
       this.form.patchValue(plans);
     }
-
-    // for (let line = 0; line < plans.days.length; line++){
-    //   const daysFormArray = this.form.get("days") as FormArray;
-    //   daysFormArray.push(this.initX());
-
-    //   for (let player=0; player < plans.days[line].nodes.length; player++){
-    //     const nodesFormsArray = daysFormArray.at(line).get("nodes") as FormArray;
-    //     nodesFormsArray.push(this.initY());
-    //   }
-    // }
     //patch the form:
     this.form.patchValue(plans);
   }
@@ -159,7 +150,7 @@ export class TravelplanEditComponent implements OnInit, AfterViewInit, OnDestroy
         from: '',
         to: '',
         startOn: '',
-        returnDate: '',
+        stopAt: '',
         transportMode: '',
         cost: '',
         category: null,
@@ -189,7 +180,7 @@ export class TravelplanEditComponent implements OnInit, AfterViewInit, OnDestroy
           from: null,
           to: null,
           startOn: null,
-          returnDate: null,
+          stopAt: null,
           transportMode: null,
           cost: null,
           category: '',
