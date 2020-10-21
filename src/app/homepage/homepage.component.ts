@@ -404,7 +404,7 @@ export class HomepageComponent implements OnInit {
       headers: headers
    }
   
-    this.http.get("http://localhost:9527/mySearch/elastic/createIndex")
+    this.http.get("http://zuul.local:9527/mySearch/elastic/createIndex")
             .subscribe(
                 data => console.log("success!", data),
                 error => console.error("couldn't post because", error)
