@@ -2,6 +2,14 @@
     "containerDefinitions": [ 
        { 
           "essential": true,
+          "logConfiguration": { 
+             "logDriver": "awslogs",
+             "options": { 
+                "awslogs-group" : "/ecs/ui-travel-app-task-definition",
+                "awslogs-region": "us-east-1",
+                "awslogs-stream-prefix": "ecs"
+             }
+          },
           "name": "travel-plan-ui",
           "portMappings": [ 
              { 
@@ -12,10 +20,10 @@
           ]
        }
     ],
-    "cpu": "1024",
+    "cpu": "256",
     "executionRoleArn": "arn:aws:iam::356567610291:role/ecsTaskExecutionRole",
     "family": "ui-travel-app-task-definition",
-    "memory": "2048",
+    "memory": "512",
     "networkMode": "awsvpc",
     "requiresCompatibilities": [ 
         "FARGATE" 
