@@ -19,9 +19,9 @@ export class PlanService {
     }
     )
     content:string;
-    private plansUrl = `http://52.201.228.117:9527/myPlan/travelPlan`;
+    private plansUrl = 'http://alb-zuul-api-intrnl-1478312717.us-east-1.elb.amazonaws.com:9527/myPlan/travelPlan';
     //private plansUrl = `api/plan`;
-    private searchUrl ='http://52.201.228.117:9527/mySearch/elastic/pageByParam?pageSize=5&startPage=1';
+    private searchUrl ='http://alb-zuul-api-intrnl-1478312717.us-east-1.elb.amazonaws.com:9527/mySearch/elastic/pageByParam?pageSize=5&startPage=1';
     constructor(private http: HttpClient, private auth:AuthService){}
 
     getPlans(): Observable<Plans[]> {
@@ -32,7 +32,7 @@ export class PlanService {
             catchError(this.handleError)
           );
       }
-    
+
       getPlan(id: string): Observable<Plans> {
         const headers = new HttpHeaders({ 'Content-Type': 'application/json'});
         if (id === "0") {
@@ -48,7 +48,7 @@ export class PlanService {
           );
       }
       createPlan(plans: Plans): Observable<Plans> {
-        const headers = new HttpHeaders({ 'Content-Type': 'application/json', 
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json',
         'Authorization': "Bearer "+ this.auth.getAccessToken() });
         headers.append('Access-Control-Allow-Origin', '*');
         plans.id = null;
@@ -82,8 +82,8 @@ export class PlanService {
           tap(data => console.log('Search: ' + JSON.stringify(data))),
           catchError(this.handleError)
         );
-      }    
-            
+      }
+
       private handleError(err) {
         // in a real world app, we may send the server to some remote logging infrastructure
         // instead of just logging it to the console
@@ -100,7 +100,7 @@ export class PlanService {
         return throwError(errorMessage);
       }
 
-      
+
     private initializePlan(): Plans {
         // Return an initialized object
         return {
@@ -125,7 +125,7 @@ export class PlanService {
                     costActivity:null,
                     rating:null,
                     review:null
-                }              
+                }
                 //   {
                 //     type:null,
                 //     location:null,
@@ -135,7 +135,7 @@ export class PlanService {
                 //     cost:null,
                 //     rating:null,
                 //     review:null
-                // }               
+                // }
             ],
           }]
         };

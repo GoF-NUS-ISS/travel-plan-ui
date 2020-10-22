@@ -9,11 +9,11 @@ export const environment = {
     password: ''
   },
   // APIEndpoint: '{API_ENDPOINT}'
-  backendApiPlanUrl: 'http://zuul.local:9527/myPlan/travelPlan',
+  backendApiPlanUrl: 'http://alb-zuul-api-intrnl-1478312717.us-east-1.elb.amazonaws.com:9527/myPlan/travelPlan',
   // 'http://18.234.87.155:9527/myPlan/travelPlan',
   // 'http://localhost:9527/myPlan/travelPlan',
   // '${BACKEND_API_PLAN}',
-  backendApiSearchUrl: 'http://zuul.local:9527/mySearch/elastic/pageByParam?pageSize=5&startPage=1'
+  backendApiSearchUrl: 'http://alb-zuul-api-intrnl-1478312717.us-east-1.elb.amazonaws.com:9527/mySearch/elastic/pageByParam?pageSize=5&startPage=1'
   // '${BACKEND_API_SEARCH}'
   // apiBaseUrl: 'API_BASE_URL',
   // version: 'v${require("../package.json").version}'
