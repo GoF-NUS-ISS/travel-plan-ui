@@ -6,6 +6,7 @@ import { MatBottomSheet } from "@angular/material/bottom-sheet";
 import { AuthService } from "../auth.service";
 import { environment } from "src/environments/environment";
 import { Router } from "@angular/router";
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: "app-sign-up",
@@ -38,20 +39,12 @@ export class SignUpComponent implements OnInit {
 
   constructor(
     private _bottomSheet: MatBottomSheet,
+    private _notification: NotificationService, 
     private _authService: AuthService,
     private _router: Router
   ) {}
 
   ngOnInit() {}
-
-  // selectCountryCode() {
-  //   this._bottomSheet
-  //     .open(CountryCodeSelectComponent)
-  //     .afterDismissed()
-  //     .subscribe((data: CountryCode) => {
-  //       // this.countryCode = data ? data.dial_code : this.countryCode;
-  //     });
-  // }
 
   getNameInputError() {
     if (this.nameInput.hasError("name")) {
@@ -89,8 +82,11 @@ export class SignUpComponent implements OnInit {
       .then(data => {
         environment.confirm.name = this.nameInput.value;
         environment.confirm.password = this.passwordInput.value;
-        this._router.navigate(["user/profile"]);
+        this._router.navigate(["user/confirm"]);
       })
-      .catch(error => console.log(error));
+      .catch(error => {
+        this._notification.show(error.message);
+        console.log(error)
+      });
   }
 }

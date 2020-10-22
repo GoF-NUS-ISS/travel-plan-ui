@@ -13,16 +13,22 @@
         </div>
         <div *ngFor="let day of plan.days">
           <h2>Days</h2>
-          <div *ngIf="day.date">Date: {{day.date | date:'d'}}/{{day.date | date:'M'}}/{{day.date | date:'y'}}
+          <div *ngIf="day.date">Date: 
+            <!-- {{day.date | date:'shortDate'}} -->
+            {{day.date | date:'d'}}/{{day.date | date:'M'}}/{{day.date | date:'y'}}
            </div>
           <div *ngFor="let node of day.nodes">
             <br/>
             <h2>{{node.type}}</h2>
             <div *ngIf="node.from">From: {{node.from}}</div>
             <div *ngIf="node.to">To: {{node.to}}</div>
-            <div *ngIf="node.startOn">Starting on:  {{node.startOn | date:'d'}}/{{node.startOn | date:'M'}}/{{node.startOn | date:'y'}}
+            <div *ngIf="node.startOn">Starting on: 
+              <!-- {{node.startOn | date:'shortDate'}} -->
+              {{node.startOn | date:'d'}}/{{node.startOn | date:'M'}}/{{node.startOn | date:'y'}}
             </div>           
-            <div *ngIf="node.returnDate">Returning On:  {{node.returnDate | date:'d'}}/{{node.returnDate | date:'M'}}/{{node.returnDate | date:'y'}} 
+            <div *ngIf="node.stopAt">Returning On: 
+              <!-- {{node.stopAt | date:'shortDate'}}  -->
+              {{node.stopAt | date:'d'}}/{{node.stopAt | date:'M'}}/{{node.stopAt | date:'y'}} 
             </div>
             <div *ngIf="node.transportMode">Transport Mode: {{node.transportMode}}</div>
             <div *ngIf="node.cost">Cost: {{node.cost}}</div>
