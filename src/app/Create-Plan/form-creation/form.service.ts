@@ -6,7 +6,7 @@ import {overAll} from './overallForm';
 @Injectable()
 
 export class FormCreationService{
-    private formUrl='http://zuul.local:9527/myPlan/travelPlan'
+    private formUrl='http://52.201.228.117:9527/myPlan/travelPlan'
     constructor(private http: HttpClient) { }
     public publish(form: overAll) {
         return this.http.post<overAll>(this.formUrl, form);

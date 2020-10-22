@@ -158,7 +158,7 @@ export class HomepageComponent implements OnInit {
           })
     )
   }
-  
+
   deleteActivity(ix,index): void{
     const control = (<FormArray>this.form.controls['days']).at(ix).get('nodes') as FormArray;
     control.removeAt(index)
@@ -226,11 +226,11 @@ export class HomepageComponent implements OnInit {
   //       Activity: {
   //         location: {
   //           required: 'Z is required.',
-  //           pattern: 'Z must be 3 characters long.',            
+  //           pattern: 'Z must be 3 characters long.',
   //         },
   //         rating: {
   //           required: 'Z is required.',
-  //           pattern: 'Z must be numerical value.',            
+  //           pattern: 'Z must be numerical value.',
   //         }
   //       }
   //     }
@@ -346,7 +346,7 @@ export class HomepageComponent implements OnInit {
   // }
 
 
-  constructor(private fb: FormBuilder, private router: Router, 
+  constructor(private fb: FormBuilder, private router: Router,
     private auth:AuthService, private http: HttpClient,
     private planService:PlanService) {
 
@@ -404,8 +404,8 @@ export class HomepageComponent implements OnInit {
    let options = {
       headers: headers
    }
-  
-    this.http.get("http://zuul.local:9527/mySearch/elastic/createIndex")
+
+    this.http.get("http://52.201.228.117:9527/mySearch/elastic/createIndex")
             .subscribe(
                 data => console.log("success!", data),
                 error => console.error("couldn't post because", error)
