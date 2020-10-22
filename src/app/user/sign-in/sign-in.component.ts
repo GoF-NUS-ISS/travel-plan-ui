@@ -62,7 +62,6 @@ export class SignInComponent {
             this._router.navigate(['user/profile']);
             break;
           case "UsernameExistsException":
-            this._notification.show(error.message)
             this._router.navigate(['user/login']);
             break;
         }

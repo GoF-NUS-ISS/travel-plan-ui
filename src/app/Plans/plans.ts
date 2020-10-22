@@ -11,7 +11,7 @@ export interface Plans {
                     from?:string,
                     to?:string,
                     startOn?:string,
-                    stopAt?:string,
+                    returnDate?:string,
                     transportMode?:string,
                     cost?:number,
                     location?:string,
@@ -27,7 +27,7 @@ export interface Plans {
                 //     from:string,
                 //     to:string,
                 //     startOn:string,
-                //     stopAt:string,
+                //     returnDate:string,
                 //     transportMode:string,
                 //     cost:number
                 // },

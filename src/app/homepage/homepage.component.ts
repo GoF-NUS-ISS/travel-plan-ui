@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormArray, FormGroup, Validators, FormControl } from "@angular/forms";
 import { Router } from '@angular/router';
+import {FormCreationService} from '../Create-Plan/form-creation/form.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {Plans} from '../Plans/plans'
 import {PlanService} from '../Plans/plan.service'
@@ -59,7 +60,7 @@ export class HomepageComponent implements OnInit {
       'from': [],
       'to': [],
       'startOn': [],
-      'stopAt': [],
+      'returnDate': [],
       'transportMode': [],
       'cost': [],
       'category':[],
@@ -115,7 +116,7 @@ export class HomepageComponent implements OnInit {
             from: '',
             to: '',
             startOn:'',
-            stopAt:'',
+            returnDate:'',
             transportMode:'',
             cost:'',
             category: null,
@@ -144,7 +145,7 @@ export class HomepageComponent implements OnInit {
             from: null,
             to: null,
             startOn:null,
-            stopAt:null,
+            returnDate:null,
             transportMode:null,
             cost:null,
             category: '',

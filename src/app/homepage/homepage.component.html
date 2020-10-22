@@ -1,1 +1,171 @@
-<h1>Plan your Trips</h1>
+<p>homepage works!</p>
+<form [formGroup]="form">
+  <div class="form-group">
+    <label for="title">Title</label>
+    <input type="text" formControlName="title" name="title" id="titleId" placeholder="Set a title for your trip">
+  </div>
+  <!-- Day -->
+  <div formArrayName="days">
+    <div class="container">
+      <div *ngFor="let X of form['controls'].days['controls']; let ix=index">
+        <div formGroupName="{{ix}}" class="days">
+          <div class="card-header" id="{{ 'daysId' + ix }}">
+            Day {{ix+1}}
+          </div>
+          <div class="form-group row mb-2">
+            <button class="btn btn-outline-primary" type="button" style="margin-left:920px; font-style: 12px;"
+              (click)="deleteDay(ix)">
+              Delete Day
+            </button>
+            <label class="col-md-1 col-form-label" [attr.for]="ix">Date: </label>
+            <div class="col-md-8">
+              <input type="date" formControlName="date">
+            </div>
+          </div>
+          <!-- <p>{{ formErrors.Day[ix].X }}</p> -->
+          <!-- Travel -->
+          <div formArrayName="nodes">
+            <div *ngFor="let Y of X['controls'].nodes['controls']; let iy=index">
+              <div formGroupName="{{iy}}" class="nodes">
+                <div *ngIf="Y.value.type === 'leg'">
+                <div class="card-header" id="{{ 'travelId' + iy }}">
+                  Travel Detail 
+                  <!-- {{iy+1}} -->
+                </div>
+                <div class="form-group row mb-2">
+                  <button class="btn btn-outline-primary" type="button" style="margin-left:920px; font-style: 12px;"
+                    (click)="deleteTravel(ix, iy)">
+                    Delete Travel Details
+                  </button>
+                </div>
+                <div class="inputs">
+                  <div class="form-group row mb-2">
+                    <label class="col-md-2 col-form-label" [attr.for]="iy">From:</label>
+                    <div class="col-md-8">
+                      <input type="text" formControlName="from">
+                      <!-- <p> {{ formErrors.days[ix].nodes[iy].from }}</p> -->
+                    </div>
+                  </div>
+                  <div class="form-group row mb-2">
+                    <label class="col-md-2 col-form-label" [attr.for]="iy">To:</label>
+                    <div class="col-md-8">
+                      <input type="text" formControlName="to">
+                      <!-- <p>{{ formErrors.days[ix].nodes[iy].to }}</p> -->
+                    </div>
+                  </div>
+                  <div class="form-group row mb-2">
+                    <label class="col-md-2 col-form-label" [attr.for]="iy">Starting on:</label>
+                    <div class="col-md-8">
+                      <input type="date" formControlName="startOn" style="column-width: 170px;">
+                      <!-- <p>{{ formErrors.days[ix].nodes[iy].startOn }}</p> -->
+                    </div>
+                  </div>
+                  <div class="form-group row mb-2">
+                    <label class="col-md-2 col-form-label" [attr.for]="iy">Returning:</label>
+                    <div class="col-md-8">
+                      <input type="date" formControlName="returnDate">
+                      <!-- <p>{{ formErrors.days[ix].nodes[iy].returnDate }}</p> -->
+                    </div>
+                  </div>
+                  <div class="form-group row mb-2">
+                    <label class="col-md-2 col-form-label" [attr.for]="iy">Cost:</label>
+                    <div class="col-md-8">
+                      <input type="text" formControlName="cost">
+                      <!-- <p>{{ formErrors.days[ix].nodes[iy].cost }}</p> -->
+                    </div>
+                  </div>
+                  <div class="form-group row mb-2">
+                    <label class="col-md-2 col-form-label" [attr.for]="iy">Mode of Transport:</label>
+                    <div class="col-md-8">
+                      <select formControlName="transportMode">
+                        <option value="flight">Flight</option>
+                        <option value="train">Train</option>
+                        <option value="car">Car</option>
+                        <option value="ferry">Ferry</option>
+                        <option value="bike">Bike</option>
+                        <option value="others">Others</option>
+                      </select>
+                    </div>
+                  </div>
+                  </div>
+                </div>
+                <!---------------------------------------- Activity comes here------------------------------ -->
+                <div *ngIf="Y.value.type === 'activity'">
+                <div  class="card-header" id="{{ 'activityId' + iy }}">
+                  Activity 
+                  <!-- {{iy+1}} -->
+                </div>
+                <div class="form-group row mb-2">
+                  <button class="btn btn-outline-primary" type="button" style="margin-left:920px; font-style: 12px;"
+                    (click)="deleteActivity(ix, iy)">
+                    Delete Activity
+                  </button>
+                </div>
+                <div  class="form-group row mb-2">
+                  <label class="col-md-2 col-form-label" [attr.for]="iy">Location:</label>
+                  <div class="col-md-8">
+                    <input type="text" formControlName="location" style="column-width: 170px;">
+                    <!-- <p>{{ formErrors.Day[ix].nodes[iy].Activity[iy].Z1 }}</p> -->
+                  </div>
+                </div>
+                <div  class="form-group row mb-2">
+                  <label class="col-md-2 col-form-label" [attr.for]="iy">Category:</label>
+                  <div class="col-md-8">
+                    <input type="text" placeholder="Description" formControlName="category" style="column-width: 170px;">
+                  </div>
+                </div>
+                <div  class="form-group row mb-2">
+                  <label class="col-md-2 col-form-label" [attr.for]="iy">Time Start:</label>
+                  <div class="col-md-8">
+                    <input type="time" class="form-control" placeholder="Time Start" formControlName="timestart"
+                      style="column-width: 170px;">
+                  </div>
+                </div>
+                <div  class="form-group row mb-2">
+                  <label class="col-md-2 col-form-label" [attr.for]="iy">Time End:</label>
+                  <div class="col-md-8">
+                    <input type="time" class="form-control" id="{{ 'timeendId' + iy }}" placeholder="Time End"
+                      formControlName="timeend" style="column-width: 170px;">
+                  </div>
+                </div>
+                <div  class="form-group row mb-2">
+                  <label class="col-md-2 col-form-label" [attr.for]="iy">Cost:</label>
+                  <div class="col-md-8">
+                    <input type="text" class="form-control" id="{{ 'costId' + iy }}" placeholder="Cost" formControlName="costActivity">
+                  </div>
+                </div>
+                <div  class="form-group row mb-2">
+                  <label class="col-md-2 col-form-label" for="ratingId" [attr.for]="iy">Star Rating (1-5):</label>
+                  <div class="col-md-8">
+                    <input class="form-control" id="{{'ratingId'+iy}}" type="text" placeholder="Rating (1-5)"
+                      formControlName="rating">
+                  </div>
+                </div>
+                <div  class="form-group row mb-2">
+                  <label class="col-md-2 col-form-label" [attr.for]="iy">Review Description:</label>
+                  <div class="col-md-8">
+                    <textarea type="text" class="form-control" id="{{ 'reviewdescriptionId' + iy }}"
+                      placeholder="Review Description if any" formControlName="reviewdescription"></textarea>
+                  </div>
+                </div>
+              </div>
+              </div>
+            </div>
+          </div>
+          <input type="button" (click)="addActivity(ix)" ng-click="bubbleActivity=true" value="Add Activity">
+          <input type="button" (click)="addTravel(ix)" bubbleTravel="true" value="Add Travel Detail">
+          <!-- Test start -->
+
+          <!-- Test end -->
+        </div>
+        <!-- Travel End-->
+      </div>
+    </div>
+    <input type="button" (click)="addDay()" value="Add Day">
+  </div>
+  <!-- Day End -->
+  <button type="button" class="btn btn-primary" style="margin-left:20px;" (click)="publish()">Publish</button>
+</form>
+
+<h5>Field Values</h5>
+<pre style="font-style:15px">{{ form.value | json }}</pre>
