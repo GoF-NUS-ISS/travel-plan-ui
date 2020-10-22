@@ -241,7 +241,6 @@ export class TravelplanEditComponent implements OnInit, AfterViewInit, OnDestroy
     };
     if (this.form.valid) {
       if (this.form.dirty) {
-<<<<<<< HEAD
         const p = { ...this.plan, ...removeEmpty(this.form.value) };
         console.log(p.id);
         console.log('Name:' + this.usname);
@@ -263,40 +262,6 @@ export class TravelplanEditComponent implements OnInit, AfterViewInit, OnDestroy
       }
       else {
         this.onSaveComplete();
-=======
-      const p = { ...this.plan, ...removeEmpty(this.form.value) };
-      console.log(p.id);
-      console.log('Name:'+this.usname);
-      console.log(JSON.stringify(this.form.value));
-      console.log(removeEmpty(this.form.value));
-      if (p.id === "0") {
-        this.planService.createPlan(p)
-          .subscribe({
-            next: () => this.onSaveComplete(),
-            error: err => this.errorMessage = err
-          });
-
-    //           let headers = new HttpHeaders({
-    //     'Content-Type': 'application/json',
-    //     'responseType': 'text'
-    //     // 'Authorization': "Bearer "+ this.auth.getAccessToken()
-    //  });
-    //  let options = {
-    //     headers: headers
-    //  }
-    
-    //   this.http.post("http://zuul.local:9527/myPlan/travelPlan", resource, options)
-    //           .subscribe(
-    //               data => console.log("success!", data),
-    //               error => console.error("couldn't post because", error)
-    //           );
-      } else {
-        this.planService.updatePlan(p)
-          .subscribe({
-            next: () => this.onSaveComplete(),
-            error: err => this.errorMessage = err
-          });
->>>>>>> b30378d14cdffb0a45291273c2528d9f7567c371
       }
     }
     else {
@@ -310,52 +275,9 @@ export class TravelplanEditComponent implements OnInit, AfterViewInit, OnDestroy
     this.router.navigate(['/plans']);
   }
 
-<<<<<<< HEAD
   ngOnDestroy(): void {
     this.sub.unsubscribe();
   }
-=======
-    //   let resource = this.form.value
-    //   const removeEmpty = (obj) => {
-    //     Object.keys(obj).forEach(key => {
-    //        if (obj[key] && typeof obj[key] === "object") {
-    //          // recursive
-    //          removeEmpty(obj[key]);
-    //        } else if (obj[key] === null) {
-    //          delete obj[key];
-    //        }
-    //      });
-    //      return obj;
-    //   };
-    //   console.log(JSON.stringify(resource));
-    //   console.log("new obj :" + removeEmpty(resource));
-    //   // console.log(resource);
-    //   let headers = new HttpHeaders({
-    //     'Content-Type': 'application/json',
-    //     'responseType': 'text'
-    //     // 'Authorization': "Bearer "+ this.auth.getAccessToken()
-    //  });
-    //  let options = {
-    //     headers: headers
-    //  }
-    
-    //   this.http.post("http://zuul.local:9527/myPlan/travelPlan", resource, options)
-    //           .subscribe(
-    //               data => console.log("success!", data),
-    //               error => console.error("couldn't post because", error)
-    //           );
-    }
-    onSaveComplete(): void {
-      // Reset the form to clear the flags
-      this._notification.show('Form Submitted successfully')
-      this.form.reset();
-      this.router.navigate(['/plans']);
-    }
-  
-    ngOnDestroy(): void { 
-      this.sub.unsubscribe();
-    }
->>>>>>> b30378d14cdffb0a45291273c2528d9f7567c371
 
   ngAfterViewInit(): void {
     const controlBlurs: Observable<any>[] = this.formInputElements
