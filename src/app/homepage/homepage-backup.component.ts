@@ -49,7 +49,7 @@
 //       'from': ['from', [Validators.required, Validators.pattern('[0-9]{3}')]],
 //       'to': ['to', [Validators.required, Validators.pattern('[0-9]{3}')]],
 //       'startOn': [],
-//       'stopAt': [],
+//       'returnDate': [],
 //       'transportMode': [''],
 //       'cost': [0, [Validators.required, Validators.pattern('[0-9]{3}')]],
 //       // 'Y7': [''],

@@ -44,8 +44,7 @@ export class ProfileComponent implements OnInit {
     this.profile = await Auth.currentUserInfo();
     this.ses1=await (await Auth.currentSession()).getAccessToken().getJwtToken();
     this.ses2=await (await Auth.currentSession()).getIdToken().getJwtToken();
-    this.ses3=await (await Auth.currentSession()).getIdToken()
-    // (await Auth.currentSession()).getRefreshToken().getToken();
+    this.ses3=await (await Auth.currentSession()).getRefreshToken().getToken();
     this.user = await Auth.currentAuthenticatedUser();
     this.fnameInput.setValue(this.profile.attributes['given_name']);
     this.lnameInput.setValue(this.profile.attributes['family_name']);

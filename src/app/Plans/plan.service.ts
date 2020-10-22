@@ -6,7 +6,6 @@ import { catchError, tap, map } from 'rxjs/operators';
 import { AuthService } from '../user/auth.service';
 import { Plans } from './plans';
 import { Search } from './search';
-import { environment } from "src/environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -40,7 +39,6 @@ export class PlanService {
         }
        // const url = `${this.plansUrl}/name/${id}`;
         const url = `${this.plansUrl}/id/${id}`;
-        headers.append('Access-Control-Allow-Origin', '*');
         return this.http.get<Plans>(url, {headers : headers})
           .pipe(
             tap(data => console.log('getPlan: ' + JSON.stringify(data))),
@@ -50,7 +48,6 @@ export class PlanService {
       createPlan(plans: Plans): Observable<Plans> {
         const headers = new HttpHeaders({ 'Content-Type': 'application/json',
         'Authorization': "Bearer "+ this.auth.getAccessToken() });
-        headers.append('Access-Control-Allow-Origin', '*');
         plans.id = null;
         return this.http.post<Plans>(this.plansUrl, plans, { headers })
           .pipe(
@@ -62,13 +59,12 @@ export class PlanService {
       updatePlan(plans: Plans): Observable<Plans> {
         const headers = new HttpHeaders({ 'Content-Type': 'application/json',
         'Authorization': "Bearer "+ this.auth.getAccessToken() });
-        headers.append('Access-Control-Allow-Origin', '*');
         // const url = `${this.plansUrl}/${plans.id}`;
         const url = `${this.plansUrl}`;
         return this.http.post<Plans>(url, plans, { headers })
           .pipe(
-            tap(() => console.log('updatePlan: ' + plans.id)),
-            // Return the plan on an update
+            tap(() => console.log('updateProduct: ' + plans.id)),
+            // Return the product on an update
             map(() => plans),
             catchError(this.handleError)
           );
@@ -76,7 +72,6 @@ export class PlanService {
       searchPlan(search: Search): Observable<Search> {
         const headers = new HttpHeaders({ 'Content-Type': 'application/json',
         'Authorization': "Bearer "+ this.auth.getAccessToken() });
-        headers.append('Access-Control-Allow-Origin', '*');
         return this.http.post<Search>(this.searchUrl, search, {headers})
         .pipe(
           tap(data => console.log('Search: ' + JSON.stringify(data))),
@@ -115,7 +110,7 @@ export class PlanService {
                     from:'',
                     to:'',
                     startOn:'',
-                    stopAt:'',
+                    returnDate:'',
                     transportMode:'',
                     cost:0,
                     location:null,
