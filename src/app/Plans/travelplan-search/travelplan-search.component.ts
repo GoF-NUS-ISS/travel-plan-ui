@@ -44,11 +44,12 @@ export class TravelplanSearchComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.searchForm = this.fb.group({
+      category: [''],
+      description: [''],
+      endCost: ['', Validators.pattern("^[0-9]*$")],
       name:[this.usname],
-      keyword: [''],
-      site: [''],
-      totalCostEnd: ['', Validators.pattern("^[0-9]*$")],
-      totalCostStart: ['', Validators.pattern("^[0-9]*$")]
+      stars:[''],
+      startCost: ['', Validators.pattern("^[0-9]*$")]
     });
   }
 

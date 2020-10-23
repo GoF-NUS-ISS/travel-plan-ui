@@ -1,6 +1,7 @@
 export interface Search {
-    keyword: string,
-    "site": string,
-    totalCostEnd: number,
-    totalCostStart: number
+    category: string,
+    description: string,
+    stars:number,
+    endCost:number,
+    startCost: number
 }
