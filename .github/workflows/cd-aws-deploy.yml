@@ -66,24 +66,3 @@ jobs:
         service: f-srv-ui
         cluster: travel-plan-app-env-prod
         wait-for-service-stability: true
-        
-    - name: Wait for URL to be responsive
-      uses: nev7n/wait_for_response@v1
-      with:
-        url: "https://travel-plan-manager.com/user/login"
-        responseCode: 200
-        timeout: 120000
-        interval: 10000
-          
-      # Run Jmeter test post deployment
-    - name: Run JMeter Tests
-      uses: rbhadti94/apache-jmeter-action@v0.2.0
-      with:
-        testFilePath: perf-test.jmx
-        outputReportsFolder: reports/
-        
-    - name: Upload Test Artifcat
-      uses: actions/upload-artifact@v2
-      with:
-        name: per-test-report
-        path: reports
