@@ -101,7 +101,7 @@ jobs:
     - name: OWASP ZAP Baseline Scan DAST
       uses: zaproxy/action-baseline@v0.3.0
       with:
-        target: "http://alb-travel-app-451787435.us-east-1.elb.amazonaws.com:4200"
+        target: "https://travel-plan-manager.com/user/login"
         
 # Performance Test - K10 Tool
     - name: Run k6 cloud perf test
