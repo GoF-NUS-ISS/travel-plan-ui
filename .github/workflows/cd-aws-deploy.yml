@@ -66,3 +66,47 @@ jobs:
         service: f-srv-ui
         cluster: travel-plan-app-env-prod
         wait-for-service-stability: true
+        
+# Post Deployment Checks
+
+    # UI Integration Tests Execution - Cucumber with Selenium
+    - name: Checkout QA tools repo
+      uses: actions/checkout@v2
+      with:
+        repository: GoF-NUS-ISS/f-qa-integration-tests
+        path: f-qa-integration-tests
+
+    - name: Wait for URL to be responsive
+      uses: nev7n/wait_for_response@v1
+      with:
+        url: "https://travel-plan-manager.com/user/login"
+        responseCode: 200
+        timeout: 120000
+        interval: 10000
+
+    - name: Run Maven Command to Trigger UI Test Pack
+      env:
+        user_name: ${{ secrets.QA_UI_TEST_LOGIN_USER_NAME }}
+        password: ${{ secrets.QA_UI_TEST_LOGIN_PASSWORD }}
+      run: mvn -f f-qa-integration-tests/cucumber-selenium-fw/pom.xml clean install -Dbrowser=headless -Dusername=$user_name -Dpassword=$password -Dbase_url=https://travel-plan-manager.com/user/login
+ 
+    - name: Upload Test Artifcat
+      uses: actions/upload-artifact@v2
+      with:
+        name: ui-test-report
+        path: f-qa-integration-tests/cucumber-selenium-fw/target/html/htmlreport.html
+        
+# Security - Dynamic Application Security Testing (DAST) - OWASP ZAP Execution
+
+    - name: OWASP ZAP Baseline Scan DAST
+      uses: zaproxy/action-baseline@v0.3.0
+      with:
+        target: "https://travel-plan-manager.com/user/login"
+        
+# Performance Test - K10 Tool
+    - name: Run k6 cloud perf test
+      uses: k6io/action@v0.1
+      with:
+        filename: perf-test.js
+        cloud: true
+        token: ${{ secrets.K6_CLOUD_API_TOKEN }}
