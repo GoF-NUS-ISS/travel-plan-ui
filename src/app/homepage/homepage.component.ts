@@ -404,7 +404,7 @@ export class HomepageComponent implements OnInit {
       headers: headers
    }
 
-    this.http.get("http://alb-zuul-api-intrnl-1478312717.us-east-1.elb.amazonaws.com:9527/mySearch/elastic/createIndex")
+    this.http.get("https://api.travel-plan-manager.com/mySearch/elastic/createIndex")
             .subscribe(
                 data => console.log("success!", data),
                 error => console.error("couldn't post because", error)
