@@ -1,35 +1,51 @@
 <form id="searchForm" [formGroup]="searchForm">
     <div class="form-group">
-        <input type="text" class="form-control-keyword" 
-        placeholder="Search plans with keywords" 
-        formControlName="keyword"
-        style="width:800px;">
+      <label>Category:</label>
+      <select class="form-control" formControlName="category" style="width:800px;">
+        <option value="food">food</option>
+        <option value="sightsee">sightsee</option>
+        <option value="shopping">shopping</option>
+      </select>
+        <!-- <input type="text" class="form-control-category" 
+        placeholder="Category" 
+        formControlName="category"
+        style="width:800px;"> -->
     </div>
     <div class="form-group">
       <input type="text" 
-      class="form-control-site" 
-      placeholder="Location" 
-      formControlName="site"
+      class="form-control-description" 
+      placeholder="Search plans with keywords/description" 
+      formControlName="description"
       style="width:800px;">
   </div>
+  <div class="form-group">
+    <label>Rating (1-5):</label>
+    <select class="form-control" formControlName="stars" style="width:800px;">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select>
+</div>
   <div class="form-group">
     <input type="text" 
     class="form-control-costStart" 
     placeholder="Cost Start" 
-    formControlName="totalCostStart"
+    formControlName="startCost"
     style="width:350px;"> 
 
-    <div *ngIf="f.totalCostStart.invalid" class="alert alert-danger">
-      <div *ngIf="f.totalCostStart.errors.pattern">Enter only number.</div>
+    <div *ngIf="f.startCost.invalid" class="alert alert-danger">
+      <div *ngIf="f.startCost.errors.pattern">Enter only number.</div>
     </div>
 
     <input type="text" 
     class="form-control-costEnd" 
     placeholder="Cost End" 
-    formControlName="totalCostEnd"
+    formControlName="endCost"
     style="width:350px;">
-    <div *ngIf="f.totalCostEnd.invalid" class="alert alert-danger">
-      <div *ngIf="f.totalCostEnd.errors.pattern">Enter only number.</div>
+    <div *ngIf="f.endCost.invalid" class="alert alert-danger">
+      <div *ngIf="f.endCost.errors.pattern">Enter only number.</div>
     </div>
 </div>
     <button class="btn btn-default" style="width:200px;" (click)="searchPlan()">

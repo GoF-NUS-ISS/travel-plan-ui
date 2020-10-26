@@ -19,9 +19,9 @@ export class PlanService {
     }
     )
     content:string;
-    private plansUrl = 'http://alb-zuul-api-intrnl-1478312717.us-east-1.elb.amazonaws.com:9527/myPlan/travelPlan';
+    private plansUrl = `http://alb-zuul-api-intrnl-1478312717.us-east-1.elb.amazonaws.com:9527/myPlan/travelPlan`;
     //private plansUrl = `api/plan`;
-    private searchUrl ='http://alb-zuul-api-intrnl-1478312717.us-east-1.elb.amazonaws.com:9527/mySearch/elastic/pageByParam?pageSize=5&startPage=1';
+    private searchUrl ='http://api.travel-plan-manager.com:9527/myBuilder';
     constructor(private http: HttpClient, private auth:AuthService){}
 
     getPlans(): Observable<Plans[]> {
@@ -143,10 +143,11 @@ export class PlanService {
 
       private initializeSearch(): Search{
         return{
-          keyword: "",
-          site: "",
-          totalCostEnd: null,
-          totalCostStart: null
+          category: "",
+          description: "",
+          stars:null,
+          endCost: null,
+          startCost: null
         }
       }
 }
