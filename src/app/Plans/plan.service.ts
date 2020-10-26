@@ -19,9 +19,11 @@ export class PlanService {
     }
     )
     content:string;
-    private plansUrl = `http://alb-zuul-api-intrnl-1478312717.us-east-1.elb.amazonaws.com:9527/myPlan/travelPlan`;
+
+    private plansUrl = 'https://api.travel-plan-manager.com/myPlan/travelPlan';
     //private plansUrl = `api/plan`;
-    private searchUrl ='http://api.travel-plan-manager.com:9527/myBuilder';
+    private searchUrl ='https://api.travel-plan-manager.com/mySearch/elastic/pageByParam?pageSize=5&startPage=1';
+
     constructor(private http: HttpClient, private auth:AuthService){}
 
     getPlans(): Observable<Plans[]> {
