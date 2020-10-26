@@ -81,7 +81,7 @@ jobs:
       with:
         url: "https://travel-plan-manager.com/user/login"
         responseCode: 200
-        timeout: 120000
+        timeout: 600000
         interval: 10000
 
     - name: Run Maven Command to Trigger UI Test Pack
