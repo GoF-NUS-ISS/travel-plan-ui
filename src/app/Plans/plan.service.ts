@@ -22,7 +22,7 @@ export class PlanService {
 
     private plansUrl = 'https://api.travel-plan-manager.com/myPlan/travelPlan';
     //private plansUrl = `api/plan`;
-    private searchUrl ='https://api.travel-plan-manager.com/mySearch/elastic/pageByParam?pageSize=5&startPage=1';
+    private searchUrl ='https://api.travel-plan-manager.com/myBuilder/generatePlan';
 
     constructor(private http: HttpClient, private auth:AuthService){}
 

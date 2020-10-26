@@ -13,7 +13,7 @@ export const environment = {
   // 'http://18.234.87.155:9527/myPlan/travelPlan',
   // 'http://localhost:9527/myPlan/travelPlan',
   // '${BACKEND_API_PLAN}',
-  backendApiSearchUrl: 'https://api.travel-plan-manager.com/mySearch/elastic/pageByParam?pageSize=5&startPage=1'
+  backendApiSearchUrl: 'https://api.travel-plan-manager.com/myBuilder/generatePlan'
   // '${BACKEND_API_SEARCH}'
   // apiBaseUrl: 'API_BASE_URL',
   // version: 'v${require("../package.json").version}'
