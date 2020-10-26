@@ -23,10 +23,10 @@ const oauth = {
   scope : ['phone', 'email', 'profile', 'openid','aws.cognito.signin.user.admin'], 
 
   // Callback URL
-  redirectSignIn : 'http://alb-travel-app-451787435.us-east-1.elb.amazonaws.com:4200/', 
+  redirectSignIn : 'https://travel-plan-manager.com/', 
   
   // Sign out URL
-  redirectSignOut : 'http://alb-travel-app-451787435.us-east-1.elb.amazonaws.com:4200/',
+  redirectSignOut : 'https://travel-plan-manager.com/',
 
   // 'code' for Authorization code grant, 
   // 'token' for Implicit grant

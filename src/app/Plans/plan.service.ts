@@ -19,9 +19,11 @@ export class PlanService {
     }
     )
     content:string;
+
     private plansUrl = 'https://api.travel-plan-manager.com/myPlan/travelPlan';
     //private plansUrl = `api/plan`;
     private searchUrl ='https://api.travel-plan-manager.com/mySearch/elastic/pageByParam?pageSize=5&startPage=1';
+
     constructor(private http: HttpClient, private auth:AuthService){}
 
     getPlans(): Observable<Plans[]> {
@@ -143,10 +145,11 @@ export class PlanService {
 
       private initializeSearch(): Search{
         return{
-          keyword: "",
-          site: "",
-          totalCostEnd: null,
-          totalCostStart: null
+          category: "",
+          description: "",
+          stars:null,
+          endCost: null,
+          startCost: null
         }
       }
 }
