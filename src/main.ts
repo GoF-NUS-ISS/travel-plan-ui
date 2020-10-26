@@ -23,10 +23,10 @@ const oauth = {
   scope : ['phone', 'email', 'profile', 'openid','aws.cognito.signin.user.admin'], 
 
   // Callback URL
-  redirectSignIn : 'http://travel-plan-manager.com/', 
+  redirectSignIn : 'https://travel-plan-manager.com/', 
   
   // Sign out URL
-  redirectSignOut : 'http://travel-plan-manager.com/',
+  redirectSignOut : 'https://travel-plan-manager.com/',
 
   // 'code' for Authorization code grant, 
   // 'token' for Implicit grant
