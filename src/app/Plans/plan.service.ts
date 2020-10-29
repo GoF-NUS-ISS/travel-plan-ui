@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { ProfileComponent } from '../user/profile/profile.component'
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators';
 import { AuthService } from '../user/auth.service';
 import { Plans } from './plans';
 import { Search } from './search';
-import { environment } from "src/environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -22,38 +20,42 @@ export class PlanService {
 
     private plansUrl = 'https://api.travel-plan-manager.com/myPlan/travelPlan';
     //private plansUrl = `api/plan`;
-    private searchUrl ='https://api.travel-plan-manager.com/myBuilder/generatePlan';
+    private searchUrl ='http://localhost:9527/myBuilder/generatePlan';
 
     constructor(private http: HttpClient, private auth:AuthService){}
 
-    getPlans(): Observable<Plans[]> {
+    async getPlans(): Promise<Observable<Plans[]>> {
+      const headers = new HttpHeaders({'Authorization': "Bearer "+ await this.auth.getIdToken()});
       const url = `${this.plansUrl}/name/${this.usname}/`;
-        return this.http.get<Plans[]>(url)
+        return this.http.get<Plans[]>(url, {headers : headers})
           .pipe(
             tap(data => console.log(JSON.stringify(data))),
             catchError(this.handleError)
           );
       }
 
-      getPlan(id: string): Observable<Plans> {
-        const headers = new HttpHeaders({ 'Content-Type': 'application/json'});
+      async getPlan(id: string): Promise<Observable<Plans>> {
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json', 
+        'Authorization': "Bearer "+ await this.auth.getIdToken() });
         if (id === "0") {
           return of(this.initializePlan());
         }
        // const url = `${this.plansUrl}/name/${id}`;
         const url = `${this.plansUrl}/id/${id}`;
         headers.append('Access-Control-Allow-Origin', '*');
-        return this.http.get<Plans>(url, {headers : headers})
+        return Promise.resolve(this.http.get<Plans>(url, {headers : headers})
           .pipe(
             tap(data => console.log('getPlan: ' + JSON.stringify(data))),
             catchError(this.handleError)
-          );
+          ));
       }
+
       createPlan(plans: Plans): Observable<Plans> {
         const headers = new HttpHeaders({ 'Content-Type': 'application/json',
         'Authorization': "Bearer "+ this.auth.getAccessToken() });
         headers.append('Access-Control-Allow-Origin', '*');
         plans.id = null;
+        
         return this.http.post<Plans>(this.plansUrl, plans, { headers })
           .pipe(
             tap(data => console.log('createPlan: ' + JSON.stringify(data))),
@@ -61,20 +63,22 @@ export class PlanService {
           );
       }
 
-      updatePlan(plans: Plans): Observable<Plans> {
+      async updatePlan(plans: Plans): Promise<Observable<Plans>> {
         const headers = new HttpHeaders({ 'Content-Type': 'application/json',
-        'Authorization': "Bearer "+ this.auth.getAccessToken() });
+        'Authorization': "Bearer "+ await this.auth.getIdToken() });
         headers.append('Access-Control-Allow-Origin', '*');
         // const url = `${this.plansUrl}/${plans.id}`;
         const url = `${this.plansUrl}`;
-        return this.http.post<Plans>(url, plans, { headers })
+        console.log("sending");
+        return Promise.resolve(this.http.post<Plans>(url, plans, { headers })
           .pipe(
             tap(() => console.log('updatePlan: ' + plans.id)),
             // Return the plan on an update
             map(() => plans),
             catchError(this.handleError)
-          );
+          ));
       }
+      
       searchPlan(search: Search): Observable<Search> {
         const headers = new HttpHeaders({ 'Content-Type': 'application/json',
         'Authorization': "Bearer "+ this.auth.getAccessToken() });

@@ -353,10 +353,12 @@ export class HomepageComponent implements OnInit {
 
   getPlan(id: string): void {
     this.planService.getPlan(id)
-      .subscribe({
-        next: (plans: Plans) => this.displayPlan(plans),
-        error: err => this.errorMessage = err
-      });
+      .then(
+        p => p.subscribe({
+          next: (plans: Plans) => this.displayPlan(plans),
+          error: err => this.errorMessage = err
+        })
+      );
   }
 
   displayPlan(plans: Plans): void {

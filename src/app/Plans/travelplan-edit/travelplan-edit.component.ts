@@ -221,10 +221,12 @@ export class TravelplanEditComponent implements OnInit, AfterViewInit, OnDestroy
 
   getPlan(id: string): void {
     this.planService.getPlan(id)
-      .subscribe({
-        next: (plans: Plans) => this.displayPlan(plans),
-        error: err => this.errorMessage = err
-      });
+      .then(
+        p => p.subscribe({
+          next: (plans: Plans) => this.displayPlan(plans),
+          error: err => this.errorMessage = err
+        })
+      );
   }
 
   publish() {
@@ -254,10 +256,13 @@ export class TravelplanEditComponent implements OnInit, AfterViewInit, OnDestroy
             });
         } else {
           this.planService.updatePlan(p)
-            .subscribe({
-              next: () => this.onSaveComplete(),
-              error: err => this.errorMessage = err
-            });
+            .then(
+              p => p.subscribe({
+                next: () => this.onSaveComplete(),
+                error: err => this.errorMessage = err
+              })
+            );
+            
         }
       }
       else {

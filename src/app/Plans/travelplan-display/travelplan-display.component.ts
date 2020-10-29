@@ -26,10 +26,13 @@ export class TravelplanDisplayComponent implements OnInit {
     }
   }
   getPlan(id: string) {
-    this.planService.getPlan(id).subscribe({
-      next: plan => this.plan = plan,
-      error: err => this.errorMessage = err
-    });
+    this.planService.getPlan(id)
+    .then(
+      p => p.subscribe({
+        next: plan => this.plan = plan,
+        error: err => this.errorMessage = err
+      })
+    );
   }
 
 //   transform(value: string) {

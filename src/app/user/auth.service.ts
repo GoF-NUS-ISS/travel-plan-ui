@@ -101,7 +101,7 @@ export class AuthService {
 //     }
 // }
 async getAccessToken(){
-  this.user = await (await Auth.currentSession()).getAccessToken().getJwtToken();
+  this.user = (await Auth.currentSession()).getAccessToken().getJwtToken();
   return this.user;
 }
 async getIdToken(){

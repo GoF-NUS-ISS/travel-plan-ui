@@ -31,13 +31,15 @@ export class TravelplanListComponent implements OnInit {
   constructor(private planService: PlanService) { }
 
   ngOnInit(): void {
-    this.planService.getPlans().subscribe({
-      next: plans => {
-        this.plans = plans;
-        this.filteredPlans = this.plans;
-      },
-      error: err => this.errorMessage = err
-    });
+    this.planService.getPlans().then(
+      p => p.subscribe({
+        next: plans => {
+          this.plans = plans;
+          this.filteredPlans = this.plans;
+        },
+        error: err => this.errorMessage = err
+      })
+    );
   }
 
 }
