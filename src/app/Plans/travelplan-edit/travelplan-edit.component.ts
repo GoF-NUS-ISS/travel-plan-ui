@@ -73,17 +73,17 @@ export class TravelplanEditComponent implements OnInit, AfterViewInit, OnDestroy
       //  ---------------------forms fields on Node level ------------------------
       'type': ['leg'],
       // 'from': ['from', [Validators.required, Validators.pattern('[0-9]{3}')]],
-      'from': [''],
-      'to': [''],
+      'from': ['',Validators.pattern("^[A-Za-z0-9 _-]*$")],
+      'to': ['',Validators.pattern("^[A-Za-z0-9 _-]*$")],
       'startOn': [''],
       'stopAt': [''],
       'transportMode': [''],
       'cost': ['', Validators.pattern("^[0-9]*$")],
-      'category': [null],
+      'category': [null, Validators.pattern("^[A-Za-z0-9 _-]*$")],
       'costActivity': [null, Validators.pattern("^[0-9]*$")],
       'rating': [null, NumberValidators.range(1, 5)],
-      'review': [null],
-      'location': [null],
+      'review': [null, Validators.pattern("^[A-Za-z0-9 _-]*$")],
+      'location': [null, Validators.pattern("^[A-Za-z0-9 _-]*$")],
       'timeStart': [null],
       'timeEnd': [null]
     })
