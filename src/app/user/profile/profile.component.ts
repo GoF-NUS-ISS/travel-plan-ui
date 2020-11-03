@@ -44,16 +44,16 @@ export class ProfileComponent implements OnInit {
     this.profile = await Auth.currentUserInfo();
     this.ses1=await (await Auth.currentSession()).getAccessToken().getJwtToken();
     this.ses2=await (await Auth.currentSession()).getIdToken().getJwtToken();
-    this.ses3=await (await Auth.currentSession()).getIdToken()
+    this.ses3=await (await Auth.currentSession()).getRefreshToken().getToken();
     // (await Auth.currentSession()).getRefreshToken().getToken();
     this.user = await Auth.currentAuthenticatedUser();
     this.fnameInput.setValue(this.profile.attributes['given_name']);
     this.lnameInput.setValue(this.profile.attributes['family_name']);
     this.loading.hide();
-    console.log(this.ses1)
-    console.log(this.ses2)
-    console.log(this.ses3)
-    console.log(this.user.getUsername())
+    console.log("Access Token: "+this.ses1)
+    console.log("ID Token: "+this.ses2)
+    console.log("Refresh Token: "+this.ses3)
+    // console.log(this.user.getUsername())
   }
 
   async getUserName(){
